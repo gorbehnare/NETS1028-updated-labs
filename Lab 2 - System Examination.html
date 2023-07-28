@@ -444,8 +444,10 @@
 				.joplin-checklist li:not(.checked)::before {
 					content:"\f0c8";
 				}
-.mermaid { background-color: white; width: 640px; }</style><div id="rendered-md"><h1 id="lab-2-system-examination">Lab 2 - System Examination</h1>
-<p>Source: <a data-from-md title=' Lab 02 System Examination' href='https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab02%20System%20Examination.html'>Lab 02 System Examination.</a></p>
+.mermaid { background-color: white; width: 640px; }
+.mermaid-export-graph { visibility: hidden; } 
+				.joplin-editable:hover .mermaid-export-graph { visibility: visible; }
+				.mermaid-export-graph:hover { background-color: #CBDAF1 !important; }</style><div id="rendered-md"><h1 id="lab-2-system-examination">Lab 2 - System Examination</h1>
 <p>System Examination involves evaluating whether a computer system or network contains what it is intended to contain and only what it is intended to contain, and is behaving according to expectations. This cannot be done without defining expectations of what it should contain and how it should behave.</p>
 <h2 id="defining-expectations">Defining Expectations</h2>
 <p>Since our VM was not built by us, we would be dependent on receiving expected state documentation from whoever ran it before us. We will take the position that such documentation/policy is non-existent for our system beyond the brief description of the server we saw in Lab 1. So our examination of the system will provide our baseline documentation of the system’s current state.</p>
@@ -457,20 +459,20 @@
 <li>What software is installed, and is it the right software?
 <ol>
 <li>Identify installed software, noting non-required software</li>
-<li>Check for currency of installed software</li>
+<li>Check for the currency of installed software</li>
 <li>Identify security risks of installed software by checking CVEs</li>
 </ol>
 </li>
 <li>Is the software’s integrity intact?
 <ol>
-<li>Install debsums package</li>
-<li>Use the debsums command to check the binary and configuration files in the openssh-client package</li>
+<li>Install the <code class="inline-code">debsums</code> package</li>
+<li>Use the <code class="inline-code">debsums</code> command to check the binary and configuration files in the <code class="inline-code">openssh-client</code> package</li>
 <li>Use debsums to check if you have any packages installed without checksums</li>
-<li>Modify your /etc/ssh/ssh_config file in a trivial way</li>
+<li>Modify your <code class="inline-code">/etc/ssh/ssh_config</code> file in a trivial way</li>
 <li>Does debsums find your change when you rerun it?</li>
-<li>Rename your /usr/bin/scp file to /usr/bin/scp.orig</li>
-<li>Rerun debsums to see if it tells you about the now-missing scp program</li>
-<li>Rename /usr/bin/scp.orig back to /usr/bin/scp</li>
+<li>Rename your <code class="inline-code">/usr/bin/scp</code> file to <code class="inline-code">/usr/bin/scp.orig</code></li>
+<li>Rerun debsums to see if it tells you about the now-missing <code class="inline-code">scp</code> program</li>
+<li>Rename <code class="inline-code">/usr/bin/scp.orig</code> back to <code class="inline-code">/usr/bin/scp</code></li>
 </ol>
 </li>
 <li>What configuration-oriented changes are there?
@@ -486,7 +488,7 @@
 <li>Who has what kind of data on the system?
 <ol>
 <li>What user accounts exist on the system?</li>
-<li>What file types exist in user’s files (ones not owned by system accounts)?</li>
+<li>What file types exist in the user’s files (ones not owned by system accounts)?</li>
 </ol>
 </li>
 <li>Are there resource limits?
@@ -499,10 +501,10 @@
 <ol>
 <li>Do any users have world-writable permissions on their files/directories? If so, should they?</li>
 <li>Do any users have excessive space usage or hidden files that you would not expect to find?</li>
-<li>Do any end-users own setuid or setgid files?</li>
+<li>Do any end-users own <code class="inline-code">setuid</code> or <code class="inline-code">setgid</code> files?</li>
 <li>Do any end-users have files that do not belong to them in their home directories or other data spaces that they own?</li>
 <li>Are there files owned by system accounts that were not installed as part of packages?</li>
-<li>Are there end-user-owned files in any of the system directories such as /, /etc, /bin, /sbin, anywhere under /usr?</li>
+<li>Are there end-user-owned files in any of the system directories such as <code class="inline-code">/</code>, <code class="inline-code">/etc</code>, <code class="inline-code">/bin</code>, <code class="inline-code">/sbin</code>, or anywhere under <code class="inline-code">/usr</code>?</li>
 <li>Are there dotfiles (hidden files) anywhere but in end users’ home directories?</li>
 </ol>
 </li>
@@ -521,11 +523,11 @@
 </ol>
 <p>Review the suggestions at  <a data-from-md title='https://wiki.ubuntu.com/BasicSecurity/DidIJustGetOwned' href='https://wiki.ubuntu.com/BasicSecurity/DidIJustGetOwned'>https://wiki.ubuntu.com/BasicSecurity/DidIJustGetOwned</a>.</p>
 <h2 id="grading">Grading</h2>
-<p>This lab is intended to familiarize you with the basic tools used to examine any system for security-related purposes. There is nothing to hand in for this lab. The more you do with it, better positioned you will be for the remainder of the INSS program. This is purely a learning reinforcement activity.</p>
-<h1 id="script-to-find-executable-files-that-not-known-to-package-manager">Script to find executable files that not known to package manager</h1>
+<p>This lab is intended to familiarize you with the basic tools used to examine any system for security-related purposes. There is nothing to hand in for this lab. The more you do with it, the better positioned you will be for the remainder of the INSS program. This is purely a learning reinforcement activity.</p>
+<h1 id="script-to-find-executable-files-that-are-not-known-to-the-package-manager">Script to find executable files that are not known to the package manager</h1>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash&#10;" data-joplin-source-close="&#10;```">#!/bin/bash
 
-# simple script to identify files that are executable (programs) which did not come form installed system packages
+# simple script to identify files that are executable (programs) which did not come from installed system packages
 # could be improved in a number of ways
 
 IFS=$'\xa'
@@ -535,7 +537,7 @@ for file in $(cat /tmp/filelist.$$); do
 done
 rm /tmp/filelist.$$</pre><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
 
-<span class="hljs-comment"># simple script to identify files that are executable (programs) which did not come form installed system packages</span>
+<span class="hljs-comment"># simple script to identify files that are executable (programs) which did not come from installed system packages</span>
 <span class="hljs-comment"># could be improved in a number of ways</span>
 
 IFS=$<span class="hljs-string">&#x27;\xa&#x27;</span>
@@ -544,6 +546,7 @@ find / -<span class="hljs-built_in">type</span> f -executable &gt;/tmp/filelist.
   dpkg -S <span class="hljs-string">&quot;<span class="hljs-variable">$file</span>&quot;</span> &gt;/dev/null 2&gt;/dev/null || <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$file</span>&quot;</span>
 <span class="hljs-keyword">done</span>
 <span class="hljs-built_in">rm</span> /tmp/filelist.$$</code></pre></div>
+<p>Source: <a data-from-md title=' Lab 02 System Examination' href='https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab02%20System%20Examination.html'>Lab 02 System Examination.</a></p>
 </div></div>
 					</body>
 				</html>
