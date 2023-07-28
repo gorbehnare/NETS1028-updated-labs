@@ -444,8 +444,11 @@
 				.joplin-checklist li:not(.checked)::before {
 					content:"\f0c8";
 				}
-.mermaid { background-color: white; width: 640px; }</style><div id="rendered-md"><h1 id="lab-7-authentication-and-access-control">Lab 7 - Authentication and Access Control</h1>
-<p>This unit provides an introduction on how to manage Access/Authentication/Authorization software on Linux systems.</p>
+.mermaid { background-color: white; width: 640px; }
+.mermaid-export-graph { visibility: hidden; } 
+				.joplin-editable:hover .mermaid-export-graph { visibility: visible; }
+				.mermaid-export-graph:hover { background-color: #CBDAF1 !important; }</style><div id="rendered-md"><h1 id="lab-7-authentication-and-access-control">Lab 7 - Authentication and Access Control</h1>
+<p>This unit provides an introduction to how to manage Access/Authentication/Authorization software on Linux systems.</p>
 <h2 id="password-expiry-exercises">Password Expiry Exercises</h2>
 <ol>
 <li>Use grep to extract the line for the student account from /etc/shadow, examine the parameters for expiration and change</li>
@@ -475,7 +478,7 @@
 <li>Modify the server’s sshd_config to not allow password logins (i.e. use without-password option, then restart service) and verify you can still access localhost using ssh</li>
 </ol>
 <h2 id="grading">Grading</h2>
-<p>This lab is not graded; it is only for practice. There is nothing to capture, and nothing to submit.</p>
+<p>This lab is not graded; it is only for practice. There is nothing to capture and nothing to submit.</p>
 </div></div>
 					</body>
 				</html>
