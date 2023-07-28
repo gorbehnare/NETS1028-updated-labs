@@ -444,10 +444,13 @@
 				.joplin-checklist li:not(.checked)::before {
 					content:"\f0c8";
 				}
-.mermaid { background-color: white; width: 640px; }</style><div id="rendered-md"><h1 id="lab-05-software-hardening">Lab 05 Software Hardening</h1>
-<p>This lab is intended to give you a taste of hardening software in Linux. It is neither an exhaustive list of recommendations or even a list of things that apply to all systems. It is simply meant to give you practice in changing software settings and testing those changes.</p>
+.mermaid { background-color: white; width: 640px; }
+.mermaid-export-graph { visibility: hidden; } 
+				.joplin-editable:hover .mermaid-export-graph { visibility: visible; }
+				.mermaid-export-graph:hover { background-color: #CBDAF1 !important; }</style><div id="rendered-md"><h1 id="lab-05-software-hardening">Lab 05 Software Hardening</h1>
+<p>This lab is intended to give you a taste of hardening software in Linux. It is neither an exhaustive list of recommendations nor even a list of things that apply to all systems. It is simply meant to give you practice in changing software settings and testing those changes.</p>
 <h2 id="grading">Grading</h2>
-<p>This lab counts for marks. You will be creating a single PDF file to submit to Blackboard for this lab. For the questions, include the question and your response. For the screenshots, you only need to include enough in your screenshots to show your bash prompt, the command you ran, and the output that demonstrates what you did or that the command works. For the roundcube web page screenshot, you only need to show the login succeeded as there is no email in the account.</p>
+<p>This lab counts for marks. You will be creating a single PDF file to submit to Blackboard for this lab. For the questions, include the question and your response. For the screenshots, you only need to include enough in your screenshots to show your bash prompt, the command you ran, and the output that demonstrates what you did or that the command works. For the Roundcube web page screenshot, you only need to show the login succeeded as there is no email in the account.</p>
 <h2 id="over-riding-default-file-permissions-in-package-executables">Over-riding default file permissions in package executables</h2>
 <ol>
 <li>
@@ -492,11 +495,11 @@ Tip: Compare the unconfined list to the list of available profiles in the reposi
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">cat /etc/apparmor.d/usr.sbin.tcpdump </pre><pre class="hljs"><code>cat <span class="hljs-regexp">/etc/</span>apparmor.d/usr.sbin.tcpdump </code></pre></div>
 </li>
 <li>
-<p>Using the apparmor man page, can you determine the kinds of limitations that are placed on that program by that profile? - <em>submission question!</em></p>
+<p>Using the apparmor man page, determine the kinds of limitations that are placed on that program by the profile. Explain the lines and be specific about the capabilities and permissions given. - <em>submission question!</em></p>
 </li>
 </ol>
 <h2 id="sudo-configuration">sudo configuration</h2>
-<p><a data-from-md title='https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file' href='https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file'>Digital Ocena’s tips page for sudo privileges</a> is a helpful helpful resource when looking for how to edit sudo permissions.</p>
+<p><a data-from-md title='https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file' href='https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file'>Digital Ocena’s tips page for sudo privileges</a> is a helpful resource when looking for how to edit sudo permissions.</p>
 <ol>
 <li>
 <p>Modify your sudo executable to be accessible for execution by any user, so that we can use the sudoers file to control access instead</p>
@@ -517,32 +520,27 @@ dennis$ sudo bash </pre><pre class="hljs"><code><span class="hljs-meta prompt_">
 <li>
 <p>List out the sudo configuration for user dennis - <em>screenshot!</em></p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">dennis$ sudo -l </pre><pre class="hljs"><code>dennis<span class="hljs-variable">$ </span>sudo -l </code></pre></div>
-<p>Note: Make sure your permissions are correct, for example dennis is only capable of modifying the specified file and nothing else.</p>
+<p>Note: Make sure your permissions are correct, for example, dennis is only capable of modifying the specified file and nothing else.</p>
 </li>
 </ol>
 <h2 id="bind-improvements">BIND improvements</h2>
 <ol>
-<li>
-<p>Following the information given in <a data-from-md title='https://bind9.readthedocs.io/en/latest/chapter7.html' href='https://bind9.readthedocs.io/en/latest/chapter7.html'>&quot;Security Configuration&quot; of the Bind9 Administrator’s Reference Manual (ARM)</a>, secure your bind service by:</p>
+<li>Following the information given in <a data-from-md title='https://bind9.readthedocs.io/en/latest/chapter7.html' href='https://bind9.readthedocs.io/en/latest/chapter7.html'>&quot;Security Configuration&quot; of the Bind9 Administrator’s Reference Manual (ARM)</a>, secure your bind service by:
 <ul>
 <li>adding the bogusnets acl as shown in the ARM (in <code class="inline-code">/etc/bind/named.conf.options</code>)</li>
 <li>setting up the <code class="inline-code">allow-query</code>, <code class="inline-code">allow-recursion</code>, and <code class="inline-code">blackhole</code> directives as shown in the ARM (in <code class="inline-code">/etc/bind/named.conf.options</code>)</li>
 <li>allowing queries from anywhere for the zones being served by the server (in <code class="inline-code">named.conf.local</code>)</li>
 </ul>
 </li>
-<li>
-<p>Verify your DNS service reloads the new configuration properly - <em>screenshot!</em></p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo rndc reload </pre><pre class="hljs"><code><span class="hljs-attribute">sudo rndc reload</span> </code></pre></div>
+<li>Verify your DNS service reloads the new configuration properly, and that your domain lookup still works:<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo rndc reload 
+nslookup www.simpson22725.mytld</pre><pre class="hljs"><code>sudo rndc <span class="hljs-keyword">reload</span> 
+nslookup www.simpson22725.mytld</code></pre></div>
 </li>
-<li>
-<p>Verify your own DNS lookups still work and show the content of your named.conf files that were changed - <em>screenshot!</em></p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">nslookup www.simpson22725.mytld
-cat /etc/bind/named.conf.local /etc/bind/named.conf.options </pre><pre class="hljs"><code>nslookup www.simpson22725.mytld
-cat <span class="hljs-regexp">/etc/</span>bind<span class="hljs-regexp">/named.conf.local /</span>etc<span class="hljs-regexp">/bind/</span>named.conf.<span class="hljs-keyword">options</span> </code></pre></div>
-</li>
-<li>
-<p>In a terminal or powershell window on your host laptop/computer, run <code class="inline-code">nslookup www.simpson22725.mytld ip-of-your-vm</code> to verify your domain service is still available to non-local clients - <em>screenshot!</em></p>
-</li>
+<li>Provide Screenshots of the following:  - <em>screenshots</em><br>
+a. Screenshot/contents of modified <code class="inline-code">/etc/bind/named.conf.local</code> file<br>
+b. Screenshot/contents of modified <code class="inline-code">/etc/bind/named.conf.options</code> file<br>
+c. Screenshot of bind9 service status: <code class="inline-code">sudo service bind9 status</code><br>
+d.  In a terminal or powershell window on your host laptop/computer, run <code class="inline-code">nslookup www.simpson22725.mytld ip-of-your-vm</code> to verify your domain service is still available to non-local clients</li>
 </ol>
 <h2 id="mysql-basic-hygiene">MySQL basic hygiene</h2>
 <ol>
@@ -584,9 +582,12 @@ Bye</code></pre></div>
 </li>
 </ol>
 <h2 id="email-client-access">Email client access</h2>
+<p>Emails clients may try to transmit usernames and passwords in clear text. Depending on the client software, there is no guarantee that all clients will check supported protocols and will use encryption by default when attempting to connect to the server. An external email client should not be able to attempt a connection using unencrypted protocols if it can be helped. Additionally, we do have an internal email client, Roundcube, that uses IMAP locally.</p>
 <ol>
-<li>Identify what you would need to change to disallow POP3 and IMAP service in your dovecot configuration whithout interfering with POP3S and IMAPS service - <em>submission question!</em></li>
-<li>What firewall changes would you make to the existing VM to limit email clients to only POP3S and IMAPS? - <em>submission question!</em></li>
+<li>Given the information above, identify what you would need to change in Dovecot configurations to disable POP3 and disallow IMAP from being accessed by remote hosts, and enforce POP3S and IMAPS services. - <em>submission question!</em></li>
+<li>Verify that the changes have taken effect using <code class="inline-code">sudo ss -tlpn | grep dovecot</code> - <em>screenshot</em></li>
+<li>Make sure that you can still log into Roundcube at <a data-from-md title='http://your-vm-ip/roundcube' href='http://your-vm-ip/roundcube'>http://your-vm-ip/roundcube</a> and view a user mailbox. <em>- screenshot</em></li>
+<li>Taking a layered security approach what firewall changes would you make to the existing labVM system to limit email clients to only POP3S and IMAPS? - <em>submission question!</em></li>
 </ol>
 <h2 id="known-vulnerabilities">Known vulnerabilities</h2>
 <ol>
@@ -595,9 +596,14 @@ Bye</code></pre></div>
 </ol>
 <h2 id="unexpected-programs-on-your-system">Unexpected programs on your system</h2>
 <ol>
-<li>Create a command or script to find executables that were not installed by system packages - <em>submission question!</em><br>
-Note: A <a data-from-md title='https://zonzorp.github.io/COMP2101/find-suspicious-programs.sh' href='https://zonzorp.github.io/COMP2101/find-suspicious-programs.sh'>Sample Script</a> is provided, but you may need to modify or improve this.</li>
-<li>Can you identify where all of the programs might have come from that it finds? - <em>submission question!</em></li>
+<li>A <a data-from-md title='https://zonzorp.github.io/COMP2101/find-suspicious-programs.sh' href='https://zonzorp.github.io/COMP2101/find-suspicious-programs.sh'>Sample Script</a> is provided, but you may need to modify or improve this.
+<ul>
+<li>The given script looks for any executables that are not installed using the dpkg/apt package manager. This can be used to audit a system and to find any rouge and unexpected or potentially malicious programs. Additionally, this helps to identify programs or packages that may not be maintained, updated, or easily audited using dpkg/apt.</li>
+<li>The script is imperfect and outputs a lot of lines.</li>
+<li>What are the sources of all these unknown execrable files? List all the sources that you find with examples from the output of the script. <em>- submission question!</em></li>
+</ul>
+</li>
+<li>Either modify the script to improve the output to remove some of the known sources or analyze the output to see if there are any unexpected and potentially suspicious programs on your lab VM.  - <em>submission question!</em></li>
 </ol>
 </div></div>
 					</body>
