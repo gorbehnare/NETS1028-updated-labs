@@ -444,9 +444,11 @@
 				.joplin-checklist li:not(.checked)::before {
 					content:"\f0c8";
 				}
-.mermaid { background-color: white; width: 640px; }</style><div id="rendered-md"><h1 id="lab-03-system-configuration">Lab 03 - System Configuration</h1>
-<p>Source:  <a data-from-md title='https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab03%20System%20Configuration.html' href='https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab03%20System%20Configuration.html'>Lab 3 System Configuration</a></p>
-<p>This lesson examines some broad configuration topics. Further detail on configuring specific services and options are contained in other units. In order to ensure each student’s screenshots are coming from their lab VM, begin by changing your system’s hostname from  <code class="inline-code">pc20022725</code>  to  <code class="inline-code">pcNNNNNNNNN</code>  where NNNNNNNNN is your own student number. Your screenshots will then show the hostname in the shell prompts so I can verify your work was done on your machine. Submissions which do not have your student number in your hostname showing in the shell prompts will not be marked.</p>
+.mermaid { background-color: white; width: 640px; }
+.mermaid-export-graph { visibility: hidden; } 
+				.joplin-editable:hover .mermaid-export-graph { visibility: visible; }
+				.mermaid-export-graph:hover { background-color: #CBDAF1 !important; }</style><div id="rendered-md"><h1 id="lab-03-system-configuration">Lab 03 - System Configuration</h1>
+<p>This lesson examines some broad configuration topics. Further detail on configuring specific services and options are contained in other units. To ensure each student’s screenshots are coming from their lab VM, begin by changing your system’s hostname from  <code class="inline-code">pc20022725</code>  to  <code class="inline-code">pcNNNNNNNNN</code>  where <code class="inline-code">NNNNNNNNN</code> is your student number. Your screenshots will then show the hostname in the shell prompts so I can verify your work was done on your machine. Submissions which do not have your student number in your hostname showing in the shell prompts will not be marked.</p>
 <h2 id="changing-hostname-in-ubuntu">Changing Hostname in Ubuntu</h2>
 <p>you can change the hostname using the following command:</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```"># Replace NNNNNNNN with your StudentID
@@ -466,23 +468,23 @@ cat /etc/hosts</pre><pre class="hljs"><code>hostnamectl
 <p>The unattended-upgrades service uses a configuration file that contains runtime settings and rules. If you change the configuration, you need to restart the service. How much and whether to use the service is a topic for debate on servers, but it should be run on desktops at a minimum.</p>
 <ol>
 <li>
-<p>Install and enable the unattended-upgrades package if you need to. Also install the mailutils package if necessary to allow for local email progress reporting.</p>
+<p>Install and enable the unattended-upgrades package if you need to. Also, install the <code class="inline-code">mailutils</code> package if necessary to allow for local email progress reporting.</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo apt install unattended-upgrades mailutils
 sudo dpkg-reconfigure unattended-upgrades </pre><pre class="hljs"><code>sudo apt <span class="hljs-keyword">install</span> unattended-upgrades mailutils
 sudo dpkg-reconfigure unattended-upgrades </code></pre></div>
 </li>
 <li>
-<p>Modify the configuration of the unattended-upgrades package to send email when doing upgrades. Look for email-related settings. They are about halfway through the config file. Send email to local &quot;student&quot; user whenever there are changes made by the upgrade service. Restart the service after you make changes so they take effect.</p>
+<p>Modify the configuration of the <code class="inline-code">unattended-upgrades</code> package to send emails when doing upgrades. Look for email-related settings. They are about halfway through the config file. Send an email to the local <code class="inline-code">student</code> user account whenever there are changes made by the upgrade service. Restart the service after you make changes so they take effect.</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo vi /etc/apt/apt.conf.d/50unattended-upgrades
 sudo systemctl restart unattended-upgrades </pre><pre class="hljs"><code>sudo vi <span class="hljs-regexp">/etc/</span>apt<span class="hljs-regexp">/apt.conf.d/</span><span class="hljs-number">50</span>unattended-upgrades
 sudo systemctl restart unattended-upgrades </code></pre></div>
 </li>
 <li>
-<p>Review the contents of the unattended-upgrades logfiles to see what gets logged there.</p>
+<p>Review the contents of the <code class="inline-code">unattended-upgrades</code> log files to see what gets logged there.</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo tail -30 /var/log/unattended-upgrades/unattended-upgrades.log
 sudo tail -30 /var/log/unattended-upgrades/unattended-upgrades-dpkg.log</pre><pre class="hljs"><code>sudo tail -<span class="hljs-number">30</span> <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/unattended-upgrades/u</span>nattended-upgrades.log
 sudo tail -<span class="hljs-number">30</span> <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/unattended-upgrades/u</span>nattended-upgrades-dpkg.log</code></pre></div>
-<p>Tip: In order to verify your configuration and troubleshoot unattended-upgrades, you can manually trigger the utility in debug mode (using -d switch):  <code class="inline-code">sudo unattended-upgrade -d</code>. You should receive the email immediately.</p>
+<p>Tip: To verify your configuration and troubleshoot <code class="inline-code">unattended-upgrades</code>, you can manually trigger the utility in debug mode (using -d switch):  <code class="inline-code">sudo unattended-upgrade -d</code>. You should receive the email immediately.</p>
 </li>
 </ol>
 <p>Check the Grading section for the required screenshots.</p>
@@ -509,7 +511,7 @@ sudo netstat -tupn</span> </code></pre></div>
 <p>Whether you identify a process of interest through a service investigation or a connection investigation, the simple process name may not be very helpful in identifying the service it came from.</p>
 <ul>
 <li>Either type of investigation will give a process ID (PID). You can use  <code class="inline-code">ps -c PID</code>  to get more info on a running process.</li>
-<li>You can use dpkg to find out if a process came from a package. If it did, you can used debsums to verify that the program file itself is legitimate and not a rogue.</li>
+<li>You can use dpkg to find out if a process came from a package. If it did, you can use debsums to verify that the program file itself is legitimate and not a rogue.</li>
 <li>If it is legitimate, then you can use the normal decision process for where you should have that software installed and running.</li>
 </ul>
 </li>
@@ -526,7 +528,7 @@ dpkg -S &lt;pathname-of-process-command&gt;
 debsums &lt;process-command-package&gt; | grep &lt;pathname-of-process-command&gt; </code></pre></div>
 </li>
 <li>
-<p>Run systemd-analyze security in both summary mode, and specifically for a service to see what it gives you.</p>
+<p>Run <code class="inline-code">systemd-analyze</code> security in both summary mode, and specifically for a service to see what it gives you.</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">systemd-analyze security
 systemd-analyze security hddtemp</pre><pre class="hljs"><code><span class="hljs-params">system</span>d-analyze security
 <span class="hljs-params">system</span>d-analyze security hddtemp</code></pre></div>
@@ -551,20 +553,20 @@ systemd-analyze security hddtemp</pre><pre class="hljs"><code><span class="hljs-
 <ol>
 <li>Review the commented example settings in  <strong>/etc/security/limits.conf</strong></li>
 <li>Add a limit of 2 logins for the student user</li>
-<li>Start multiple remote sessions in multiple terminal windows and verify you cannot login more than twice on the student account simultaneously</li>
+<li>Start multiple remote sessions in multiple terminal windows and verify you cannot log in more than twice on the student account simultaneously</li>
 </ol>
 <p>Please refer to the Grading section for the required screenshot!</p>
 <h2 id="lynis">Lynis</h2>
-<p>Lynis is a tool which can be used for system examination, but is also very useful for hardening activities. Along with identifying things that are not in a typical state, it can make many recommendations regarding insecure configurations. This can be helpful when you have a system running software you may not be familiar with. If you did not already install and update Lynis in the previous lab, follow the steps in this lab to install, update, and run Lynis in this lab. A current version of Lynis running properly and using it to fix at least one thing is part of the mark for this lab.</p>
+<p>Lynis is a tool which can be used for system examination but is also very useful for hardening activities. Along with identifying things that are not in a typical state, it can make many recommendations regarding insecure configurations. This can be helpful when you have a system running software you may not be familiar with. If you did not already install and updated Lynis in the previous lab, follow the steps in this lab to install, update, and run Lynis in this lab. A current version of Lynis running properly and using it to fix at least one thing is part of the mark for this lab.</p>
 <ol>
 <li>
 <p>Add the  <a data-from-md title='https://packages.cisofy.com/community/#debian-ubuntu' href='https://packages.cisofy.com/community/#debian-ubuntu'>lynis community repo</a>  to your apt configuration.</p>
 </li>
 <li>
-<p>Run  <code class="inline-code">apt update</code>  and install lynis to ensure you have the latest version. If you already had lynis installed, do  <code class="inline-code">apt upgrade</code>  instead of install.</p>
+<p>Run  <code class="inline-code">apt update</code>  and install <code class="inline-code">lynis</code> to ensure you have the latest version. If you already had <code class="inline-code">lynis</code> installed, do  <code class="inline-code">apt upgrade</code>  instead of install.</p>
 </li>
 <li>
-<p>Run lynis in system audit mode.</p>
+<p>Run <code class="inline-code">lynis</code> in system audit mode.</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo lynis audit system </pre><pre class="hljs"><code>sudo lynis audit <span class="hljs-keyword">system</span> </code></pre></div>
 </li>
 <li>
@@ -574,19 +576,20 @@ systemd-analyze security hddtemp</pre><pre class="hljs"><code><span class="hljs-
 <p>Choose one issue from the list of issues it shows that is related to access security and modify your configuration to eliminate or mitigate the exposure.</p>
 </li>
 <li>
-<p>Re-run lynis and verify it no longer complains about the fixed issue.</p>
+<p>Re-run <code class="inline-code">lynis</code> and verify it no longer complains about the fixed issue.</p>
 </li>
 </ol>
 <p>Refer to the Grading Section for required screenshots!</p>
 <h2 id="grading">Grading</h2>
 <p>There are marks for several of the activities in this lab. To get full marks, include all of the following in your submitted PDF. Submit only one PDF file. Other formats will not be marked. Your PDF file can contain both text and images, as appropriate, but the submission must be a single PDF report.</p>
 <ol>
-<li>Leave your VM running long enough to receive an email from unattended-upgrades. Include a screenshot of the email. You can use the mailx tool to read email for a screenshot.</li>
-<li>In the section on investigating running services, do the investigation for the service listening on port tcp/25. Use netstat and ss to find the process, ps to find the executable, dpkg to find the package, and debsums to validate that the executable is legitimate. Include screenshots showing this process on your system.</li>
+<li>Leave your VM running long enough to receive an email from <code class="inline-code">unattended-upgrades</code>. Include a screenshot of the email. You can use the <code class="inline-code">mailx</code> tool to read email for a screenshot.</li>
+<li>In the section on investigating running services, do the investigation for the service listening on port tcp/25. Use <code class="inline-code">netstat</code> and <code class="inline-code">ss</code> to find the process, <code class="inline-code">ps</code> to find the executable, <code class="inline-code">dpkg</code> to find the package, and <code class="inline-code">debsums</code> to validate that the executable is legitimate. Include screenshots showing this process on your system.</li>
 <li>Identify a list of the accounts on your system that do not own any files. Note that your system may be slightly different from another student’s in this lab, depending on what lab work each of you has done up to this point. Include screenshots showing how you found the accounts and provide a list of these accounts from your system.</li>
 <li>Include a screenshot showing what was displayed when you tried to exceed the 2 ssh login limit.</li>
-<li>Include one screenshot showing the version of lynis you have and a warning from lynis for a specific item you can fix, and one screenshot showing the subsequent output showing it is no longer a concern after you have fixed it.</li>
+<li>Include one screenshot showing the version of <code class="inline-code">lynis</code> you have and a warning from <code class="inline-code">lynis</code> for a specific item you can fix, and one screenshot showing the subsequent output showing it is no longer a concern after you have fixed it.</li>
 </ol>
+<p>Source:  <a data-from-md title='https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab03%20System%20Configuration.html' href='https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab03%20System%20Configuration.html'>Lab 3 System Configuration</a></p>
 </div></div>
 					</body>
 				</html>
