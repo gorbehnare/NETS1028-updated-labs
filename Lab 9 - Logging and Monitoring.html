@@ -444,29 +444,32 @@
 				.joplin-checklist li:not(.checked)::before {
 					content:"\f0c8";
 				}
-.mermaid { background-color: white; width: 640px; }</style><div id="rendered-md"><h1 id="lab-9-logging-and-monitoring">Lab 9 - Logging and Monitoring</h1>
-<p>This unit provides an introduction on how to configure logging and monitoring software on Linux systems. Unless otherwise specfied, all activities in this lab are to be run on the main lab VM provided at the start of the semester.</p>
+.mermaid { background-color: white; width: 640px; }
+.mermaid-export-graph { visibility: hidden; } 
+				.joplin-editable:hover .mermaid-export-graph { visibility: visible; }
+				.mermaid-export-graph:hover { background-color: #CBDAF1 !important; }</style><div id="rendered-md"><h1 id="lab-9-logging-and-monitoring">Lab 9 - Logging and Monitoring</h1>
+<p>This unit provides an introduction to how to configure logging and monitoring software on Linux systems. Unless otherwise specified, all activities in this lab are to be run on the main lab VM provided at the start of the semester.</p>
 <h2 id="rsyslog">rsyslog</h2>
 <ol>
 <li>
-<p>Review the rsyslog.conf and if there are any, the rsyslog.d/*.conf config files in order to see what the default syslog configuration includes</p>
+<p>Review the <code class="inline-code">rsyslog.conf</code> and if there are any, the <code class="inline-code">rsyslog.d/*.conf</code> config files to see what the default syslog configuration includes</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo more /etc/rsyslog.conf /etc/rsyslog.d/*.conf </pre><pre class="hljs"><code>sudo more <span class="hljs-regexp">/etc/</span>rsyslog.conf <span class="hljs-regexp">/etc/</span>rsyslog.d/*.conf </code></pre></div>
 </li>
 <li>
-<p>Compare the kernel ring buffer (e.g. dmesg) to the kernel messages log file to see if the log file is up to date with the in-memory kernel log</p>
+<p>Compare the kernel ring buffer (e.g. <code class="inline-code">dmesg</code>) to the kernel messages log file to see if the log file is up to date with the in-memory kernel log</p>
 <ul>
 <li>in one terminal window: <code class="inline-code">sudo dmesg|tail -20</code></li>
 <li>in another terminal window: <code class="inline-code">sudo tail -20 /var/log/kern.log</code></li>
 </ul>
 </li>
 <li>
-<p>Can you figure out your sshd access history from the log files? <em>see what you can find in the /var/log/auth.log file</em></p>
+<p>Can you figure out your sshd access history from the log files? <em>see what you can find in the <code class="inline-code">/var/log/auth.log</code> file</em></p>
 </li>
 </ol>
 <h2 id="logrotate">Logrotate</h2>
 <ol>
-<li>Use <a data-from-md title='https://pc20022725:10000' href='https://pc20022725:10000'>webmin</a> to examine the logrotate configuration of your main lab VM. webmin is a webapp system management tool running on port 10000 on the main lab VM and can be accessed using a browser and logging in with a Linux account that has sudo privileges.</li>
-<li>Can you manage logrotate from <a data-from-md title='https://pc20022725:9090' href='https://pc20022725:9090'>cockpit</a> on that machine? cockpit is a webapp system management tool running on port 9090 on the main lab VM and can be accessed using a browser and logging in with a Linux account that has sudo privileges.</li>
+<li>Use <a data-from-md title='https://pc20022725:10000' href='https://pc20022725:10000'>webmin</a> to examine the <code class="inline-code">logrotate</code> configuration of your main lab VM. webmin is a web app system management tool running on port 10000 on the main lab VM and can be accessed using a browser and logging in with a Linux account that has sudo privileges.</li>
+<li>Can you manage <code class="inline-code">logrotate</code> from <a data-from-md title='https://pc20022725:9090' href='https://pc20022725:9090'>cockpit</a> on that machine? cockpit is a web app system management tool running on port 9090 on the main lab VM and can be accessed using a browser and logging in with a Linux account that has sudo privileges.</li>
 </ol>
 <h2 id="logwatch">Logwatch</h2>
 <ol>
@@ -475,7 +478,7 @@
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo bash </pre><pre class="hljs"><code><span class="hljs-attribute">sudo bash</span> </code></pre></div>
 </li>
 <li>
-<p>Install logwatch and make the cache directory which the install script doesn’t make</p>
+<p>Install <code class="inline-code">logwatch</code> and make the cache directory which the install script doesn’t make</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">apt update ; apt install logwatch ; mkdir /var/cache/logwatch </pre><pre class="hljs"><code><span class="hljs-attribute">apt</span> update ; <span class="hljs-attribute">apt</span> install logwatch ; <span class="hljs-attribute">mkdir</span> /var/cache/logwatch </code></pre></div>
 </li>
 <li>
@@ -483,7 +486,7 @@
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">cp /usr/share/logwatch/default.conf/logwatch.conf /etc/logwatch/conf/ </pre><pre class="hljs"><code>cp <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/logwatch/</span><span class="hljs-keyword">default</span>.conf<span class="hljs-regexp">/logwatch.conf /</span>etc<span class="hljs-regexp">/logwatch/</span>conf/ </code></pre></div>
 </li>
 <li>
-<p>Logwatch has a number of useful options for us to try</p>
+<p>Logwatch has several useful options for us to try</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">logwatch --range all
 logwatch --range 'since last week'
 logwatch --logfile secure --logfile http --range all --detail high </pre><pre class="hljs"><code>logwatch <span class="hljs-attr">--range</span> <span class="hljs-attribute">all</span>
@@ -491,7 +494,10 @@ logwatch <span class="hljs-attr">--range</span> <span class="hljs-string">&#x27;
 logwatch <span class="hljs-attr">--logfile</span> secure <span class="hljs-attr">--logfile</span> http <span class="hljs-attr">--range</span> <span class="hljs-attribute">all</span> --detail high </code></pre></div>
 </li>
 <li>
-<p>Logwatch can be added to cron easily, some package builds create /etc/cron.daily/00logwatch automatically for you which is a script instead of just a command line to run at specific times - current installs for Ubuntu 20.04 do this automatically and you *<em>do not need to do this for our lab</em>.</p>
+<p>Logwatch can be added to cron easily, some package builds create <code class="inline-code">/etc/cron.daily/00logwatch</code> automatically for you which is a script instead of just a command line to run at specific times</p>
+<ul>
+<li>current installs for Ubuntu 20.04 do this automatically and you *<em>do not need to do this for our lab</em>.</li>
+</ul>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">echo &quot;59 23 * * * logwatch -range 'since yesterday' --format html --output mail&quot; | crontab -
 crontab -l </pre><pre class="hljs"><code><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;59 23 * * * logwatch -range &#x27;since yesterday&#x27; --format html --output mail&quot;</span> | crontab -
 crontab -l </code></pre></div>
@@ -502,7 +508,7 @@ crontab -l </code></pre></div>
 </li>
 </ol>
 <h2 id="loganalyzer">Loganalyzer</h2>
-<p>Install the loganalyzer package Alternatively, download the latest version from the loganalyzer website and follow the instructions in the INSTALL file Once you have it installed, use your browser to open <a data-from-md title='http://yourserver/loganalyzer' href='http://yourserver/loganalyzer'>http://yourserver/loganalyzer</a> and see what you can do with it.</p>
+<p>Install the <code class="inline-code">loganalyzer</code> package Alternatively, download the latest version from the <code class="inline-code">loganalyzer</code> website and follow the instructions in the INSTALL file Once you have it installed, use your browser to open <a data-from-md title='http://yourserver/loganalyzer' href='http://yourserver/loganalyzer'>http://yourserver/loganalyzer</a> and see what you can do with it.</p>
 <h2 id="grading">Grading</h2>
 <p>This lab is for practice to reinforce learning. There are no marks for it, and there is nothing to hand in.</p>
 <p>Source: <a data-from-md title='https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab09%20Logging.html' href='https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab09%20Logging.html'>Lab 09 Logging and Monitoring</a></p>
