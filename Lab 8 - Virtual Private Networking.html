@@ -444,7 +444,10 @@
 				.joplin-checklist li:not(.checked)::before {
 					content:"\f0c8";
 				}
-.mermaid { background-color: white; width: 640px; }</style><div id="rendered-md"><h1 id="lab-8-virtual-private-networking">Lab 8 - Virtual Private Networking</h1>
+.mermaid { background-color: white; width: 640px; }
+.mermaid-export-graph { visibility: hidden; } 
+				.joplin-editable:hover .mermaid-export-graph { visibility: visible; }
+				.mermaid-export-graph:hover { background-color: #CBDAF1 !important; }</style><div id="rendered-md"><h1 id="lab-8-virtual-private-networking">Lab 8 - Virtual Private Networking</h1>
 <p>This unit provides an introduction on how to setup VPNs on Linux systems.</p>
 <h2 id="create-a-vpn-service-for-a-tls-vpn-on-the-lab-linux-vm">Create a VPN service for a TLS VPN on the Lab Linux VM</h2>
 <p>In this step you will install and start openvpn service on our lab VM. Use the script I wrote for you <a data-from-md title='https://zonzorp.github.io/NETS1028/Labs/vpn-config.sh' href='https://zonzorp.github.io/NETS1028/Labs/vpn-config.sh'>openvpn server setup for this lab</a> which is based on instructions found in the <a data-from-md title='https://ubuntu.com/server/docs/service-openvpn' href='https://ubuntu.com/server/docs/service-openvpn'>Ubuntu LTS server docs</a>.</p>
