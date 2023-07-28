@@ -444,7 +444,10 @@
 				.joplin-checklist li:not(.checked)::before {
 					content:"\f0c8";
 				}
-.mermaid { background-color: white; width: 640px; }</style><div id="rendered-md"><h1 id="lab-1-security-design">Lab 1 - Security Design</h1>
+.mermaid { background-color: white; width: 640px; }
+.mermaid-export-graph { visibility: hidden; } 
+				.joplin-editable:hover .mermaid-export-graph { visibility: visible; }
+				.mermaid-export-graph:hover { background-color: #CBDAF1 !important; }</style><div id="rendered-md"><h1 id="lab-1-security-design">Lab 1 - Security Design</h1>
 <h2 id="lab-vm-description-and-purpose">Lab VM description and purpose</h2>
 <p>For this course, we will use a pre-built and configured Ubuntu 20.04 Linux server running on a Virtual Machine. It is a machine which is built as part of another college course and was not set up with security in mind. It has several services running, a firewall enabled, and lives on multiple networks. Treat this as if it were an existing server running in the business of your new employer. It is supposed to be providing:</p>
 <ul>
@@ -509,7 +512,7 @@
 <h3 id="service-availability">Service Availability</h3>
 <ol>
 <li>What command(s) are used to start, stop, and check the status of installed services? Give examples of starting stopping, and status-checking at least 2 services that are running on your VM.</li>
-<li><strong>Other than service control commands like you used in the previous step</strong> (not using systemctl and service utilities), describe at least one other way to determine what services your server may be providing.</li>
+<li><strong>Other than service control commands as you used in the previous step</strong> (not using systemctl and service utilities), describe at least one other way to determine what services your server may be providing.</li>
 </ol>
 <h3 id="user-access">User Access</h3>
 <ol>
@@ -517,7 +520,7 @@
 <li>Which accounts can be <strong>used to log in by end users</strong> (i.e. they have a user-oriented general-purpose shell and are not locked)? (list all of such accounts)</li>
 </ol>
 <h2 id="grading">Grading</h2>
-<p>Submit a PDF document (no other formats will be accepted) with the list of questions above and your answers. You must include the questions above in your submitted document. Copy/paste them if you wish. Your answers must be your own work, in your own words.</p>
+<p>Submit a PDF document (no other formats will be accepted) with the list of questions above and your answers. You must include the questions above in your submitted document. Copy/paste them if you wish. Your answers must be your work, in your own words.</p>
 </div></div>
 					</body>
 				</html>
