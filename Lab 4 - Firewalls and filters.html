@@ -444,19 +444,22 @@
 				.joplin-checklist li:not(.checked)::before {
 					content:"\f0c8";
 				}
-.mermaid { background-color: white; width: 640px; }</style><div id="rendered-md"><h1 id="lab-4-firewalls-and-filters">Lab 4 - Firewalls and filters</h1>
+.mermaid { background-color: white; width: 640px; }
+.mermaid-export-graph { visibility: hidden; } 
+				.joplin-editable:hover .mermaid-export-graph { visibility: visible; }
+				.mermaid-export-graph:hover { background-color: #CBDAF1 !important; }</style><div id="rendered-md"><h1 id="lab-4-firewalls-and-filters">Lab 4 - Firewalls and filters</h1>
 <p>This unit provides basic coverage of the tools and techniques for firewalling and filtering traffic on a Linux system.</p>
 <h2 id="iptables-basics">Iptables Basics</h2>
-<p>This activity will familiarize you with the basics of creating rules for iptables chains and verifying whether your rules do what you wanted them to do.</p>
+<p>This activity will familiarize you with the basics of creating rules for <code class="inline-code">iptables</code> chains and verifying whether your rules do what you wanted them to do.</p>
 <ol>
 <li>
 <p>connect to your server’s  <strong>ssh</strong>  service with a terminal window or with putty</p>
 </li>
 <li>
-<p>Log into the  <strong>student</strong>  account</p>
+<p>Log in to the  <strong>student</strong>  account</p>
 </li>
 <li>
-<p>Since we are using a prebuilt VM that has ufw configured, save the existing ufw configuration  <strong>ONLY DO THIS ONCE, EVEN IF YOU RESTART THE LAB</strong></p>
+<p>Since we are using a prebuilt VM that has <code class="inline-code">ufw</code> configured, save the existing <code class="inline-code">ufw</code> configuration  <strong>ONLY DO THIS ONCE, EVEN IF YOU RESTART THE LAB</strong></p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ufw show added &gt;~/`date +%Y%m%d%H%M-ufw-rules-saved.$$` </pre><pre class="hljs"><code>sudo ufw show added &gt;~/`date +<span class="hljs-built_in">%Y</span><span class="hljs-built_in">%m</span><span class="hljs-built_in">%d</span><span class="hljs-built_in">%H</span><span class="hljs-built_in">%M</span>-ufw-rules-saved.$$` </code></pre></div>
 </li>
 <li>
@@ -470,13 +473,13 @@ sudo iptables -X</span> </code></pre></div>
 <li>
 <p>Verify you can connect to your VM using a web browser</p>
 <ul>
-<li>use the ip address of your ens33 interface (<code class="inline-code">ip a s ens33</code>)</li>
-<li>access the cockpit service at  <code class="inline-code">http://W.X.Y.Z:9090</code>  (W.X.Y.Z should be your VM’s ens33 IP address)</li>
-<li>login to the cockpit service with the student login and password that used for ssh</li>
+<li>use the IP address of your host-only network interface (<code class="inline-code">ip a s &lt;host-only_interface&gt;</code>). We are using <code class="inline-code">ens33</code> as an example, you should change this to the name of your interface.</li>
+<li>access the cockpit service at  <code class="inline-code">http://W.X.Y.Z:9090</code>  (W.X.Y.Z should be your VM’s host-only network IP address)</li>
+<li>log in to the cockpit service with the student login and password that used for ssh</li>
 </ul>
 </li>
 <li>
-<p>Create a set of iptables rules to</p>
+<p>Create a set of <code class="inline-code">iptables</code> rules to</p>
 <ul>
 <li>
 <p>allow any traffic on the loopback interface</p>
@@ -510,11 +513,11 @@ iptables -P <span class="hljs-keyword">OUTPUT</span> <span class="hljs-keyword">
 <p>Does your ssh session still work?</p>
 </li>
 <li>
-<p>See what is getting logged for your iptables rules</p>
+<p>See what is getting logged for your <code class="inline-code">iptables</code> rules</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo grep DENIED /var/log/kern.log </pre><pre class="hljs"><code>sudo grep DENIED /<span class="hljs-keyword">var</span>/<span class="hljs-built_in">log</span>/kern.<span class="hljs-built_in">log</span> </code></pre></div>
 </li>
 <li>
-<p>View your iptables rules using the -L and -S options</p>
+<p>View your <code class="inline-code">iptables</code> rules using the <code class="inline-code">-L</code> and <code class="inline-code">-S</code> options</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo iptables -L
 sudo iptables -S </pre><pre class="hljs"><code><span class="hljs-attribute">sudo iptables -L
 sudo iptables -S</span> </code></pre></div>
@@ -526,13 +529,13 @@ sudo iptables -S</span> </code></pre></div>
 <p>Reboot your VM</p>
 </li>
 <li>
-<p>View your iptables rules again. Did the reboot change anything?</p>
+<p>View your <code class="inline-code">iptables</code> rules again. Did the reboot change anything?</p>
 </li>
 </ol>
 <h2 id="iptables-persistence">Iptables Persistence</h2>
 <ol>
 <li>
-<p>Reinstall the iptables rules from the first part of the lab and verify they are present</p>
+<p>Reinstall the <code class="inline-code">iptables</code> rules from the first part of the lab and verify they are present</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A INPUT -i ens33 -p tcp --dport ssh -j ACCEPT
@@ -548,11 +551,11 @@ iptables -P <span class="hljs-keyword">OUTPUT</span> <span class="hljs-keyword">
 iptables -L </code></pre></div>
 </li>
 <li>
-<p>Install the iptables-persistent package, without agreeing to save the rules during installation of the package</p>
+<p>Install the <code class="inline-code">iptables-persistent</code> package, without agreeing to save the rules during installation of the package</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo apt install iptables-persistent </pre><pre class="hljs"><code>sudo apt <span class="hljs-keyword">install</span> iptables-persistent </code></pre></div>
 </li>
 <li>
-<p>Save your IPV4 rules with the iptables-save command</p>
+<p>Save your IPV4 rules with the <code class="inline-code">iptables-save</code> command</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo iptables-save |tee /etc/iptables/rules.v4 </pre><pre class="hljs"><code>sudo iptables-save |tee <span class="hljs-regexp">/etc/i</span>ptables/rules.v4 </code></pre></div>
 </li>
 <li>
@@ -563,7 +566,7 @@ iptables -L </code></pre></div>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">reboot </pre><pre class="hljs"><code><span class="hljs-attribute">reboot</span> </code></pre></div>
 </li>
 <li>
-<p>Remove the iptables-persistent package</p>
+<p>Remove the <code class="inline-code">iptables-persistent</code> package</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo apt remove iptables-persistent </pre><pre class="hljs"><code>sudo apt <span class="hljs-built_in">remove</span> iptables-persistent </code></pre></div>
 </li>
 <li>
@@ -575,14 +578,14 @@ iptables -L </code></pre></div>
 <ol>
 <li>Run  <code class="inline-code">sysctl -a</code>  to get an idea of the kernel parameters currently set up on your system</li>
 <li>What are the security implications of being able to retrieve this type of information as an ordinary user?</li>
-<li><a data-from-md title='https://www.kernel.org/doc/Documentation/sysctl/vm.txt' href='https://www.kernel.org/doc/Documentation/sysctl/vm.txt'>https://www.kernel.org/doc/Documentation/sysctl/vm.txt</a> has excellent sysctl documentation for kernel version 2.6 (still in use in production systems and embedded systems)
+<li><a data-from-md title='https://www.kernel.org/doc/Documentation/sysctl/vm.txt' href='https://www.kernel.org/doc/Documentation/sysctl/vm.txt'>https://www.kernel.org/doc/Documentation/sysctl/vm.txt</a> has excellent <code class="inline-code">sysctl</code> documentation for kernel version 2.6 (still in use in production systems and embedded systems)
 <ul>
 <li>Find the  <strong>swappiness</strong>  parameter in that document to see what it can do for you</li>
-<li>Check out the wikipedia article for more info</li>
+<li>Check out the Wikipedia article for more info</li>
 </ul>
 </li>
 </ol>
-<p>Performance tuning also affects resiliency, example references on tuning for performance include:</p>
+<p>Performance tuning also affects resiliency, example of references on tuning for performance include:</p>
 <ul>
 <li><a data-from-md title='https://lonesysadmin.net/2013/12/22/better-linux-disk-caching-performance-vm-dirty_ratio/' href='https://lonesysadmin.net/2013/12/22/better-linux-disk-caching-performance-vm-dirty_ratio/'>https://lonesysadmin.net/2013/12/22/better-linux-disk-caching-performance-vm-dirty_ratio/</a></li>
 <li><a data-from-md title='https://lonesysadmin.net/2013/12/19/account-bandwidth-delay-product-larger-network-buffers/' href='https://lonesysadmin.net/2013/12/19/account-bandwidth-delay-product-larger-network-buffers/'>https://lonesysadmin.net/2013/12/19/account-bandwidth-delay-product-larger-network-buffers/</a></li>
@@ -590,11 +593,11 @@ iptables -L </code></pre></div>
 <h2 id="iptstate">Iptstate</h2>
 <ol>
 <li>
-<p>Install iptstate package</p>
+<p>Install <code class="inline-code">iptstate</code> package</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo apt install iptstate </pre><pre class="hljs"><code>sudo apt <span class="hljs-keyword">install</span> iptstate </code></pre></div>
 </li>
 <li>
-<p>Clear your iptables rules and add back the rules we have been using, but with connection tracking turned on for new connections to the  <strong>ssh</strong>  service</p>
+<p>Clear your <code class="inline-code">iptables</code> rules and add back the rules we have been using, but with connection tracking turned on for new connections to the  <strong>ssh</strong>  service</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ufw reset
 sudo iptables -F
 sudo iptables -X
@@ -614,11 +617,11 @@ sudo iptables -P <span class="hljs-keyword">INPUT</span> <span class="hljs-keywo
 sudo iptables -P <span class="hljs-keyword">OUTPUT</span> <span class="hljs-keyword">DROP</span> </code></pre></div>
 </li>
 <li>
-<p>Run iptstate and observe the various connections being tracked by iptables</p>
+<p>Run <code class="inline-code">iptstate</code> and observe the various connections being tracked by iptables</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo iptstate -f </pre><pre class="hljs"><code><span class="hljs-attribute">sudo iptstate -f</span> </code></pre></div>
 </li>
 <li>
-<p>Use iptables -L -v to see the packet and byte counts being seen by the various rules you have in place</p>
+<p>Use <code class="inline-code">iptables -L -v</code> to see the packet and byte counts being seen by the various rules you have in place</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo iptables -L -v </pre><pre class="hljs"><code><span class="hljs-attribute">sudo iptables -L -v</span> </code></pre></div>
 </li>
 </ol>
@@ -626,7 +629,7 @@ sudo iptables -P <span class="hljs-keyword">OUTPUT</span> <span class="hljs-keyw
 <p>UFW is already installed on the lab VM.</p>
 <ol>
 <li>
-<p>Clear out the iptables rules we currently have, as well as any leftover ufw rules</p>
+<p>Clear out the <code class="inline-code">iptables</code> rules we currently have, as well as any leftover <code class="inline-code">ufw</code> rules</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ufw reset
 sudo iptables -F
 sudo iptables -X </pre><pre class="hljs"><code><span class="hljs-attribute">sudo ufw reset
@@ -634,11 +637,11 @@ sudo iptables -F
 sudo iptables -X</span> </code></pre></div>
 </li>
 <li>
-<p>Use ufw to allow ssh traffic</p>
+<p>Use <code class="inline-code">ufw</code> to allow ssh traffic</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ufw allow ssh </pre><pre class="hljs"><code><span class="hljs-attribute">sudo</span> ufw <span class="hljs-literal">allow</span> ssh </code></pre></div>
 </li>
 <li>
-<p>Check your status with ufw, enable it, recheck your status</p>
+<p>Check your status with <code class="inline-code">ufw</code>, enable it, and recheck your status</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ufw status
 sudo ufw enable
 sudo ufw status </pre><pre class="hljs"><code>sudo ufw <span class="hljs-keyword">status</span>
@@ -646,11 +649,11 @@ sudo ufw enable
 sudo ufw <span class="hljs-keyword">status</span> </code></pre></div>
 </li>
 <li>
-<p>Run iptables -L -v with the ufw firewall tool in enabled state</p>
+<p>Run <code class="inline-code">iptables -L -v</code> with the <code class="inline-code">ufw</code> firewall tool in the enabled state</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo iptables -L -v </pre><pre class="hljs"><code><span class="hljs-attribute">sudo iptables -L -v</span> </code></pre></div>
 </li>
 <li>
-<p>Disable the ufw firewall tool and see what is left behind in your live iptables</p>
+<p>Disable the <code class="inline-code">ufw</code> firewall tool and see what is left behind in your live iptables</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ufw disable
 sudo ufw status
 sudo iptables -L </pre><pre class="hljs"><code>sudo ufw <span class="hljs-built_in">disable</span>
@@ -669,24 +672,24 @@ sudo iptables -X</span> </code></pre></div>
 <h2 id="ipkungfu">Ipkungfu</h2>
 <ol>
 <li>
-<p>Install the ipkungfu package and check its state after installation</p>
+<p>Install the <code class="inline-code">ipkungfu</code> package and check its state after installation</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo apt install ipkungfu
 sudo ipkungfu -c </pre><pre class="hljs"><code>sudo apt <span class="hljs-keyword">install</span> ipkungfu
 sudo ipkungfu -c </code></pre></div>
 </li>
 <li>
-<p>Note the configuration files in /etc/ipkungfu</p>
+<p>Note the configuration files in <code class="inline-code">/etc/ipkungfu</code></p>
 </li>
 <li>
-<p>Modify ipkungfu.conf to set GATEWAY=0, DISALLOW_PRIVATE=0</p>
+<p>Modify <code class="inline-code">ipkungfu.conf</code> to set <code class="inline-code">GATEWAY=0</code>, <code class="inline-code">DISALLOW_PRIVATE=0</code></p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo vi /etc/ipkungfu/ipkungfu.conf </pre><pre class="hljs"><code>sudo vi <span class="hljs-regexp">/etc/i</span>pkungfu/ipkungfu.conf </code></pre></div>
 </li>
 <li>
-<p>Modify services.conf to ACCEPT ftp and ssh traffic</p>
+<p>Modify <code class="inline-code">services.conf</code> to ACCEPT ftp and ssh traffic</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo vi /etc/ipkungfu/services.conf </pre><pre class="hljs"><code>sudo vi <span class="hljs-regexp">/etc/i</span>pkungfu/services.conf </code></pre></div>
 </li>
 <li>
-<p>Run ipkungfu –show-vars to see your current configuration with ipkungfu’s guesses and correct any settings you can see are not right for your VM</p>
+<p>Run <code class="inline-code">ipkungfu –show-vars</code> to see your current configuration with ipkungfu’s guesses and correct any settings you can see are not right for your VM</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ipkungfu --show-vars </pre><pre class="hljs"><code>sudo ipkungfu <span class="hljs-comment">--show-vars </span></code></pre></div>
 </li>
 <li>
@@ -698,12 +701,12 @@ sudo ipkungfu -c </code></pre></div>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo iptables -L </pre><pre class="hljs"><code><span class="hljs-attribute">sudo iptables -L</span> </code></pre></div>
 </li>
 <li>
-<p>Check /etc/default/ipkungfu to see if it is enabled on system startup (IPKFSTART setting) and make sure it is disabled before doing fail2ban</p>
+<p>Check <code class="inline-code">/etc/default/ipkungfu</code> to see if it is enabled on system startup (<code class="inline-code">IPKFSTART</code> setting) and make sure it is disabled before doing <code class="inline-code">fail2ban</code></p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo cat /etc/default/ipkungfu </pre><pre class="hljs"><code>sudo cat <span class="hljs-regexp">/etc/</span><span class="hljs-keyword">default</span>/ipkungfu </code></pre></div>
 </li>
 </ol>
 <h2 id="fail2ban">Fail2ban</h2>
-<p>For this activity, you will want to have 2 separate terminals or putty windows running at the same time. Do the steps up to monitoring the log file in the first window, and then switch to the other window to cause the failed logins. Once you do that, the ip address that the failures are coming from will be banned, so be sure your second session isn’t coming from the same ip address as your first session.</p>
+<p>For this activity, you will want to have 2 separate terminals or putty windows running at the same time. Do the steps up to monitoring the log file in the first window, and then switch to the other window to cause the failed logins. Once you do that, the IP address that the failures are coming from will be banned, so be sure your second session isn’t coming from the same IP address as your first session.</p>
 <ol>
 <li>
 <p>Clear out your tables before starting the exercise</p>
@@ -714,26 +717,26 @@ sudo iptables -F
 sudo iptables -X</span> </code></pre></div>
 </li>
 <li>
-<p>Install fail2ban</p>
+<p>Install <code class="inline-code">fail2ban</code></p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo apt install fail2ban </pre><pre class="hljs"><code>sudo apt <span class="hljs-keyword">install</span> fail2ban </code></pre></div>
 </li>
 <li>
-<p>Use fail2ban-client to see the default configuration that is running</p>
+<p>Use <code class="inline-code">fail2ban-client</code> to see the default configuration that is running</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo fail2ban-client status </pre><pre class="hljs"><code>sudo fail2ban-<span class="hljs-keyword">client</span> status </code></pre></div>
 </li>
 <li>
-<p>Check the status of default sshd jail that is installed</p>
+<p>Check the status of default <code class="inline-code">sshd</code> jail that is installed</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo fail2ban-client status sshd </pre><pre class="hljs"><code>sudo fail2ban-<span class="hljs-keyword">client</span> status sshd </code></pre></div>
 </li>
 <li>
-<p>Start monitoring the fail2ban.log using tail -f to see what the service does for the next steps</p>
+<p>Start monitoring the <code class="inline-code">fail2ban.log</code> using <code class="inline-code">tail -f</code> to see what the service does for the next steps</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo tail -f /var/log/fail2ban.log </pre><pre class="hljs"><code>sudo tail -f /<span class="hljs-keyword">var</span>/<span class="hljs-built_in">log</span>/fail2ban.<span class="hljs-built_in">log</span> </code></pre></div>
 </li>
 <li>
-<p>Use a second terminal/putty window to login to your VM from a different machine than your other ssh session, but give the wrong password 6 times in a row while watching the fail2ban log in your other ssh session</p>
+<p>Use a second terminal/putty window to login to your VM from a different machine than your other ssh session, but give the wrong password 6 times in a row while watching the <code class="inline-code">fail2ban</code> log in your other ssh session</p>
 </li>
 <li>
-<p>Once the service bans your ip according to the watched logfile, cancel the logifle monitoring using ^C (ctrl-c) and examine the ban with the following commands in the terminal window that is still working</p>
+<p>Once the service bans your ip according to the watched logfile, cancel the logfile monitoring using <code class="inline-code">^C</code> (<code class="inline-code">ctrl-c</code>) and examine the ban with the following commands in the terminal window that is still working</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">fail2ban-client status sshd
 fail2ban-client get sshd bantime </pre><pre class="hljs"><code>fail2ban-<span class="hljs-keyword">client</span> status sshd
 fail2ban-<span class="hljs-keyword">client</span> get sshd bantime </code></pre></div>
