@@ -510,7 +510,7 @@ Tip: Compare the unconfined list to the list of available profiles in the reposi
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">visudo </pre><pre class="hljs"><code><span class="hljs-attribute">visudo</span> </code></pre></div>
 </li>
 <li>
-<p>In a second ssh session, login as user <code class="inline-code">dennis</code> (password is <code class="inline-code">dennis</code>) and verify that user dennis can use sudo to edit their zone file and to run <code class="inline-code">rndc reload</code> but cannot use sudo to run another command like <code class="inline-code">bash</code></p>
+<p>In a second ssh session, login as user <code class="inline-code">dennis</code> (password is <code class="inline-code">dennis</code>) and verify that user dennis can use sudo to edit their zone file and to run <code class="inline-code">rndc reload</code> but cannot use sudo to run another command, such as <code class="inline-code">bash</code> (User should NOT be able to do sudo to run any other commands!)</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">dennis$ sudo vi /etc/bind/db.simpson22725.mytld
 dennis$ sudo rndc reload
 dennis$ sudo bash </pre><pre class="hljs"><code><span class="hljs-meta prompt_">dennis$ </span><span class="language-bash">sudo vi /etc/bind/db.simpson22725.mytld</span>
