@@ -151,7 +151,7 @@
      * instead of the svg width, height property you must use a viewbox here, 0 0 1536 1792 is typically the actual size of the icon
      * each line begins with the pre-amble -webkit-mask: url("data:image/svg+xml;utf8,
      * and of course finishes with ");
-     * to precvent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
+     * to prevent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
      * on the following line
      * */
 		.fa-joplin {
@@ -444,10 +444,20 @@
 				.joplin-checklist li:not(.checked)::before {
 					content:"\f0c8";
 				}
-.mermaid { background-color: white; width: 640px; }
-.mermaid-export-graph { visibility: hidden; } 
-				.joplin-editable:hover .mermaid-export-graph { visibility: visible; }
-				.mermaid-export-graph:hover { background-color: #CBDAF1 !important; }</style><div id="rendered-md"><h1 id="capstone-project-lamp-server-secure-design">Capstone Project: LAMP Server Secure Design</h1>
+.mermaid { width: 640px; }
+.mermaid-export-graph {
+					opacity: 0;
+					height: 0;
+					z-index: 1;
+					position: relative;
+				} 
+				.joplin-editable:hover .mermaid-export-graph,
+				.joplin-editable .mermaid-export-graph:has(:focus-visible) {
+					opacity: 1;
+				}
+				.mermaid-export-graph > button:hover {
+					background-color: #CBDAF1 !important;
+				}</style><div id="rendered-md"><h1 id="capstone-project-lamp-server-secure-design">Capstone Project: LAMP Server Secure Design</h1>
 <p>Georgian College Computer Studies offers several courses that require students to use a hosted LAMP server (Linux, Apache, MySQL, PHP) for their assignments and projects. This hosted LAMP server is located at Computer Studies' own data center and may be deployed as a single VM Administrated and managed by the Computer Studies Academic Technicians.</p>
 <h2 id="end-user-requirements">End-user Requirements</h2>
 <ul>
@@ -484,11 +494,11 @@
 </li>
 </ul>
 <p><strong>Please Note:</strong> The scope of your responsibilities only includes the secure design of the LAMP server itself, as you do not have access or control over the existing architecture. However, you are welcome to provide recommendations and suggestions to accommodate or further harden the security of your proposed deployment.</p>
-<p><img src="./resources/e4c287a92bbc47ffba6c7c943a26124f.png" alt="Network Architecture Diagram"></p>
+<p><img src="./resources/e4c287a92bbc47ffba6c7c943a26124f.png" alt="a907ebff5cb2693c1d2993da8fda60ed.png"></p>
 <h1 id="deliverables">Deliverables</h1>
 <h2 id="your-responsibilities-for-this-project">Your Responsibilities for This Project</h2>
 <ul>
-<li>Design and Implement LAMP Proof of Concept server fit for use and utility as per the requirements
+<li>Design and Implement LAMP Proof of Concept (PoC) server fit for use and utility as per the requirements
 <ul>
 <li>Ubuntu Server (LTS version) + Apache, PHP, and MySQL, and an FTP(s) Server</li>
 <li>test your LAMP server in a VM with two network adapters, and Wazuh to ensure compliance and and for testing and validating your design
@@ -503,41 +513,56 @@
 <li>Consider the end-users' point of view, and how will they access the server and use it. Assume users do not have any knowledge of Linux servers (most web developers do not and use hosted services).</li>
 <li>Consider administration
 <ul>
-<li>Ensures that the server remains compliant and will maintain consistent configuration for the lifetime of the server (many semesters for several years)</li>
+<li>Ensures that the server remains compliant and maintains consistent configuration for the lifetime of the server (many semesters for several years)</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <h2 id="your-submission">Your Submission</h2>
-<p>Provide a written report explaining your proposals and your secure design. Additionally, provide information or instructions on how end-users and administrators are expected to use and operate the system.<br>
+<p>Provide a written document explaining your proposals and your secure design. Additionally, provide information or instructions on how end-users and administrators are expected to use and operate the system.<br>
 Your written report can include the following:</p>
 <ul>
 <li>Specific security features and designs</li>
 <li>Controls and mitigations for perceived and real risks</li>
-<li>Residual Risks (You may include a Risk Assessment Report for your proposed design)</li>
-<li>Server Administration, Management, and Maintenance
+<li>Residual Risks (You may include a Risk Assessment Report for your proposed design in your Appendix)</li>
+<li>Server Administration, Management, and Maintenance, explaining how the system is designed to be used. For example:
 <ul>
 <li>Provide procedures, guidelines or policies for the system administrators</li>
-<li>Include instructions on how to manage end-user accounts and access (how end-user accounts are added or removed)</li>
-<li>How account credentials are distributed or managed (for example how usernames and passwords are generated, distributed, and changed or rest if required)</li>
+<li>Include instructions on how to manage end-user accounts and access (how end-user accounts are added or removed, and how credentials are created)</li>
+<li>How account credentials are distributed (for example how usernames and passwords are distributed to end users)</li>
 </ul>
 </li>
-<li>End-user access to service
+<li>End-user access to service (how your server is designed to be used)
 <ul>
-<li>How students and teachers are expected to access services provided on this server (provide instructions that can be given to them)</li>
+<li>How students and teachers are expected to access services provided on this server (provide instructions that can be given to end-users)</li>
 </ul>
 </li>
 <li>Explanations for any failed CIS benchmark recommendations, and any residual risks</li>
+<li>you may include any configuration snippets, screenshots, or sample scripts in your Appendix</li>
 </ul>
 <h2 id="submission-to-blackboard">Submission to Blackboard</h2>
 <ul>
-<li>Written Report and any appendix in PDF Format
-<ul>
-<li>Appendix can include Risk assessments, sample configuration files, screenshots and any details you wish to include with your report</li>
+<li>One written proposal and appendix in PDF Format</li>
+<li>Wazuh Report of the CIS Compliance from your proof of concept VM, exported in CSV format</li>
 </ul>
-</li>
-<li>Wazuh Report of your proof of concept VM, exported in CSV format</li>
+<h2 id="grading-scheme">Grading Scheme</h2>
+<p>Secure Design Features: (/20)<br>
+Risk Assessment Results/Residual Risks: (/20)</p>
+<ul>
+<li>Either provide one, or provide enough information so I can do one myself</li>
+<li>Highest risks are addressed or mitigated, Residual Risks are low</li>
+</ul>
+<p>Ease of use:</p>
+<ul>
+<li>Administration (/20)</li>
+<li>Student/Users (/20)</li>
+</ul>
+<p>Other issues/problems:</p>
+<p>CIS Benchmarks:</p>
+<ul>
+<li>Full CIS Benchmark report is provided in CSV (/10)</li>
+<li>List of Exclusions and failed items explained (/10)</li>
 </ul>
 </div></div>
 					</body>
