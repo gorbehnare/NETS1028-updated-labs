@@ -243,7 +243,7 @@
      * instead of the svg width, height property you must use a viewbox here, 0 0 1536 1792 is typically the actual size of the icon
      * each line begins with the pre-amble -webkit-mask: url("data:image/svg+xml;utf8,
      * and of course finishes with ");
-     * to precvent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
+     * to prevent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
      * on the following line
      * */
 			.fa-joplin {
@@ -555,19 +555,22 @@
 			}
 
 			.mermaid {
-				background-color: white;
 				width: 640px;
 			}
 
 			.mermaid-export-graph {
-				visibility: hidden;
+				opacity: 0;
+				height: 0;
+				z-index: 1;
+				position: relative;
 			}
 
-			.joplin-editable:hover .mermaid-export-graph {
-				visibility: visible;
+			.joplin-editable:hover .mermaid-export-graph,
+			.joplin-editable .mermaid-export-graph:has(:focus-visible) {
+				opacity: 1;
 			}
 
-			.mermaid-export-graph:hover {
+			.mermaid-export-graph>button:hover {
 				background-color: #CBDAF1 !important;
 			}
 		</style>
@@ -635,15 +638,17 @@
 						class="inline-code">apt-get upgrade</code> to bring the base system up to current software
 					versions.</li>
 			</ol>
-			<p><strong>This video is a session recording guiding you through the instructions provided above.</strong>
-			</p>
+			<p><strong>This video is an old session recording guiding you through the instructions provided
+					above.</strong></p>
 			<p><a data-from-md title='https://screencast-o-matic.com/watch/c3hXqpVrXUw'
 					href='https://screencast-o-matic.com/watch/c3hXqpVrXUw'><img
-						src="../../_resources/23142db713bf4806a141c1de3021513b.jpg" alt=""></a><a data-from-md
-					title='https://screencast-o-matic.com/watch/c3hXqpVrXUw'
+						src="./resources/23142db713bf4806a141c1de3021513b.jpg" alt width="498" height="280"
+						class="jop-noMdConv" /></a><br>
+				<a data-from-md title='https://screencast-o-matic.com/watch/c3hXqpVrXUw'
 					href='https://screencast-o-matic.com/watch/c3hXqpVrXUw'>NETS1028 - 2022-05-011-03 - Lab 1 -
 					Preparing the VM environment using VirtualBoxNETS1028 - 2022-05-011-03 - Lab 1 - Preparing the VM
-					environment using VirtualBoxScreencast-O-Matic</a></p>
+					environment using VirtualBoxScreencast-O-Matic</a>
+			</p>
 			<h2 id="security-design-exercises">Security Design Exercises</h2>
 			<p>These exercises will help you to become familiar with some of the security features and limitations of
 				your installation. All of these are to be investigated for the previously downloaded pre-built VM
@@ -657,8 +662,8 @@
 			<ol>
 				<li>Identify how to add a password to your boot loader so that it is required before a user can alter
 					the boot parameters.</li>
-				<li>Identify the utility and configuration that will <b>automatically</b> remove old kernel versions
-					from your lab VM periodically or after an automatic update.</li>
+				<li>Identify the utility and configuration that will <strong>automatically</strong> remove old kernel
+					versions from your lab VM periodically or after an automatic update.</li>
 			</ol>
 			<h3 id="service-availability">Service Availability</h3>
 			<ol>
@@ -677,6 +682,58 @@
 			</ol>
 			<h2 id="grading">Grading</h2>
 			<p>Visit Blackboard for the latest instructions.</p>
+			<h2 id="links-and-resources">Links and Resources</h2>
+			<ul>
+				<li>Grab a copy of <a data-from-md title='https://ubuntu.com/server/docs'
+						href='https://ubuntu.com/server/docs'>Ubuntu Server Docs</a>, Make sure to grab the correct
+					version for your OS (use <code class="inline-code">hostnamectl</code> to find out what version of
+					the OS is running in your VM)</li>
+				<li>Documentation on <code class="inline-code">udisks2</code> package:
+					<ul>
+						<li><a data-from-md title='https://manpages.ubuntu.com/manpages/xenial/man8/udisks.8.html'
+								href='https://manpages.ubuntu.com/manpages/xenial/man8/udisks.8.html'>https://manpages.ubuntu.com/manpages/xenial/man8/udisks.8.html</a>
+						</li>
+						<li><a data-from-md title='https://github.com/storaged-project/udisks'
+								href='https://github.com/storaged-project/udisks'>https://github.com/storaged-project/udisks</a>
+						</li>
+					</ul>
+				</li>
+				<li><a data-from-md title='https://www.gnu.org/software/grub/manual/grub/grub.html'
+						href='https://www.gnu.org/software/grub/manual/grub/grub.html'>GRUB Bootloader
+						Documentation</a>,
+					<ul>
+						<li>For Lab 1 pay special attention to the chapter on “Security” and look for tools under
+							&quot;User Space utilities&quot;.</li>
+					</ul>
+				</li>
+				<li>Ubuntu documentation on <a data-from-md title='https://help.ubuntu.com/community/RemoveOldKernels'
+						href='https://help.ubuntu.com/community/RemoveOldKernels'>Removing Old Kernels</a></li>
+				<li>The Linux Document Project (<a data-from-md title='http://TLDP.org'
+						href='http://TLDP.org'>TLDP.org</a>)
+					<ul>
+						<li>Linux <a data-from-md title='https://tldp.org/HOWTO/HOWTO-INDEX/index.html'
+								href='https://tldp.org/HOWTO/HOWTO-INDEX/index.html'>HOWTO-INDEX</a></li>
+						<li>Security <a data-from-md title='https://tldp.org/HOWTO/Security-Quickstart-HOWTO/'
+								href='https://tldp.org/HOWTO/Security-Quickstart-HOWTO/'>Quick-Start HOWTO for Linux</a>
+							<ul>
+								<li>For Lab 1: read “<a data-from-md
+										title='https://tldp.org/HOWTO/Security-Quickstart-HOWTO/services.html'
+										href='https://tldp.org/HOWTO/Security-Quickstart-HOWTO/services.html'>3. Step 1:
+										Which services do we really need?</a>”</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>Man pages for the <code class="inline-code">/etc/passwd</code> and <code
+						class="inline-code">/etc/shadow</code> files (included in your Linux system, use <code
+						class="inline-code">man 5 passwd</code> and <code class="inline-code">man 5 shadow</code>
+					commands</li>
+				<li>Debian documentation on system groups and their description: <a data-from-md
+						title='https://wiki.debian.org/SystemGroups'
+						href='https://wiki.debian.org/SystemGroups'>wiki.debian.org/SystemGroups</a></li>
+			</ul>
+		</div>
+	</div>
 </body>
 
 </html>
