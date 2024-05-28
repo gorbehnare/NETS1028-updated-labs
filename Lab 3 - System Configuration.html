@@ -151,7 +151,7 @@
      * instead of the svg width, height property you must use a viewbox here, 0 0 1536 1792 is typically the actual size of the icon
      * each line begins with the pre-amble -webkit-mask: url("data:image/svg+xml;utf8,
      * and of course finishes with ");
-     * to precvent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
+     * to prevent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
      * on the following line
      * */
 		.fa-joplin {
@@ -444,10 +444,20 @@
 				.joplin-checklist li:not(.checked)::before {
 					content:"\f0c8";
 				}
-.mermaid { background-color: white; width: 640px; }
-.mermaid-export-graph { visibility: hidden; } 
-				.joplin-editable:hover .mermaid-export-graph { visibility: visible; }
-				.mermaid-export-graph:hover { background-color: #CBDAF1 !important; }</style><div id="rendered-md"><h1 id="lab-03-system-configuration">Lab 03 - System Configuration</h1>
+.mermaid { width: 640px; }
+.mermaid-export-graph {
+					opacity: 0;
+					height: 0;
+					z-index: 1;
+					position: relative;
+				} 
+				.joplin-editable:hover .mermaid-export-graph,
+				.joplin-editable .mermaid-export-graph:has(:focus-visible) {
+					opacity: 1;
+				}
+				.mermaid-export-graph > button:hover {
+					background-color: #CBDAF1 !important;
+				}</style><div id="rendered-md"><h1 id="lab-03-system-configuration">Lab 03 - System Configuration</h1>
 <p>This lesson examines some broad configuration topics. Further detail on configuring specific services and options are contained in other units. To ensure each student’s screenshots are coming from their lab VM, begin by changing your system’s hostname from  <code class="inline-code">pc20022725</code>  to  <code class="inline-code">pcNNNNNNNNN</code>  where <code class="inline-code">NNNNNNNNN</code> is your student number. Your screenshots will then show the hostname in the shell prompts so I can verify your work was done on your machine. Submissions which do not have your student number in your hostname showing in the shell prompts will not be marked.</p>
 <h2 id="changing-hostname-in-ubuntu">Changing Hostname in Ubuntu</h2>
 <p>you can change the hostname using the following command:</p>
@@ -482,9 +492,9 @@ sudo systemctl restart unattended-upgrades </code></pre></div>
 <li>
 <p>Review the contents of the <code class="inline-code">unattended-upgrades</code> log files to see what gets logged there.</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo tail -30 /var/log/unattended-upgrades/unattended-upgrades.log
-sudo tail -30 /var/log/unattended-upgrades/unattended-upgrades-dpkg.log</pre><pre class="hljs"><code>sudo tail -<span class="hljs-number">30</span> <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/unattended-upgrades/u</span>nattended-upgrades.log
-sudo tail -<span class="hljs-number">30</span> <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/unattended-upgrades/u</span>nattended-upgrades-dpkg.log</code></pre></div>
-<p>Tip: To verify your configuration and troubleshoot <code class="inline-code">unattended-upgrades</code>, you can manually trigger the utility in debug mode (using -d switch):  <code class="inline-code">sudo unattended-upgrade -d</code>. You should receive the email immediately.</p>
+sudo tail -30 /var/log/unattended-upgrades/unattended-upgrades-dpkg.log</pre><pre class="hljs"><code>sudo tail <span class="hljs-number">-30</span> /<span class="hljs-keyword">var</span>/<span class="hljs-built_in">log</span>/unattended-upgrades/unattended-upgrades.<span class="hljs-built_in">log</span>
+sudo tail <span class="hljs-number">-30</span> /<span class="hljs-keyword">var</span>/<span class="hljs-built_in">log</span>/unattended-upgrades/unattended-upgrades-dpkg.<span class="hljs-built_in">log</span></code></pre></div>
+<p>Tip: To verify your configuration and troubleshoot <code class="inline-code">unattended-upgrades</code>, you can manually trigger the utility in debug mode (using <code class="inline-code">-d</code> switch):  <code class="inline-code">sudo unattended-upgrade -d</code>. You should receive the email immediately.</p>
 </li>
 </ol>
 <p>Check the Grading section for the required screenshots.</p>
@@ -539,7 +549,22 @@ systemd-analyze security hddtemp</pre><pre class="hljs"><code><span class="hljs-
 <p>Many times, user accounts exist which were automatically created, but are not needed. Unwatched accounts are a target for crackers. Accounts which own nothing in the filesystem, and have no running processes are usually either end-user accounts, application accounts, historical accounts, or reference accounts.</p>
 <ol>
 <li>Identify accounts on the system that have shell access</li>
-<li>Identify accounts on the system that own no files (Tip: here is an  <a data-from-md title='Sample script for finding users that do not own any files' href='https://zonzorp.github.io/NETS1028/userswithoutfiles.sh'>example script</a>  that you can use for this)</li>
+<li>Identify accounts on the system that own no files
+<ul>
+<li>Here is an  <a data-from-md title='Sample script for finding users that do not own any files' href='https://zonzorp.github.io/NETS1028/userswithoutfiles.sh'>example script</a>  that you can use for this:</li>
+</ul>
+</li>
+</ol>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">#!/bin/bash
+ # this script display a list of users from the passwd file who own no files
+for user in `cut -d : -f 1 /etc/passwd`; do
+  find / -ignore_readdir_race -user $user -ls -quit | grep -q $user || echo $user
+done</pre><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+ <span class="hljs-comment"># this script display a list of users from the passwd file who own no files</span>
+<span class="hljs-keyword">for</span> user <span class="hljs-keyword">in</span> `<span class="hljs-built_in">cut</span> -d : -f 1 /etc/passwd`; <span class="hljs-keyword">do</span>
+  find / -ignore_readdir_race -user <span class="hljs-variable">$user</span> -<span class="hljs-built_in">ls</span> -quit | grep -q <span class="hljs-variable">$user</span> || <span class="hljs-built_in">echo</span> <span class="hljs-variable">$user</span>
+<span class="hljs-keyword">done</span></code></pre></div>
+<ol start="4">
 <li>Identify accounts that have no running processes</li>
 <li>Accounts which do not appear to have a legitimate reason to be on your system should be researched
 <ul>
@@ -555,9 +580,10 @@ systemd-analyze security hddtemp</pre><pre class="hljs"><code><span class="hljs-
 <li>Add a limit of 2 logins for the student user</li>
 <li>Start multiple remote sessions in multiple terminal windows and verify you cannot log in more than twice on the student account simultaneously</li>
 </ol>
-<p>Please refer to the Grading section for the required screenshot!</p>
+<h4 id="please-refer-to-the-grading-section-for-the-required-screenshot">Please refer to the Grading section for the required screenshot!</h4>
 <h2 id="lynis">Lynis</h2>
-<p>Lynis is a tool which can be used for system examination but is also very useful for hardening activities. Along with identifying things that are not in a typical state, it can make many recommendations regarding insecure configurations. This can be helpful when you have a system running software you may not be familiar with. If you did not already install and updated Lynis in the previous lab, follow the steps in this lab to install, update, and run Lynis in this lab. A current version of Lynis running properly and using it to fix at least one thing is part of the mark for this lab.</p>
+<p>Lynis is a tool which can be used for system examination but is also very useful for hardening activities. Along with identifying things that are not in a typical state, it can make many recommendations regarding insecure configurations. This can be helpful when you have a system running software you may not be familiar with. Follow the steps in this lab to install, update, and run Lynis. A current version of Lynis running properly and using it to fix at least one thing is part of the mark for this lab.</p>
+<h4 id="refer-to-the-grading-section-for-required-screenshots">Refer to the Grading Section for required screenshots!</h4>
 <ol>
 <li>
 <p>Add the  <a data-from-md title='https://packages.cisofy.com/community/#debian-ubuntu' href='https://packages.cisofy.com/community/#debian-ubuntu'>lynis community repo</a>  to your apt configuration.</p>
@@ -579,17 +605,15 @@ systemd-analyze security hddtemp</pre><pre class="hljs"><code><span class="hljs-
 <p>Re-run <code class="inline-code">lynis</code> and verify it no longer complains about the fixed issue.</p>
 </li>
 </ol>
-<p>Refer to the Grading Section for required screenshots!</p>
 <h2 id="grading">Grading</h2>
-<p>Submit your results and screenshots as per instructions posted on Blackboard. Everywhere there is a screenshot marker in the instructions, you must capture enough to show the command you ran and the results of running it. </p>
+<p>Submit your results and screenshots as per instructions posted on Blackboard. Everywhere there is a screenshot marker in the instructions, you must capture enough to show the command you ran and the results of running it.</p>
 <ol>
 <li>Leave your VM running long enough to receive an email from <code class="inline-code">unattended-upgrades</code>. Include a screenshot of the email. You can use the <code class="inline-code">mailx</code> tool to read email for a screenshot.</li>
 <li>In the section on investigating running services, do the investigation for the service listening on port tcp/25. Use <code class="inline-code">netstat</code> and <code class="inline-code">ss</code> to find the process, <code class="inline-code">ps</code> to find the executable, <code class="inline-code">dpkg</code> to find the package, and <code class="inline-code">debsums</code> to validate that the executable is legitimate. Include screenshots showing this process on your system.</li>
 <li>Identify a list of the accounts on your system that do not own any files. Note that your system may be slightly different from another student’s in this lab, depending on what lab work each of you has done up to this point. Include screenshots showing how you found the accounts and provide a list of these accounts from your system.</li>
-<li>Include a screenshot showing what was displayed when you tried to exceed the 2 ssh login limit.</li>
+<li>Include a screenshot showing what was displayed when you tried to exceed the 2 ssh login limit from remote host.</li>
 <li>Include one screenshot showing the version of <code class="inline-code">lynis</code> you have and a warning from <code class="inline-code">lynis</code> for a specific item you can fix, and one screenshot showing the subsequent output showing it is no longer a concern after you have fixed it.</li>
 </ol>
-<p>Source:  <a data-from-md title='https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab03%20System%20Configuration.html' href='https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab03%20System%20Configuration.html'>Lab 3 System Configuration</a></p>
 </div></div>
 					</body>
 				</html>
