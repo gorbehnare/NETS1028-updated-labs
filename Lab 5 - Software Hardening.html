@@ -243,7 +243,7 @@
      * instead of the svg width, height property you must use a viewbox here, 0 0 1536 1792 is typically the actual size of the icon
      * each line begins with the pre-amble -webkit-mask: url("data:image/svg+xml;utf8,
      * and of course finishes with ");
-     * to precvent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
+     * to prevent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
      * on the following line
      * */
 			.fa-joplin {
@@ -555,19 +555,22 @@
 			}
 
 			.mermaid {
-				background-color: white;
 				width: 640px;
 			}
 
 			.mermaid-export-graph {
-				visibility: hidden;
+				opacity: 0;
+				height: 0;
+				z-index: 1;
+				position: relative;
 			}
 
-			.joplin-editable:hover .mermaid-export-graph {
-				visibility: visible;
+			.joplin-editable:hover .mermaid-export-graph,
+			.joplin-editable .mermaid-export-graph:has(:focus-visible) {
+				opacity: 1;
 			}
 
-			.mermaid-export-graph:hover {
+			.mermaid-export-graph>button:hover {
 				background-color: #CBDAF1 !important;
 			}
 		</style>
@@ -578,8 +581,10 @@
 				practice in changing software settings and testing those changes.</p>
 			<h2 id="grading">Grading</h2>
 			<p>This lab counts for marks. Submit your results and screenshots as per instructions posted on Blackboard.
-				For the screenshots, you only need to include enough in your screenshots to show your bash prompt, the command you ran, and the output that
-				demonstrates what you did or that the command works. For the Roundcube web page screenshot, you only need to show the login succeeded as there is no email in the account.</p>
+				For the screenshots, you only need to include enough in your screenshots to show your bash prompt, the
+				command you ran, and the output that demonstrates what you did or that the command works. For the
+				Roundcube web page screenshot, you only need to show the login succeeded as there is no email in the
+				account.</p>
 			<h2 id="over-riding-default-file-permissions-in-package-executables">Over-riding default file permissions in
 				package executables</h2>
 			<ol>
@@ -627,8 +632,10 @@ sudo dpkg --verify sudo </code></pre>
 							data-joplin-source-close="&#10;```">sudo aa-status </pre>
 						<pre class="hljs"><code><span class="hljs-attribute">sudo aa-status</span> </code></pre>
 					</div>
-					<p>Tip: You may need to install <code class="inline-code">apparmor-utils</code> to get access to
-						these utilities</p>
+					<ul>
+						<li><strong>Tip:</strong> You may need to install <code
+								class="inline-code">apparmor-utils</code> to get access to these utilities</li>
+					</ul>
 				</li>
 				<li>
 					<p>Try the aa-unconfined utility to see what processes are running that have tcp or udp ports and
@@ -645,8 +652,11 @@ sudo dpkg --verify sudo </code></pre>
 							href='https://packages.ubuntu.com/focal/all/apparmor-profiles/filelist'>Ubuntu 20.04
 							apparmor-profiles</a> package. Are there profiles in that package for the <code
 							class="inline-code">/etc/apparmor.d</code> directory which would confine software that is
-						running unconfined on your system now? - <em>submission question!</em><br>
-						Tip: Compare the unconfined list to the list of available profiles in the repository.</p>
+						running unconfined on your system now? - <em>submission question!</em></p>
+					<ul>
+						<li><strong>Tip:</strong> Compare the unconfined list to the list of available profiles in the
+							online repository!</li>
+					</ul>
 				</li>
 				<li>
 					<p>Try using the –paranoid option for aa-unconfined to see if there are processes which could be
@@ -665,7 +675,7 @@ sudo dpkg --verify sudo </code></pre>
 						<pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;"
 							data-joplin-source-close="&#10;```">cat /etc/apparmor.d/usr.sbin.tcpdump </pre>
 						<pre
-							class="hljs"><code>cat <span class="hljs-regexp">/etc/</span>apparmor.d/usr.sbin.tcpdump </code></pre>
+							class="hljs"><code><span class="hljs-built_in">cat</span> /etc/apparmor.d/usr.sbin.tcpdump </code></pre>
 					</div>
 				</li>
 				<li>
@@ -674,7 +684,7 @@ sudo dpkg --verify sudo </code></pre>
 						- <em>submission question!</em></p>
 				</li>
 			</ol>
-			<h2 id="sudo-configuration">sudo configuration</h2>
+			<h2 id="sudo-configuration">sudo Configuration</h2>
 			<p><a data-from-md title='https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file'
 					href='https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file'>Digital Ocena’s
 					tips page for sudo privileges</a> is a helpful resource when looking for how to edit sudo
@@ -683,6 +693,10 @@ sudo dpkg --verify sudo </code></pre>
 				<li>
 					<p>Modify your sudo executable to be accessible for execution by any user, so that we can use the
 						sudoers file to control access instead</p>
+					<ul>
+						<li><strong>Tip:</strong> YOu may need to remove the prior override before applying new
+							override.</li>
+					</ul>
 					<div class="joplin-editable">
 						<pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;"
 							data-joplin-source-close="&#10;```">sudo dpkg-statoverride --update --add root sudo 4555 /usr/bin/sudo </pre>
@@ -694,7 +708,8 @@ sudo dpkg --verify sudo </code></pre>
 					<p>Modify your /etc/sudoers file to limit the <code class="inline-code">dennis</code> account so
 						that they can only use root sudo to edit their own domain zone file (<code
 							class="inline-code">/etc/bind/db.simpson22725.mytld</code>) and reload named using the <code
-							class="inline-code">rndc reload</code> command</p>
+							class="inline-code">rndc reload</code> command. Provide a screenshot of your modified
+						configurations - <em>screenshot!</em></p>
 					<div class="joplin-editable">
 						<pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;"
 							data-joplin-source-close="&#10;```">visudo </pre>
@@ -730,10 +745,12 @@ dennis$ sudo bash </pre>
 			</ol>
 			<h2 id="bind-improvements">BIND improvements</h2>
 			<ol>
-				<li>Following the information given in <a data-from-md
-						title='https://bind9.readthedocs.io/en/latest/chapter7.html'
-						href='https://bind9.readthedocs.io/en/latest/chapter7.html'>&quot;Security Configuration&quot;
-						of the Bind9 Administrator’s Reference Manual (ARM)</a>, secure your bind service by:
+				<li>
+					<p>Following the information given in <a data-from-md
+							title='https://bind9.readthedocs.io/en/latest/chapter7.html'
+							href='https://bind9.readthedocs.io/en/latest/chapter7.html'>&quot;Security
+							Configuration&quot; of the Bind9 Administrator’s Reference Manual (ARM)</a>, secure your
+						bind service by:</p>
 					<ul>
 						<li>adding the bogusnets acl as shown in the ARM (in <code
 								class="inline-code">/etc/bind/named.conf.options</code>)</li>
@@ -745,8 +762,10 @@ dennis$ sudo bash </pre>
 								class="inline-code">named.conf.local</code>)</li>
 					</ul>
 				</li>
-				<li>Verify your DNS service reloads the new configuration properly, and that your domain lookup still
-					works:<div class="joplin-editable">
+				<li>
+					<p>Verify your DNS service reloads the new configuration properly, and that your domain lookup still
+						works:</p>
+					<div class="joplin-editable">
 						<pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;"
 							data-joplin-source-close="&#10;```">sudo rndc reload 
 nslookup www.simpson22725.mytld</pre>
@@ -754,16 +773,18 @@ nslookup www.simpson22725.mytld</pre>
 nslookup www.simpson22725.mytld</code></pre>
 					</div>
 				</li>
-				<li>Provide Screenshots of the following: - <em>screenshots</em><br>
-					a. Screenshot/contents of modified <code class="inline-code">/etc/bind/named.conf.local</code>
-					file<br>
-					b. Screenshot/contents of modified <code class="inline-code">/etc/bind/named.conf.options</code>
-					file<br>
-					c. Screenshot of bind9 service status: <code
-						class="inline-code">sudo service bind9 status</code><br>
-					d. In a terminal or powershell window on your host laptop/computer, run <code
-						class="inline-code">nslookup www.simpson22725.mytld ip-of-your-vm</code> to verify your domain
-					service is still available to non-local clients</li>
+				<li>
+					<p>Provide Screenshots of the following: - <em>screenshots</em><br>
+						a. Screenshot/contents of modified <code class="inline-code">/etc/bind/named.conf.local</code>
+						file<br>
+						b. Screenshot/contents of modified <code class="inline-code">/etc/bind/named.conf.options</code>
+						file<br>
+						c. Screenshot of bind9 service status: <code
+							class="inline-code">sudo service bind9 status</code><br>
+						d. In a terminal or powershell window on your host laptop/computer, run <code
+							class="inline-code">nslookup www.simpson22725.mytld ip-of-your-vm</code> to verify your
+						domain service is still available to non-local clients</p>
+				</li>
 			</ol>
 			<h2 id="mysql-basic-hygiene">MySQL basic hygiene</h2>
 			<ol>
@@ -831,7 +852,8 @@ Bye</code></pre>
 						href='http://your-vm-ip/roundcube'>http://your-vm-ip/roundcube</a> and view a user mailbox.
 					<em>- screenshot</em></li>
 				<li>Taking a layered security approach what firewall changes would you make to the existing labVM system
-					to limit email clients to only POP3S and IMAPS? - <em>submission question!</em></li>
+					to limit email clients to only POP3S and IMAPS? Provide commands or output snippets from your
+					firewall configuration - <em>submission question!</em></li>
 			</ol>
 			<h2 id="known-vulnerabilities">Known vulnerabilities</h2>
 			<ol>
@@ -855,7 +877,12 @@ Bye</code></pre>
 							that may not be maintained, updated, or easily audited using dpkg/apt.</li>
 						<li>The script is imperfect and outputs a lot of lines.</li>
 						<li>What are the sources of all these unknown executable files? List all the sources that you
-							find with examples from the output of the script. <em>- submission question!</em></li>
+							find with examples from the output of the script. <em>- submission question!</em>
+							<ul>
+								<li><strong>Tip</strong>: You are being asked to find the potential sources that these
+									executables are coming from, since dpkg/apt did not install them!</li>
+							</ul>
+						</li>
 					</ul>
 				</li>
 				<li>Either modify the script to improve the output to remove some of the known sources or analyze the
