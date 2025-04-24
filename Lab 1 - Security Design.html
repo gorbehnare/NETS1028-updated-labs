@@ -1,243 +1,286 @@
-<!DOCTYPE html>
-<html>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="pluginAssets/katex/katex.css">
-	<script type="application/javascript" src="pluginAssets/mermaid/mermaid.min.js"></script>
-	<script type="application/javascript" src="pluginAssets/mermaid/mermaid_render.js"></script>
-	<link rel="stylesheet" href="pluginAssets/highlight.js/atom-one-light.css">
-	<title>Lab 1 - Security Design</title>
-</head>
+				
+				<html>
+					<head>
+						<meta charset="UTF-8"/>
+						<meta name="viewport" content="width=device-width, initial-scale=1"/>
+						<style>.jsdraw--editButton {
+  display: none;
+  width: min-content;
+  max-height: 50px;
+  z-index: 1;
+  opacity: 0.9;
+  align-self: flex-end;
+  justify-self: right;
+}
 
-<body>
-	<div class="exported-note">
-		<div class="exported-note-title">Lab 1 - Security Design</div>
+.jsdraw--svgWrapper {
+  display: inline-grid;
+}
 
-		<style>
-			/* https://necolas.github.io/normalize.css/ */
-			html {
-				line-height: 1.15;
-				-ms-text-size-adjust: 100%;
-				-webkit-text-size-adjust: 100%
-			}
+.jsdraw--svgWrapper > * {
+  grid-row: 1;
+  grid-column: 1;
+}
 
-			body {
-				margin: 0
-			}
+.jsdraw--svgWrapper:hover .jsdraw--editButton,
+.jsdraw--svgWrapper:focus .jsdraw--editButton,
+.jsdraw--svgWrapper:focus-within .jsdraw--editButton,
+.jsdraw--editButton:focus {
+  display: block;
+}</style><style>pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+}
 
-			article,
-			aside,
-			footer,
-			header,
-			nav,
-			section {
-				display: block
-			}
+code.hljs {
+  padding: 3px 5px;
+}
 
-			h1 {
-				font-size: 2em;
-				margin: .67em 0
-			}
+/*
 
-			hr {
-				box-sizing: content-box;
-				height: 0;
-				overflow: visible
-			}
+Atom One Light by Daniel Gamage
+Original One Light Syntax theme from https://github.com/atom/one-light-syntax
 
-			pre {
-				font-family: monospace, monospace;
-				font-size: 1em
-			}
+base:    #fafafa
+mono-1:  #383a42
+mono-2:  #686b77
+mono-3:  #a0a1a7
+hue-1:   #0184bb
+hue-2:   #4078f2
+hue-3:   #a626a4
+hue-4:   #50a14f
+hue-5:   #e45649
+hue-5-2: #c91243
+hue-6:   #986801
+hue-6-2: #c18401
 
-			a {
-				background-color: transparent;
-				-webkit-text-decoration-skip: objects
-			}
+*/
 
-			b,
-			strong {
-				font-weight: bolder
-			}
+.hljs {
+  color: #383a42;
+  background: #fafafa;
+}
 
-			small {
-				font-size: 80%
-			}
+.hljs-comment,
+.hljs-quote {
+  color: #a0a1a7;
+  font-style: italic;
+}
 
-			img {
-				border-style: none
-			}
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #a626a4;
+}
 
-			body {
-				font-size: 15px;
-				color: #32373F;
-				word-wrap: break-word;
-				line-height: 1.6em;
-				background-color: #ffffff;
-				font-family: 'Avenir', 'Arial', sans-serif;
-				padding-bottom: 0px;
-				padding-top: 0px;
-			}
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e45649;
+}
 
-			kbd {
-				border: 1px solid rgb(220, 220, 220);
-				box-shadow: inset 0 -1px 0 rgb(220, 220, 220);
-				padding: 2px 4px;
-				border-radius: 3px;
-				background-color: rgb(243, 243, 243);
-			}
+.hljs-literal {
+  color: #0184bb;
+}
 
-			::-webkit-scrollbar {
-				width: 7px;
-				height: 7px;
-			}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+  color: #50a14f;
+}
 
-			::-webkit-scrollbar-corner {
-				background: none;
-			}
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #986801;
+}
 
-			::-webkit-scrollbar-track {
-				border: none;
-			}
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #4078f2;
+}
 
-			::-webkit-scrollbar-thumb {
-				background: rgba(100, 100, 100, 0.3);
-				border-radius: 5px;
-			}
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #c18401;
+}
 
-			::-webkit-scrollbar-track:hover {
-				background: rgba(0, 0, 0, 0.1);
-			}
+.hljs-emphasis {
+  font-style: italic;
+}
 
-			::-webkit-scrollbar-thumb:hover {
-				background: rgba(100, 100, 100, 0.7);
-			}
+.hljs-strong {
+  font-weight: bold;
+}
 
+.hljs-link {
+  text-decoration: underline;
+}</style>
+						<title>Lab 1 - Key</title>
+					</head>
+					<body>
+						<div class="exported-note"><div class="exported-note-title">Lab 1 - Key</div>
 
+<style>
+		/* https://necolas.github.io/normalize.css/ */
+		html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}
+		article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}
+		pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}
+		b,strong{font-weight:bolder}small{font-size:80%}img{border-style:none}
 
-			/* Remove top padding and margin from first child so that top of rendered text is aligned to top of text editor text */
+		body {
+			font-size: 15px;
+			color: #32373F;
+			word-wrap: break-word;
+			line-height: 1.6em;
+			background-color: #ffffff;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
+			padding-bottom: 0px;
+			padding-top: 0px;
+		}
+		kbd {
+			border: 1px solid rgb(220, 220, 220);
+			box-shadow: inset 0 -1px 0 rgb(220, 220, 220);
+			padding: 2px 4px;
+			border-radius: 3px;
+			background-color: rgb(243, 243, 243);
+		}
 
-			#rendered-md>h1:first-child,
-			#rendered-md>h2:first-child,
-			#rendered-md>h3:first-child,
-			#rendered-md>h4:first-child,
-			#rendered-md>ul:first-child,
-			#rendered-md>ol:first-child,
-			#rendered-md>table:first-child,
-			#rendered-md>blockquote:first-child,
-			#rendered-md>img:first-child,
-			#rendered-md>p:first-child {
-				margin-top: 0;
-				padding-top: 0;
-			}
+		:root {
+			--scrollbar-size: 7px;
+		}
 
-			p,
-			h1,
-			h2,
-			h3,
-			h4,
-			h5,
-			h6,
-			ul,
-			table {
-				margin-top: .6em;
-				margin-bottom: 1.35em;
+		::-webkit-scrollbar {
+			width: var(--scrollbar-size);
+			height: var(--scrollbar-size);
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: calc(var(--scrollbar-size) / 2);
+		}
+		::-webkit-scrollbar-corner {
+			background: none;
+		}
+		::-webkit-scrollbar-track {
+			border: none;
+		}
+		::-webkit-scrollbar-thumb {
+			background: rgba(100, 100, 100, 0.3); 
+			border-radius: 5px;
+		}
+		::-webkit-scrollbar-track:hover {
+			background: rgba(0, 0, 0, 0.1); 
+		}
+		::-webkit-scrollbar-thumb:hover {
+			background: rgba(100, 100, 100, 0.7); 
+		}
 
-				/*
+		
+
+		/* Remove top padding and margin from first child so that top of rendered text is aligned to top of text editor text */
+
+		#rendered-md > h1:first-child,
+		#rendered-md > h2:first-child,
+		#rendered-md > h3:first-child,
+		#rendered-md > h4:first-child,
+		#rendered-md > ul:first-child,
+		#rendered-md > ol:first-child,
+		#rendered-md > table:first-child,
+		#rendered-md > blockquote:first-child,
+		#rendered-md > img:first-child,
+		#rendered-md > p:first-child {
+			margin-top: 0;
+			padding-top: 0;
+		}
+		
+		p, h1, h2, h3, h4, h5, h6, ul, table {
+			margin-top: .6em;
+			margin-bottom: 1.35em;
+
+			/*
 				Adds support for RTL text in the note body. It automatically detects the direction using the content.
 				Issue: https://github.com/laurent22/joplin/issues/3991
 			*/
-				unicode-bidi: plaintext;
-			}
+			unicode-bidi: plaintext;
+		}
 
-			h1,
-			h2,
-			h3,
-			h4,
-			h5,
-			h6,
-			ul,
-			table {
-				margin-bottom: 0.65em;
-			}
+		h1, h2, h3, h4, h5, h6, ul, table {
+			margin-bottom: 0.65em;
+		}
 
-			h1,
-			h2,
-			h3,
-			h4,
-			h5,
-			h6 {
-				line-height: 1.5em;
-			}
+		h1, h2, h3, h4, h5, h6 {
+			line-height: 1.5em;
+		}
+		h1 {
+			font-size: 1.5em;
+			font-weight: bold;
+			border-bottom: 1px solid #dddddd;
+			padding-bottom: .3em;
+		}
+		h2 {
+			font-size: 1.3em;
+			font-weight: bold;
+			padding-bottom: .1em; */
+		}
+		h3 {
+			font-size: 1.1em;
+			font-weight: bold;
+		}
+		h4, h5, h6 {
+			font-size: 1em;
+			font-weight: bold;
+		}
 
-			h1 {
-				font-size: 1.5em;
-				font-weight: bold;
-				border-bottom: 1px solid #dddddd;
-				padding-bottom: .3em;
-			}
+		.exported-note-title {
+			font-size: 2em;
+			font-weight: bold;
+			margin-bottom: 0.8em;
+			line-height: 1.5em;
+			padding-bottom: .35em;
+			border-bottom: 1px solid #dddddd;
+		}
 
-			h2 {
-				font-size: 1.3em;
-				font-weight: bold;
-				padding-bottom: .1em;
-				*/
-			}
+		a {
+			color: #155BDA;
+		}
+		ul, ol {
+			padding-left: 0;
+			margin-left: 1.7em;
+		}
+		li {
+			margin-bottom: .4em;
+		}
+		li p {
+			margin-top: 0.2em;
+			margin-bottom: 0;
+		}
 
-			h3 {
-				font-size: 1.1em;
-				font-weight: bold;
-			}
-
-			h4,
-			h5,
-			h6 {
-				font-size: 1em;
-				font-weight: bold;
-			}
-
-			.exported-note-title {
-				font-size: 2em;
-				font-weight: bold;
-				margin-bottom: 0.8em;
-				line-height: 1.5em;
-				padding-bottom: .35em;
-				border-bottom: 1px solid #dddddd;
-			}
-
-			a {
-				color: #155BDA;
-			}
-
-			ul,
-			ol {
-				padding-left: 0;
-				margin-left: 1.7em;
-			}
-
-			li {
-				margin-bottom: .4em;
-			}
-
-			li p {
-				margin-top: 0.2em;
-				margin-bottom: 0;
-			}
-
-			.resource-icon {
-				display: inline-block;
-				position: relative;
-				top: 0.3em;
-				text-decoration: none;
-				width: 1.2em;
-				height: 1.4em;
-				margin-right: 0.4em;
-				background-color: #155BDA;
-			}
-
-			/* These icons are obtained from the wonderful ForkAwesome project by copying the src svgs 
+		.resource-icon {
+			display: inline-block;
+			position: relative;
+			top: 0.3em;
+			text-decoration: none;
+			width: 1.2em;
+			height: 1.4em;
+			margin-right: 0.4em;
+			background-color:  #155BDA;
+		}
+    /* These icons are obtained from the wonderful ForkAwesome project by copying the src svgs 
      * into the css classes below.
      * svgs are obtained from https://github.com/ForkAwesome/Fork-Awesome/tree/master/src/icons/svg
      * instead of the svg width, height property you must use a viewbox here, 0 0 1536 1792 is typically the actual size of the icon
@@ -246,494 +289,727 @@
      * to prevent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
      * on the following line
      * */
-			.fa-joplin {
-				/* Awesome Font file */
-				-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M373.834 128C168.227 128 0 296.223 0 501.834v788.336C0 1495.778 168.227 1664 373.834 1664h788.336c205.608 0 373.83-168.222 373.83-373.83V501.834C1536 296.224 1367.778 128 1162.17 128zm397.222 205.431h417.424a7.132 7.132 0 0 1 7.132 7.133v132.552c0 4.461-3.619 8.073-8.077 8.073h-57.23c-24.168 0-43.768 19.338-44.284 43.374v2.377h-.017v136.191h-.053l-.466 509.375c-5.02 77.667-39.222 149.056-96.324 201.046-60.28 54.834-141.948 85.017-229.962 85.017-12.45 0-25.208-.61-37.907-1.785-92.157-8.682-181.494-48.601-251.662-112.438-71.99-65.517-117.147-150.03-127.164-238-11.226-98.763 23.42-192.783 95.045-257.937 81.99-74.637 198.185-101.768 316.613-75.704 5.574 1.227 9.55 6.282 9.55 11.997v199.52c-.199 2.625-1.481 6.599-8.183 2.896-.663-.365-1.194-.511-1.653-.531-21.987-10.587-45.159-17.57-68.559-19.916-.38-.04-.757-.124-1.138-.163-.537-.048-1.034-.033-1.556-.075-4.13-.354-8.183-.517-12.203-.58-.87-.011-1.771-.127-2.641-.127-.486 0-.951.05-1.437.057-1.464.011-2.886.115-4.33.163-2.76.102-5.497.211-8.182.448-.273.024-.547.07-.835.097-25.509 2.4-47.864 11.104-65.012 25.47-.954.802-1.974 1.53-2.9 2.36a1.34 1.34 0 0 1-.168.146c-23.96 21.8-34.881 53.872-30.726 90.316 4.62 40.737 26.94 81.156 62.841 113.823 35.908 32.67 80.335 52.977 125.113 57.186 35.118 3.36 66.547-3.919 89.899-20.461a97.255 97.255 0 0 0 9.365-7.501c2.925-2.661 5.569-5.5 8.086-8.416.3-.348.672-.673.975-1.024 8.253-9.864 14.222-21.067 17.996-33.148.639-2.034 1.051-4.148 1.564-6.227.381-1.563.81-3.106 1.112-4.693.555-2.784.923-5.632 1.253-8.49.086-.709.183-1.414.237-2.128.492-4.893.693-9.858.55-14.91h.013V521.623c-2.01-22.626-20.78-40.434-43.928-40.434h-57.23a8.071 8.071 0 0 1-8.077-8.073V340.564a7.132 7.132 0 0 1 7.136-7.133z'/></svg>");
-			}
+		.fa-joplin {
+			/* Awesome Font file */
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M373.834 128C168.227 128 0 296.223 0 501.834v788.336C0 1495.778 168.227 1664 373.834 1664h788.336c205.608 0 373.83-168.222 373.83-373.83V501.834C1536 296.224 1367.778 128 1162.17 128zm397.222 205.431h417.424a7.132 7.132 0 0 1 7.132 7.133v132.552c0 4.461-3.619 8.073-8.077 8.073h-57.23c-24.168 0-43.768 19.338-44.284 43.374v2.377h-.017v136.191h-.053l-.466 509.375c-5.02 77.667-39.222 149.056-96.324 201.046-60.28 54.834-141.948 85.017-229.962 85.017-12.45 0-25.208-.61-37.907-1.785-92.157-8.682-181.494-48.601-251.662-112.438-71.99-65.517-117.147-150.03-127.164-238-11.226-98.763 23.42-192.783 95.045-257.937 81.99-74.637 198.185-101.768 316.613-75.704 5.574 1.227 9.55 6.282 9.55 11.997v199.52c-.199 2.625-1.481 6.599-8.183 2.896-.663-.365-1.194-.511-1.653-.531-21.987-10.587-45.159-17.57-68.559-19.916-.38-.04-.757-.124-1.138-.163-.537-.048-1.034-.033-1.556-.075-4.13-.354-8.183-.517-12.203-.58-.87-.011-1.771-.127-2.641-.127-.486 0-.951.05-1.437.057-1.464.011-2.886.115-4.33.163-2.76.102-5.497.211-8.182.448-.273.024-.547.07-.835.097-25.509 2.4-47.864 11.104-65.012 25.47-.954.802-1.974 1.53-2.9 2.36a1.34 1.34 0 0 1-.168.146c-23.96 21.8-34.881 53.872-30.726 90.316 4.62 40.737 26.94 81.156 62.841 113.823 35.908 32.67 80.335 52.977 125.113 57.186 35.118 3.36 66.547-3.919 89.899-20.461a97.255 97.255 0 0 0 9.365-7.501c2.925-2.661 5.569-5.5 8.086-8.416.3-.348.672-.673.975-1.024 8.253-9.864 14.222-21.067 17.996-33.148.639-2.034 1.051-4.148 1.564-6.227.381-1.563.81-3.106 1.112-4.693.555-2.784.923-5.632 1.253-8.49.086-.709.183-1.414.237-2.128.492-4.893.693-9.858.55-14.91h.013V521.623c-2.01-22.626-20.78-40.434-43.928-40.434h-57.23a8.071 8.071 0 0 1-8.077-8.073V340.564a7.132 7.132 0 0 1 7.136-7.133z'/></svg>");
+		}
+		.fa-file-image {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-128-448v320H256v-192l192-192 128 128 384-384zm-832-192c-106 0-192-86-192-192s86-192 192-192 192 86 192 192-86 192-192 192z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-pdf {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-514-593c25 20 53 38 84 56 42-5 81-7 117-7 67 0 152 8 177 49 7 10 13 28 2 52-1 1-2 3-3 4v1c-3 18-18 38-71 38-64 0-161-29-245-73-139 15-285 46-392 83-103 176-182 262-242 262-10 0-19-2-28-7l-24-12c-3-1-4-3-6-5-5-5-9-16-6-36 10-46 64-123 188-188 8-5 18-2 23 6 1 1 2 3 2 4 31-51 67-116 107-197 45-90 80-178 104-262-32-109-42-221-24-287 7-25 22-40 42-40h22c15 0 27 5 35 15 12 14 15 36 9 68-1 3-2 6-4 8 1 3 1 5 1 8v30c-1 63-2 123-14 192 35 105 87 190 146 238zm-576 411c30-14 73-57 137-158-75 58-122 124-137 158zm398-920c-10 28-10 76-2 132 3-16 5-31 7-44 2-17 5-31 7-43 1-3 2-5 4-8-1-1-1-3-2-5-1-18-7-29-13-36 0 2-1 3-1 4zm-124 661c88-35 186-63 284-81-10-8-20-15-29-23-49-43-93-103-127-176-19 61-47 126-83 197-15 28-30 56-45 83zm646-16c-5-5-31-24-140-24 49 18 94 28 124 28 9 0 14 0 18-1 0-1-1-2-2-3z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-word {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM233 768v107h70l164 661h159l128-485c5-15 8-30 10-46 1-8 2-16 2-24h4l3 24c3 14 4 30 9 46l128 485h159l164-661h70V768h-300v107h90l-99 438c-4 16-6 33-7 46l-2 21h-4c0-6-2-14-3-21-3-13-5-30-9-46L825 768H711l-144 545c-4 16-5 33-8 46l-4 21h-4l-2-21c-1-13-3-30-7-46l-99-438h90V768H233z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-powerpoint {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-992-234v106h327v-106h-93v-167h137c43 0 82-2 118-15 90-31 146-124 146-233s-54-193-137-228c-38-15-84-19-130-19H416v107h92v555h-92zm353-280H650V882h120c35 0 62 6 83 18 36 21 56 62 56 115 0 56-20 99-62 120-21 10-47 15-78 15z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-excel {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-979-234v106h281v-106h-75l103-161c12-19 18-34 21-34h2c1 4 3 7 5 10 4 8 10 14 17 24l107 161h-76v106h291v-106h-68l-192-273 195-282h67V768H828v107h74l-103 159c-12 19-21 34-21 33h-2c-1-4-3-7-5-10-4-7-9-14-17-23L648 875h76V768H434v107h68l189 272-194 283h-68z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-audio {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM620 850c12 5 20 17 20 30v544c0 13-8 25-20 30-4 1-8 2-12 2-8 0-16-3-23-9l-166-167H288c-18 0-32-14-32-32v-192c0-18 14-32 32-32h131l166-167c10-9 23-12 35-7zm417 689c19 0 37-8 50-24 83-102 129-231 129-363s-46-261-129-363c-22-28-63-32-90-10-28 23-32 63-9 91 65 80 100 178 100 282s-35 202-100 282c-23 28-19 68 9 90 12 10 26 15 40 15zm-211-148c17 0 34-7 47-20 56-60 87-137 87-219s-31-159-87-219c-24-26-65-27-91-3-25 24-27 65-2 91 33 36 52 82 52 131s-19 95-52 131c-25 26-23 67 2 91 13 11 29 17 44 17z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-video {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM768 768c70 0 128 58 128 128v384c0 70-58 128-128 128H384c-70 0-128-58-128-128V896c0-70 58-128 128-128h384zm492 2c12 5 20 17 20 30v576c0 13-8 25-20 30-4 1-8 2-12 2-8 0-17-3-23-9l-265-266v-90l265-266c6-6 15-9 23-9 4 0 8 1 12 2z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-archive {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M640 384V256H512v128h128zm128 128V384H640v128h128zM640 640V512H512v128h128zm128 128V640H640v128h128zm700-388c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H768v128H640V128H128v1536h1280zM781 943c85 287 107 349 107 349 5 17 8 34 8 52 0 111-108 192-256 192s-256-81-256-192c0-18 3-35 8-52 0 0 21-62 120-396V768h128v128h79c29 0 54 19 62 47zm-141 465c71 0 128-29 128-64s-57-64-128-64-128 29-128 64 57 64 128 64z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-code {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM480 768c11-14 31-17 45-6l51 38c14 11 17 31 6 45l-182 243 182 243c11 14 8 34-6 45l-51 38c-14 11-34 8-45-6l-226-301c-8-11-8-27 0-38zm802 301c8 11 8 27 0 38l-226 301c-11 14-31 17-45 6l-51-38c-14-11-17-31-6-45l182-243-182-243c-11-14-8-34 6-45l51-38c14-11 34-8 45 6zm-620 461c-18-3-29-20-26-37l138-831c3-18 20-29 37-26l63 10c18 3 29 20 26 37l-138 831c-3 18-20 29-37 26z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-alt, .fa-file-csv {
+      /* fork-awesome doesn't have csv so we use the text icon */
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM384 800c0-18 14-32 32-32h704c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64zm736 224c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64c0-18 14-32 32-32h704zm0 256c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64c0-18 14-32 32-32h704z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		blockquote {
+			border-left: 4px solid rgb(220, 220, 220);
+			padding-left: 1.2em;
+			margin-left: 0;
+			opacity: 0.7;
+		}
 
-			.fa-file-image {
-				-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-128-448v320H256v-192l192-192 128 128 384-384zm-832-192c-106 0-192-86-192-192s86-192 192-192 192 86 192 192-86 192-192 192z'/></svg>");
-				-webkit-mask-repeat: no-repeat;
-			}
+		.jop-tinymce table,
+		table {
+			text-align: left;
+			border-collapse: collapse;
+			border: 1px solid rgb(220, 220, 220);
+			background-color: #ffffff;
+		}
 
-			.fa-file-pdf {
-				-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-514-593c25 20 53 38 84 56 42-5 81-7 117-7 67 0 152 8 177 49 7 10 13 28 2 52-1 1-2 3-3 4v1c-3 18-18 38-71 38-64 0-161-29-245-73-139 15-285 46-392 83-103 176-182 262-242 262-10 0-19-2-28-7l-24-12c-3-1-4-3-6-5-5-5-9-16-6-36 10-46 64-123 188-188 8-5 18-2 23 6 1 1 2 3 2 4 31-51 67-116 107-197 45-90 80-178 104-262-32-109-42-221-24-287 7-25 22-40 42-40h22c15 0 27 5 35 15 12 14 15 36 9 68-1 3-2 6-4 8 1 3 1 5 1 8v30c-1 63-2 123-14 192 35 105 87 190 146 238zm-576 411c30-14 73-57 137-158-75 58-122 124-137 158zm398-920c-10 28-10 76-2 132 3-16 5-31 7-44 2-17 5-31 7-43 1-3 2-5 4-8-1-1-1-3-2-5-1-18-7-29-13-36 0 2-1 3-1 4zm-124 661c88-35 186-63 284-81-10-8-20-15-29-23-49-43-93-103-127-176-19 61-47 126-83 197-15 28-30 56-45 83zm646-16c-5-5-31-24-140-24 49 18 94 28 124 28 9 0 14 0 18-1 0-1-1-2-2-3z'/></svg>");
-				-webkit-mask-repeat: no-repeat;
-			}
+		.jop-tinymce table td, .jop-tinymce table th,
+		table td, th {
+			text-align: left;
+			padding: .5em 1em .5em 1em;
+			font-size: 15;
+			color: #32373F;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
+		}
 
-			.fa-file-word {
-				-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM233 768v107h70l164 661h159l128-485c5-15 8-30 10-46 1-8 2-16 2-24h4l3 24c3 14 4 30 9 46l128 485h159l164-661h70V768h-300v107h90l-99 438c-4 16-6 33-7 46l-2 21h-4c0-6-2-14-3-21-3-13-5-30-9-46L825 768H711l-144 545c-4 16-5 33-8 46l-4 21h-4l-2-21c-1-13-3-30-7-46l-99-438h90V768H233z'/></svg>");
-				-webkit-mask-repeat: no-repeat;
-			}
+		.jop-tinymce table td,
+		table td {
+			border: 1px solid rgb(220, 220, 220);
+		}
 
-			.fa-file-powerpoint {
-				-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-992-234v106h327v-106h-93v-167h137c43 0 82-2 118-15 90-31 146-124 146-233s-54-193-137-228c-38-15-84-19-130-19H416v107h92v555h-92zm353-280H650V882h120c35 0 62 6 83 18 36 21 56 62 56 115 0 56-20 99-62 120-21 10-47 15-78 15z'/></svg>");
-				-webkit-mask-repeat: no-repeat;
-			}
+		.jop-tinymce table th,
+		table th {
+			border: 1px solid rgb(220, 220, 220);
+			border-bottom: 2px solid rgb(220, 220, 220);
+			background-color: rgb(247, 247, 247);
+		}
 
-			.fa-file-excel {
-				-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-979-234v106h281v-106h-75l103-161c12-19 18-34 21-34h2c1 4 3 7 5 10 4 8 10 14 17 24l107 161h-76v106h291v-106h-68l-192-273 195-282h67V768H828v107h74l-103 159c-12 19-21 34-21 33h-2c-1-4-3-7-5-10-4-7-9-14-17-23L648 875h76V768H434v107h68l189 272-194 283h-68z'/></svg>");
-				-webkit-mask-repeat: no-repeat;
-			}
+		.jop-tinymce table tr:nth-child(even),
+		table tr:nth-child(even) {
+			background-color: rgb(247, 247, 247);
+		}
 
-			.fa-file-audio {
-				-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM620 850c12 5 20 17 20 30v544c0 13-8 25-20 30-4 1-8 2-12 2-8 0-16-3-23-9l-166-167H288c-18 0-32-14-32-32v-192c0-18 14-32 32-32h131l166-167c10-9 23-12 35-7zm417 689c19 0 37-8 50-24 83-102 129-231 129-363s-46-261-129-363c-22-28-63-32-90-10-28 23-32 63-9 91 65 80 100 178 100 282s-35 202-100 282c-23 28-19 68 9 90 12 10 26 15 40 15zm-211-148c17 0 34-7 47-20 56-60 87-137 87-219s-31-159-87-219c-24-26-65-27-91-3-25 24-27 65-2 91 33 36 52 82 52 131s-19 95-52 131c-25 26-23 67 2 91 13 11 29 17 44 17z'/></svg>");
-				-webkit-mask-repeat: no-repeat;
-			}
+		.jop-tinymce table tr:hover,
+		table tr:hover {
+			background-color: #e5e5e5;
+		}
 
-			.fa-file-video {
-				-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM768 768c70 0 128 58 128 128v384c0 70-58 128-128 128H384c-70 0-128-58-128-128V896c0-70 58-128 128-128h384zm492 2c12 5 20 17 20 30v576c0 13-8 25-20 30-4 1-8 2-12 2-8 0-17-3-23-9l-265-266v-90l265-266c6-6 15-9 23-9 4 0 8 1 12 2z'/></svg>");
-				-webkit-mask-repeat: no-repeat;
-			}
+		hr {
+			border: none;
+			border-bottom: 2px solid #dddddd;
+		}
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+		
+		.inline-code,
+		.mce-content-body code {
+			border: 1px solid rgb(220, 220, 220);
+			background-color: rgb(243, 243, 243);
+			padding-right: .2em;
+			padding-left: .2em;
+			border-radius: .25em;
+			color: rgb(0,0,0);
+			font-size: .9em;
+		}
 
-			.fa-file-archive {
-				-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M640 384V256H512v128h128zm128 128V384H640v128h128zM640 640V512H512v128h128zm128 128V640H640v128h128zm700-388c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H768v128H640V128H128v1536h1280zM781 943c85 287 107 349 107 349 5 17 8 34 8 52 0 111-108 192-256 192s-256-81-256-192c0-18 3-35 8-52 0 0 21-62 120-396V768h128v128h79c29 0 54 19 62 47zm-141 465c71 0 128-29 128-64s-57-64-128-64-128 29-128 64 57 64 128 64z'/></svg>");
-				-webkit-mask-repeat: no-repeat;
-			}
+		.highlighted-keyword {
+			background-color: #F3B717;
+			color: black;
+		}
 
-			.fa-file-code {
-				-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM480 768c11-14 31-17 45-6l51 38c14 11 17 31 6 45l-182 243 182 243c11 14 8 34-6 45l-51 38c-14 11-34 8-45-6l-226-301c-8-11-8-27 0-38zm802 301c8 11 8 27 0 38l-226 301c-11 14-31 17-45 6l-51-38c-14-11-17-31-6-45l182-243-182-243c-11-14-8-34 6-45l51-38c14-11 34-8 45 6zm-620 461c-18-3-29-20-26-37l138-831c3-18 20-29 37-26l63 10c18 3 29 20 26 37l-138 831c-3 18-20 29-37 26z'/></svg>");
-				-webkit-mask-repeat: no-repeat;
-			}
+		
+	.not-loaded-resource img {
+		width: 1.15em;
+		height: 1.15em;
+		background: white;
+		padding: 2px !important;
+		border-radius: 2px;
+		box-shadow: 0 1px 3px #000000aa;
+	}
 
-			.fa-file-alt,
-			.fa-file-csv {
-				/* fork-awesome doesn't have csv so we use the text icon */
-				-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM384 800c0-18 14-32 32-32h704c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64zm736 224c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64c0-18 14-32 32-32h704zm0 256c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64c0-18 14-32 32-32h704z'/></svg>");
-				-webkit-mask-repeat: no-repeat;
-			}
+	a.not-loaded-resource img {
+		margin-right: .2em;
+	}
 
-			.fa-file {
-				-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280z'/></svg>");
-				-webkit-mask-repeat: no-repeat;
-			}
+	a.not-loaded-resource {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
 
-			blockquote {
-				border-left: 4px solid rgb(220, 220, 220);
-				padding-left: 1.2em;
-				margin-left: 0;
-				opacity: 0.7;
-			}
 
-			.jop-tinymce table,
-			table {
-				text-align: left;
-				border-collapse: collapse;
-				border: 1px solid rgb(220, 220, 220);
-				background-color: #ffffff;
-			}
+		.md-checkbox input[type=checkbox]:checked {
+			opacity: 0.7;
+		}
 
-			.jop-tinymce table td,
-			.jop-tinymce table th,
-			table td,
-			th {
-				text-align: left;
-				padding: .5em 1em .5em 1em;
-				font-size: 15;
-				color: #32373F;
-				font-family: 'Avenir', 'Arial', sans-serif;
-			}
+		.jop-tinymce ul.joplin-checklist .checked,
+		.md-checkbox .checkbox-label-checked {
+			opacity: 0.5;
+		}
 
-			.jop-tinymce table td,
-			table td {
-				border: 1px solid rgb(220, 220, 220);
-			}
+		.exported-note {
+			padding: 1em;
+		}
 
-			.jop-tinymce table th,
-			table th {
-				border: 1px solid rgb(220, 220, 220);
-				border-bottom: 2px solid rgb(220, 220, 220);
-				background-color: rgb(247, 247, 247);
-			}
+		.joplin-editable .joplin-source {
+			display: none;
+		}
 
-			.jop-tinymce table tr:nth-child(even),
-			table tr:nth-child(even) {
-				background-color: rgb(247, 247, 247);
-			}
+		mark {
+			background: #F7D26E;
+			color: black;
+		}
 
-			.jop-tinymce table tr:hover,
-			table tr:hover {
-				background-color: #e5e5e5;
-			}
+		/* =============================================== */
+		/* For TinyMCE */
+		/* =============================================== */
 
-			hr {
-				border: none;
-				border-bottom: 2px solid #dddddd;
-			}
+		.mce-content-body {
+			/* Note: we give a bit more padding at the bottom, to allow scrolling past the end of the document */
+			padding: 5px 10px 10em 0;
+		}
 
-			img {
-				max-width: 100%;
-				height: auto;
-			}
-
-			.inline-code,
-			.mce-content-body code {
-				border: 1px solid rgb(220, 220, 220);
-				background-color: rgb(243, 243, 243);
-				padding-right: .2em;
-				padding-left: .2em;
-				border-radius: .25em;
-				color: rgb(0, 0, 0);
-				font-size: .9em;
-			}
-
-			.highlighted-keyword {
-				background-color: #F3B717;
-				color: black;
-			}
-
-			.not-loaded-resource img {
-				width: 1.15em;
-				height: 1.15em;
-				background: white;
-				padding: 2px !important;
-				border-radius: 2px;
-				box-shadow: 0 1px 3px #000000aa;
-			}
-
-			a.not-loaded-resource img {
-				margin-right: .2em;
-			}
-
-			a.not-loaded-resource {
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-			}
-
-			.md-checkbox input[type=checkbox]:checked {
-				opacity: 0.7;
-			}
-
-			.jop-tinymce ul.joplin-checklist .checked,
-			.md-checkbox .checkbox-label-checked {
-				opacity: 0.5;
-			}
-
-			.exported-note {
-				padding: 1em;
-			}
-
-			.joplin-editable .joplin-source {
-				display: none;
-			}
-
-			mark {
-				background: #F7D26E;
-				color: black;
-			}
-
-			/* =============================================== */
-			/* For TinyMCE */
-			/* =============================================== */
-
-			.mce-content-body {
-				/* Note: we give a bit more padding at the bottom, to allow scrolling past the end of the document */
-				padding: 5px 10px 10em 0;
-			}
-
-			/*
+		/*
 		.mce-content-body code {
 			background-color: transparent;
 		}
 		*/
 
-			.mce-content-body [data-mce-selected=inline-boundary] {
-				background-color: transparent;
+		.mce-content-body [data-mce-selected=inline-boundary] {
+			background-color: transparent;
+		}
+
+		.mce-content-body .joplin-editable {
+			cursor: pointer !important;
+		}
+
+		.mce-content-body.mce-content-readonly {
+			opacity: 0.5;
+		}
+
+		/* We need that to make sure click events have the A has a target */
+		.katex a span {
+			pointer-events: none;
+		}
+
+		.media-player {
+			width: 100%;
+			margin-top: 10px;
+		}
+
+		.media-player.media-pdf {
+			min-height: 35rem;
+			width: 100%;
+			max-width: 1000px;
+			margin: 0;
+			border: 0;
+			display: block;
+		}
+
+		/* Clear the CODE style if the element is within a joplin-editable block */
+		.mce-content-body .joplin-editable code {
+			border: none;
+			background: none;
+			padding: 0;
+			color: inherit;
+			font-size: inherit;
+		}
+
+		/* To make code blocks horizontally scrollable */
+		/* https://github.com/laurent22/joplin/issues/5740 */
+		pre.hljs {
+			overflow-x: auto;
+		}
+
+		.joplin-table-wrapper{
+			overflow-x: auto;
+			overflow-y: hidden;
+		}
+
+		/* =============================================== */
+		/* For TinyMCE */
+		/* =============================================== */
+
+		@media print {
+			body {
+				height: auto !important;
 			}
 
-			.mce-content-body .joplin-editable {
-				cursor: pointer !important;
+			pre {
+				white-space: pre-wrap;
 			}
 
-			.mce-content-body.mce-content-readonly {
-				opacity: 0.5;
+			.code, .inline-code {
+				border: 1px solid #CBCBCB;
 			}
 
-			/* We need that to make sure click events have the A has a target */
-			.katex a span {
-				pointer-events: none;
-			}
-
-			.media-player {
-				width: 100%;
-				margin-top: 10px;
-			}
-
-			.media-player.media-pdf {
-				min-height: 35rem;
-				width: 100%;
-				max-width: 1000px;
-				margin: 0;
-				border: 0;
-				display: block;
-			}
-
-			/* Clear the CODE style if the element is within a joplin-editable block */
-			.mce-content-body .joplin-editable code {
-				border: none;
-				background: none;
-				padding: 0;
-				color: inherit;
-				font-size: inherit;
-			}
-
-			/* To make code blocks horizontally scrollable */
-			/* https://github.com/laurent22/joplin/issues/5740 */
-			pre.hljs {
-				overflow-x: auto;
-			}
-
-			/* =============================================== */
-			/* For TinyMCE */
-			/* =============================================== */
-
-			@media print {
-				body {
-					height: auto !important;
-				}
-
-				pre {
-					white-space: pre-wrap;
-				}
-
-				.code,
-				.inline-code {
-					border: 1px solid #CBCBCB;
-				}
-
-				#joplin-container-content {
-					/* The height of the content is set dynamically by JavaScript (in updateBodyHeight) to go
+			#joplin-container-content {
+				/* The height of the content is set dynamically by JavaScript (in updateBodyHeight) to go
 				   around various issues related to scrolling. However when printing we don't want this
 				   fixed size as that would crop the content. So we set it to auto here. "important" is
 				   needed to override the style set by JavaScript at the element-level. */
-					height: auto !important;
-				}
+				height: auto !important;
 			}
+		}
+	
 
-
-			/*
+				/*
 					FOR THE MARKDOWN EDITOR
 				*/
 
-			/* Remove the indentation from the checkboxes at the root of the document
+				/* Remove the indentation from the checkboxes at the root of the document
 				   (otherwise they are too far right), but keep it for their children to allow
 				   nested lists. Make sure this value matches the UL margin. */
 
-			li.md-checkbox {
-				list-style-type: none;
-			}
+				li.md-checkbox {
+					list-style-type: none;
+				}
 
-			li.md-checkbox input[type=checkbox] {
-				margin-left: -1.71em;
-				margin-right: 0.7em;
-			}
+				li.md-checkbox input[type=checkbox] {
+					margin-left: -1.71em;
+					margin-right: 0.7em;
+					position: relative;
+					top: 1px;
+				}
+				
+				ul.joplin-checklist {
+					list-style:none;
+				}
 
-			ul.joplin-checklist {
-				list-style: none;
-			}
-
-			/*
+				/*
 					FOR THE RICH TEXT EDITOR
 				*/
 
-			ul.joplin-checklist li::before {
-				content: "\f14a";
-				font-family: "Font Awesome 5 Free";
-				background-size: 16px 16px;
-				pointer-events: all;
-				cursor: pointer;
-				width: 1em;
-				height: 1em;
-				margin-left: -1.3em;
-				position: absolute;
-				color: #32373F;
-			}
+				ul.joplin-checklist li::before {
+					content:"\f14a";
+					font-family:"Font Awesome 5 Free";
+					background-size: 16px 16px;
+					pointer-events: all;
+					cursor: pointer;
+					width: 1em;
+					height: 1em;
+					margin-left: -1.3em;
+					position: absolute;
+					color: #32373F;
+				}
 
-			.joplin-checklist li:not(.checked)::before {
-				content: "\f0c8";
-			}
+				.joplin-checklist li:not(.checked)::before {
+					content:"\f0c8";
+				}
+.mermaid { width: 640px; }
+pre.mermaid[data-processed=true] { white-space: unset; }
+.mermaid-export-graph {
+					opacity: 0;
+					height: 0;
+					z-index: 1;
+					position: relative;
+				} 
+				.joplin-editable:hover .mermaid-export-graph,
+				.joplin-editable .mermaid-export-graph:has(:focus-visible) {
+					opacity: 1;
+				}
+				.mermaid-export-graph > button:hover {
+					background-color: #CBDAF1 !important;
+				}</style><div id="rendered-md"><h2 id="physical-security">Physical Security</h2>
+<h3 id="1-describe-commands-or-configuration-files-which-may-be-used-to-disable-ctrl-alt-del-reboot">1. Describe command(s) or configuration file(s) which may be used to disable ctrl-alt-del reboot</h3>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo systemctl mask ctrl-alt-del.target
+sudo systemctl daemon-reload</pre><pre class="hljs"><code>sudo systemctl <span class="hljs-selector-tag">mask</span> ctrl-alt-<span class="hljs-selector-tag">del</span><span class="hljs-selector-class">.target</span>
+sudo systemctl daemon-reload</code></pre></div>
+<p>Source: <a data-from-md="" title="https://assets.ubuntu.com/v1/f954307f-ubuntu-server-guide.pdf" href="https://assets.ubuntu.com/v1/f954307f-ubuntu-server-guide.pdf">https://assets.ubuntu.com/v1/f954307f-ubuntu-server-guide.pdf</a></p>
+<h3 id="2-describe-how-to-prevent-removable-media-filesystems-from-being-automatically-mounted">2. Describe how to prevent removable media filesystems from being automatically mounted.</h3>
+<p>udisks2 is the service for automounting removable media.</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```"># Stop the service: 
+sudo service udisks2 stop
+# Disable the service: 
+sudo systemctl disable udisks2</pre><pre class="hljs"><code><span class="hljs-comment"># Stop the service: </span>
+sudo<span class="hljs-built_in"> service </span>udisks2 stop
+<span class="hljs-comment"># Disable the service: </span>
+sudo systemctl <span class="hljs-built_in">disable</span> udisks2</code></pre></div>
+<p>The service can be manually started. However, if service is masked, then the service cannot be manually started:<br/>
+<code class="inline-code">systemctl mask udisks2</code><br/>
+to unmaks and allow staring the service manually or enabling:<br/>
+<code class="inline-code">systemctl unmask udisks2</code><br/>
+Shortest/best answer Sources: <a data-from-md="" title="https://unix.stackexchange.com/questions/333721/how-to-stop-auto-mounting-of-devices-in-ubuntu" href="https://unix.stackexchange.com/questions/333721/how-to-stop-auto-mounting-of-devices-in-ubuntu">https://unix.stackexchange.com/questions/333721/how-to-stop-auto-mounting-of-devices-in-ubuntu</a></p>
+<h2 id="boot-security">Boot Security</h2>
+<h3 id="1-password-protecting-grub-bootloader">1. Password protecting GRUB bootloader:</h3>
+<p>easier tutorial Source: <a data-from-md="" title="https://www.howtogeek.com/102009/how-to-password-protect-ubuntus-boot-loader/" href="https://www.howtogeek.com/102009/how-to-password-protect-ubuntus-boot-loader/">https://www.howtogeek.com/102009/how-to-password-protect-ubuntus-boot-loader/</a><br/>
+Main documentation Source: <a data-from-md="" title="https://www.gnu.org/software/grub/manual/grub/grub.html#password_005fpbkdf2" href="https://www.gnu.org/software/grub/manual/grub/grub.html#password_005fpbkdf2">https://www.gnu.org/software/grub/manual/grub/grub.html#password_005fpbkdf2</a></p>
+<ol>
+<li>Generate a password hash that grub can use:<br/>
+<code class="inline-code">grub-mkpasswd-pbkdf2</code><br/>
+can also export the output to a file using redirect &gt;, Example output:</li>
+</ol>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">grub.pbkdf2.sha512.10000.33EECD2558602DEF7C5EEF36E2D280053290EBD691D0ABF1E7A93B9D45693B9B68526EEDF3B1C3642E15EBB6E9096D3A2C40F8FE17E7698094ED1DDD37A599F5.13D015650223477D2D853A9B96943F813611230F322CCC8F2E888571587BFC27F006C4248626FCCEDC6341B54F44BDAAC0C147676529CADE77817DCCF31A9833</pre><pre class="hljs"><code><span class="hljs-attribute">grub</span>.pbkdf2.sha512.<span class="hljs-number">10000</span>.<span class="hljs-number">33</span>EECD2558602DEF7C5EEF36E2D280053290EBD691D0ABF1E7A93B9D45693B9B68526EEDF3B1C3642E15EBB6E9096D3A2C40F8FE17E7698094ED1DDD37A599F5.<span class="hljs-number">13</span>D015650223477D2D853A9B96943F813611230F322CCC8F2E888571587BFC27F006C4248626FCCEDC6341B54F44BDAAC0C147676529CADE77817DCCF31A9833</code></pre></div>
+<ol start="2">
+<li>Edit <code class="inline-code">/etc/grub.d/40_custom</code> and add the following lines. Can name the username anything. Note, if you edit <code class="inline-code">/etc/grub.d/00_header</code>, system updates or other changes can overwrite this file, while <code class="inline-code">40_custom</code> file stays in place</li>
+</ol>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">set superusers=&quot;admin&quot;
+password_pbkdf2 admin grub.pbkdf2.sha512.10000.33EECD2558602DEF7C5EEF36E2D280053290EBD691D0ABF1E7A93B9D45693B9B68526EEDF3B1C3642E15EBB6E9096D3A2C40F8FE17E7698094ED1DDD37A599F5.13D015650223477D2D853A9B96943F813611230F322CCC8F2E888571587BFC27F006C4248626FCCEDC6341B54F44BDAAC0C147676529CADE77817DCCF31A9833</pre><pre class="hljs"><code><span class="hljs-attribute">set</span> superusers=<span class="hljs-string">&quot;admin&quot;</span>
+<span class="hljs-attribute">password_pbkdf2</span> admin grub.pbkdf2.sha512.<span class="hljs-number">10000</span>.<span class="hljs-number">33</span>EECD2558602DEF7C5EEF36E2D280053290EBD691D0ABF1E7A93B9D45693B9B68526EEDF3B1C3642E15EBB6E9096D3A2C40F8FE17E7698094ED1DDD37A599F5.<span class="hljs-number">13</span>D015650223477D2D853A9B96943F813611230F322CCC8F2E888571587BFC27F006C4248626FCCEDC6341B54F44BDAAC0C147676529CADE77817DCCF31A9833</code></pre></div>
+<ol start="3">
+<li>Update GRUB settings by generating new GRUB configuration files:<br/>
+<code class="inline-code">sudo update-grub</code></li>
+</ol>
+<h3 id="2-auto-removing-old-kernels">2. Auto-removing old kernels:</h3>
+<p>Old kernels can be usually removed using <code class="inline-code">sudo apt autoremove</code><br/>
+Another utility is <code class="inline-code">sudo purge-old-kernels</code> which has the same effect as running <code class="inline-code">sudo apt autoremove</code><br/>
+This still needs to be run manually after each kernel update. For further automation <code class="inline-code">unattended-upgrades</code> can be used and configured to automatically remove old kernel after an unattended upgrade operation:<br/>
+Source: <a data-from-md="" title="https://help.ubuntu.com/community/RemoveOldKernels" href="https://help.ubuntu.com/community/RemoveOldKernels">https://help.ubuntu.com/community/RemoveOldKernels</a></p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">#Steps are as follows:
+# 1. enable unattended upgrades
+sudo dpkg-reconfigure -plow unattended-upgrades
+# 2. configure unattended upgrades to remove old kernels automatically
+# Default file is /etc/apt/apt.conf.d/50unattended-upgrades 
+# You can edit the default config file or create a new configuration file with a higher number to override the settings in lower number filename
+# Example for creating a cutom file:
+sudo nano /etc/apt/apt.conf.d/52unattended-upgrades-custom</pre><pre class="hljs"><code><span class="hljs-comment">#Steps are as follows:</span>
+<span class="hljs-comment"># 1. enable unattended upgrades</span>
+sudo dpkg-reconfigure -plow unattended-upgrades
+<span class="hljs-comment"># 2. configure unattended upgrades to remove old kernels automatically</span>
+<span class="hljs-comment"># Default file is /etc/apt/apt.conf.d/50unattended-upgrades </span>
+<span class="hljs-comment"># You can edit the default config file or create a new configuration file with a higher number to override the settings in lower number filename</span>
+<span class="hljs-comment"># Example for creating a cutom file:</span>
+sudo nano <span class="hljs-regexp">/etc/</span>apt<span class="hljs-regexp">/apt.conf.d/</span><span class="hljs-number">52</span>unattended-upgrades-custom</code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```"># Example lines to be added to /etc/apt/apt.conf.d/52unattended-upgrades-custom:
 
-			.mermaid {
-				width: 640px;
-			}
+//This was added in order for unattended upgrades to remove old kernels, by Ali on 2022-04-28
+//This is equivalent of sudo apt autoremove
+Unattended-Upgrade::Remove-Unused-Dependencies &quot;true&quot;;
 
-			.mermaid-export-graph {
-				opacity: 0;
-				height: 0;
-				z-index: 1;
-				position: relative;
-			}
+# Can also modify other unattended-upgrades settings such as:
+Unattended-Upgrade::Remove-Unused-Kernel-Packages &quot;true&quot;;
+Unattended-Upgrade::Remove-New-Unused-Dependencies &quot;true&quot;;</pre><pre class="hljs"><code><span class="hljs-comment"># Example lines to be added to /etc/apt/apt.conf.d/52unattended-upgrades-custom:</span>
 
-			.joplin-editable:hover .mermaid-export-graph,
-			.joplin-editable .mermaid-export-graph:has(:focus-visible) {
-				opacity: 1;
-			}
+<span class="hljs-comment">//This was added in order for unattended upgrades to remove old kernels, by Ali on 2022-04-28</span>
+<span class="hljs-comment">//This is equivalent of sudo apt autoremove</span>
+Unattended-<span class="hljs-title class_">Upgrade</span>::<span class="hljs-variable constant_">Remove</span>-Unused-Dependencies <span class="hljs-string">&quot;true&quot;</span>;
 
-			.mermaid-export-graph>button:hover {
-				background-color: #CBDAF1 !important;
-			}
-		</style>
-		<div id="rendered-md">
-			<h1 id="lab-1-security-design">Lab 1 - Security Design</h1>
-			<h2 id="lab-vm-description-and-purpose">Lab VM description and purpose</h2>
-			<p>For this course, we will use a pre-built and configured Ubuntu 20.04 Linux server running on a Virtual
-				Machine. It is a machine which is built as part of another college course and was not set up with
-				security in mind. It has several services running, a firewall enabled, and lives on multiple networks.
-				Treat this as if it were an existing server running in the business of your new employer. It is supposed
-				to be providing:</p>
-			<ul>
-				<li>custom internal DNS service only to the internal network</li>
-				<li>web pages on hostname www in the private domain</li>
-				<li>pages and webapps on hostname secure in the private domain</li>
-				<li>various web apps for administrative purposes</li>
-				<li>personal web pages for staff who have accounts on the machine</li>
-				<li>database services to local applications</li>
-				<li>ssh access to clients on the internal network</li>
-				<li>VPN access to the internal network from the outside world</li>
-				<li>email services to the internal network</li>
-				<li>file sharing services to Windows machines on the internal networks</li>
-				<li>PDF file printing services for the internal networks</li>
-			</ul>
-			<h2 id="obtaining-and-configuring-your-lab-vm">Obtaining and configuring your lab VM</h2>
-			<p>Follow these steps to download a suitable VM for our course and customize it so that your VM is specific
-				to you for the purpose of grading.</p>
-			<ol>
-				<li>In your Virtualization software (VMware or VirtualBox) create two virtual networks
-					<ol>
-						<li>NAT network (provides access to the Internet through your host PC)</li>
-						<li>A host-only network (DHCP service is optional), is used to simulate a private network</li>
-					</ol>
-				</li>
-				<li>Download the course VM OVA File and import it into your virtualization software as a VM.
-					<ol>
-						<li>Use download Location 1: <a data-from-md title='https://zonzorp.net/gc/NETS1028-VM.ova'
-								href='https://zonzorp.net/gc/NETS1028-VM.ova'>GitHub</a> or Location 2: <a data-from-md
-								title='https://comp2103labs.s3.ca-central-1.amazonaws.com/NETS1028-VM.ova'
-								href='https://comp2103labs.s3.ca-central-1.amazonaws.com/NETS1028-VM.ova'>Amazon S3</a>
-						</li>
-						<li>There are 2 network interfaces in the VM:
-							<ol>
-								<li>The first should be connected to NAT</li>
-								<li>The second should be connected to the host-only virtual network.</li>
-							</ol>
-						</li>
-					</ol>
-				</li>
-				<li>Boot the VM, and log in as &quot;student&quot; with the password &quot;Password123&quot;. The
-					&quot;student&quot; user has sudo privileges.</li>
-				<li>Create a user account for your use during the semester:
-					<ol>
-						<li>Use your first name for the username and give it a password you can remember.</li>
-						<li>Add it to the sudo group so that you can use sudo from that account.</li>
-						<li>Log out of the student account and log into your own personal account</li>
-					</ol>
-				</li>
-				<li>Test that sudo works properly, and only use your own personal account on the lab VM for the rest of
-					the semester unless explicitly instructed otherwise in the lab instructions.</li>
-				<li>Take note of your LAN address for the VM. You will need to know it for remote access from your
-					laptop. The VM has an SSH server enabled and using SSH (Putty, Bitvise, terminal or any other ssh
-					client) is the recommended method to access the machine for command line use.</li>
-				<li>Run <code class="inline-code">apt-get update</code> and <code
-						class="inline-code">apt-get upgrade</code> to bring the base system up to current software
-					versions.</li>
-			</ol>
-			<p><strong>This video is an old session recording guiding you through the instructions provided
-					above.</strong></p>
-			<p><a data-from-md title='https://screencast-o-matic.com/watch/c3hXqpVrXUw'
-					href='https://screencast-o-matic.com/watch/c3hXqpVrXUw'><img
-						src="./resources/23142db713bf4806a141c1de3021513b.jpg" alt width="498" height="280"
-						class="jop-noMdConv" /></a><br>
-				<a data-from-md title='https://screencast-o-matic.com/watch/c3hXqpVrXUw'
-					href='https://screencast-o-matic.com/watch/c3hXqpVrXUw'>NETS1028 - 2022-05-011-03 - Lab 1 -
-					Preparing the VM environment using VirtualBoxNETS1028 - 2022-05-011-03 - Lab 1 - Preparing the VM
-					environment using VirtualBoxScreencast-O-Matic</a>
-			</p>
-			<h2 id="security-design-exercises">Security Design Exercises</h2>
-			<p>These exercises will help you to become familiar with some of the security features and limitations of
-				your installation. All of these are to be investigated for the previously downloaded pre-built VM
-				running Ubuntu 20.04.</p>
-			<h3 id="physical-security">Physical Security</h3>
-			<ol>
-				<li>Describe command(s) or configuration file(s) which may be used to disable ctrl-alt-del reboot.</li>
-				<li>Describe how to prevent removable media filesystems from being automatically mounted.</li>
-			</ol>
-			<h3 id="boot-security">Boot Security</h3>
-			<ol>
-				<li>Identify how to add a password to your boot loader so that it is required before a user can alter
-					the boot parameters.</li>
-				<li>Identify the utility and configuration that will <strong>automatically</strong> remove old kernel
-					versions from your lab VM periodically or after an automatic update.</li>
-			</ol>
-			<h3 id="service-availability">Service Availability</h3>
-			<ol>
-				<li>What command(s) are used to start, stop, and check the status of installed services? Give examples
-					of starting stopping, and status-checking at least 2 services that are running on your VM.</li>
-				<li><strong>Other than service control commands as you used in the previous step</strong> (not using
-					systemctl and service utilities), describe at least one other way to determine what services your
-					server may be providing.</li>
-			</ol>
-			<h3 id="user-access">User Access</h3>
-			<ol>
-				<li>What Linux user accounts are on your server now? For each account you found, describe its purpose.
-					(for example, you can list them in a table and group them if you like)</li>
-				<li>Which accounts can be <strong>used to log in by end users</strong> (i.e. they have a user-oriented
-					general-purpose shell and are not locked)? (list all of such accounts)</li>
-			</ol>
-			<h2 id="grading">Grading</h2>
-			<p>Visit Blackboard for the latest instructions.</p>
-			<h2 id="links-and-resources">Links and Resources</h2>
-			<ul>
-				<li>Grab a copy of <a data-from-md title='https://ubuntu.com/server/docs'
-						href='https://ubuntu.com/server/docs'>Ubuntu Server Docs</a>, Make sure to grab the correct
-					version for your OS (use <code class="inline-code">hostnamectl</code> to find out what version of
-					the OS is running in your VM)</li>
-				<li>Documentation on <code class="inline-code">udisks2</code> package:
-					<ul>
-						<li><a data-from-md title='https://manpages.ubuntu.com/manpages/xenial/man8/udisks.8.html'
-								href='https://manpages.ubuntu.com/manpages/xenial/man8/udisks.8.html'>https://manpages.ubuntu.com/manpages/xenial/man8/udisks.8.html</a>
-						</li>
-						<li><a data-from-md title='https://github.com/storaged-project/udisks'
-								href='https://github.com/storaged-project/udisks'>https://github.com/storaged-project/udisks</a>
-						</li>
-					</ul>
-				</li>
-				<li><a data-from-md title='https://www.gnu.org/software/grub/manual/grub/grub.html'
-						href='https://www.gnu.org/software/grub/manual/grub/grub.html'>GRUB Bootloader
-						Documentation</a>,
-					<ul>
-						<li>For Lab 1 pay special attention to the chapter on “Security” and look for tools under
-							&quot;User Space utilities&quot;.</li>
-					</ul>
-				</li>
-				<li>Ubuntu documentation on <a data-from-md title='https://help.ubuntu.com/community/RemoveOldKernels'
-						href='https://help.ubuntu.com/community/RemoveOldKernels'>Removing Old Kernels</a></li>
-				<li>The Linux Document Project (<a data-from-md title='http://TLDP.org'
-						href='http://TLDP.org'>TLDP.org</a>)
-					<ul>
-						<li>Linux <a data-from-md title='https://tldp.org/HOWTO/HOWTO-INDEX/index.html'
-								href='https://tldp.org/HOWTO/HOWTO-INDEX/index.html'>HOWTO-INDEX</a></li>
-						<li>Security <a data-from-md title='https://tldp.org/HOWTO/Security-Quickstart-HOWTO/'
-								href='https://tldp.org/HOWTO/Security-Quickstart-HOWTO/'>Quick-Start HOWTO for Linux</a>
-							<ul>
-								<li>For Lab 1: read “<a data-from-md
-										title='https://tldp.org/HOWTO/Security-Quickstart-HOWTO/services.html'
-										href='https://tldp.org/HOWTO/Security-Quickstart-HOWTO/services.html'>3. Step 1:
-										Which services do we really need?</a>”</li>
-							</ul>
-						</li>
-					</ul>
-				</li>
-				<li>Man pages for the <code class="inline-code">/etc/passwd</code> and <code
-						class="inline-code">/etc/shadow</code> files (included in your Linux system, use <code
-						class="inline-code">man 5 passwd</code> and <code class="inline-code">man 5 shadow</code>
-					commands</li>
-				<li>Debian documentation on system groups and their description: <a data-from-md
-						title='https://wiki.debian.org/SystemGroups'
-						href='https://wiki.debian.org/SystemGroups'>wiki.debian.org/SystemGroups</a></li>
-			</ul>
-		</div>
-	</div>
-</body>
+<span class="hljs-comment"># Can also modify other unattended-upgrades settings such as:</span>
+Unattended-<span class="hljs-title class_">Upgrade</span>::<span class="hljs-variable constant_">Remove</span>-Unused-Kernel-Packages <span class="hljs-string">&quot;true&quot;</span>;
+Unattended-<span class="hljs-title class_">Upgrade</span>::<span class="hljs-variable constant_">Remove</span>-New-Unused-Dependencies <span class="hljs-string">&quot;true&quot;</span>;</code></pre></div>
+<h2 id="service-availability">Service Availability</h2>
+<h3 id="1-what-commands-are-used-to-start-stop-and-check-status-of-installed-services-give-two-examples">1. What command(s) are used to start, stop, and check status of installed services? (Give two Examples)</h3>
+<p><code class="inline-code">service --status-all</code> displays all running [+] and stopped [-] services<br/>
+<code class="inline-code">systemctl list-units</code> lists all systemd active units, can use -a option to also list inactive units<br/>
+Pick any two valid services currently running on your system as example:<br/>
+<code class="inline-code">sudo service apache2 \[start | stop | status\]</code><br/>
+<code class="inline-code">sudo service webmin \[start | stop | status \]</code></p>
+<h3 id="2-other-than-service-control-commands-like-you-used-in-the-previous-step-describe-at-least-one-other-way-to-determine-what-services-your-server-may-be-providing">2. Other than service control commands like you used in the previous step, describe at least one other way to determine what services your server may be providing?</h3>
+<p>Programs can be executed on the system without needing to have a &quot;service unit&quot; in <code class="inline-code">systemd</code>. One simple method of finding services that a system may be providing is by looking at the processes that are listening on network ports. This can be achieved using <code class="inline-code">ss</code> utility (<code class="inline-code">netstat</code> may still work, but is being deprecated). If the running process does not open a network port then this method is not useful, and maybe running processes must be investigated using <code class="inline-code">ps</code>, <code class="inline-code">top</code> and other such utilities.<br/>
+The <code class="inline-code">ss</code> utility options that lists all sockets:</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">ss -a # display all sockets
+ss -l # display listening sockets</pre><pre class="hljs"><code>ss -<span class="hljs-selector-tag">a</span> # <span class="hljs-attribute">display</span> <span class="hljs-attribute">all</span> sockets
+ss -l # <span class="hljs-attribute">display</span> listening sockets</code></pre></div>
+<p>Other examples:</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
+" data-joplin-source-close="
+```"># List of &quot;Open Files&quot; 
+sudo lsof -i -P -n
+# -i [IP-Address] specifies &quot;internet address&quot;, and will list all addresses if nothing is specified
+# -P inhibits the conversion of port numbers to port names for network files
+# -n inhibits the conversion of network numbers to host names for network files
+ali@pc20059995:~$ sudo lsof -i
+COMMAND    PID            USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+systemd      1            root   60u  IPv6  21159      0t0  TCP *:9090 (LISTEN)
+systemd-n  771 systemd-network   20u  IPv4 102922      0t0  UDP 10.0.2.6:bootpc 
+systemd-r  773 systemd-resolve   12u  IPv4  21089      0t0  UDP 127.0.0.53:domain 
+systemd-r  773 systemd-resolve   13u  IPv4  21090      0t0  TCP 127.0.0.53:domain (LISTEN)
+avahi-dae  801           avahi   12u  IPv4  23461      0t0  UDP *:mdns 
+avahi-dae  801           avahi   13u  IPv6  23462      0t0  UDP *:mdns 
+avahi-dae  801           avahi   14u  IPv4  23466      0t0  UDP *:52780 
+avahi-dae  801           avahi   15u  IPv6  23467      0t0  UDP *:58184 
+glances    915            root    4u  IPv4  28014      0t0  TCP localhost:61209 (LISTEN)
+named      917            bind   24u  IPv4  25940      0t0  UDP localhost:domain 
+named      917            bind   25u  IPv4  25944      0t0  UDP localhost:domain
+...</pre><pre class="hljs"><code><span class="hljs-comment"># List of &quot;Open Files&quot; </span>
+<span class="hljs-built_in">sudo</span> lsof -i -P -n
+<span class="hljs-comment"># -i [IP-Address] specifies &quot;internet address&quot;, and will list all addresses if nothing is specified</span>
+<span class="hljs-comment"># -P inhibits the conversion of port numbers to port names for network files</span>
+<span class="hljs-comment"># -n inhibits the conversion of network numbers to host names for network files</span>
+ali@pc20059995:~$ <span class="hljs-built_in">sudo</span> lsof -i
+COMMAND    PID            USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+systemd      1            root   60u  IPv6  21159      0t0  TCP *:9090 (LISTEN)
+systemd-n  771 systemd-network   20u  IPv4 102922      0t0  UDP 10.0.2.6:bootpc 
+systemd-r  773 systemd-resolve   12u  IPv4  21089      0t0  UDP 127.0.0.53:domain 
+systemd-r  773 systemd-resolve   13u  IPv4  21090      0t0  TCP 127.0.0.53:domain (LISTEN)
+avahi-dae  801           avahi   12u  IPv4  23461      0t0  UDP *:mdns 
+avahi-dae  801           avahi   13u  IPv6  23462      0t0  UDP *:mdns 
+avahi-dae  801           avahi   14u  IPv4  23466      0t0  UDP *:52780 
+avahi-dae  801           avahi   15u  IPv6  23467      0t0  UDP *:58184 
+glances    915            root    4u  IPv4  28014      0t0  TCP localhost:61209 (LISTEN)
+named      917            <span class="hljs-built_in">bind</span>   24u  IPv4  25940      0t0  UDP localhost:domain 
+named      917            <span class="hljs-built_in">bind</span>   25u  IPv4  25944      0t0  UDP localhost:domain
+...</code></pre></div>
+<h2 id="user-access">User Access</h2>
+<h3 id="1-what-linux-user-accounts-are-on-your-server-now-for-each-account-you-found-describe-its-purpose">1. What Linux user accounts are on your server now? For each account you found, describe its purpose.</h3>
+<p>Two different methods for getting all user accounts:</p>
+<ol>
+<li>using <code class="inline-code">sudo getent passwd</code></li>
+<li>Using grep or reading <code class="inline-code">/etc/passwd</code> file directly (this is for local machine Linux users only, not AD, LDAP, SAMBA, etc.)<br/>
+These methods lists all accounts, however does not show which accounts can actually sign into the system</li>
+</ol>
+<h3 id="2-which-accounts-can-be-used-to-log-in-by-end-users-ie-they-have-a-user-oriented-general-purpose-shell-and-are-not-locked">2. Which accounts can be used to log in by end users (i.e. they have a user-oriented general purpose shell and are not locked)?</h3>
+<p>f an account does not have a valid default shell, the account cannot be used to log in to the system<br/>
+An account can also have a &quot;locked&quot; password. This is achieved by adding &quot;!&quot; or &quot;*&quot; to the password field in the <code class="inline-code">/etc/shadow</code> file. One method of listing locked accounts is using grep as follows:<br/>
+<code class="inline-code">sudo grep &apos;!&apos; /etc/shadow &amp;&amp; sudo grep &apos;*&apos; /etc/shadow</code><br/>
+OR:<br/>
+<code class="inline-code">sudo grep &apos;!\|*&apos; /etc/shadow</code><br/>
+OR<br/>
+<code class="inline-code">sudo grep -e &apos;!&apos; -e &apos;*&apos; /etc/shadow</code><br/>
+Additional information about system users and groups can be found here: <a data-from-md="" title="https://wiki.debian.org/SystemGroups" href="https://wiki.debian.org/SystemGroups">https://wiki.debian.org/SystemGroups</a></p>
+<p>Another method: <code class="inline-code">sudo passwd -S --all</code></p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
+" data-joplin-source-close="
+```">ali@pc20022725:~$ sudo passwd -S --all
+root L 04/23/2020 0 99999 7 -1
+daemon L 04/23/2020 0 99999 7 -1
+bin L 04/23/2020 0 99999 7 -1
+sys L 04/23/2020 0 99999 7 -1
+sync L 04/23/2020 0 99999 7 -1
+games L 04/23/2020 0 99999 7 -1
+man L 04/23/2020 0 99999 7 -1
+# ... lines Removed for clarity ... 
+ubuntu P 09/14/2020 0 99999 7 -1
+dennis P 05/09/2020 0 99999 7 -1
+# ... lines Removed for clarity ... 
+# user accounts with &quot;L&quot; have &quot;Locked&quot; passwords, 
+# User accounts with &quot;P&quot; have a valid password set
+# ... </pre><pre class="hljs"><code>ali@pc20022725:~$ <span class="hljs-built_in">sudo</span> passwd -S --all
+root L 04/23/2020 0 99999 7 -1
+daemon L 04/23/2020 0 99999 7 -1
+bin L 04/23/2020 0 99999 7 -1
+sys L 04/23/2020 0 99999 7 -1
+<span class="hljs-built_in">sync</span> L 04/23/2020 0 99999 7 -1
+games L 04/23/2020 0 99999 7 -1
+man L 04/23/2020 0 99999 7 -1
+<span class="hljs-comment"># ... lines Removed for clarity ... </span>
+ubuntu P 09/14/2020 0 99999 7 -1
+dennis P 05/09/2020 0 99999 7 -1
+<span class="hljs-comment"># ... lines Removed for clarity ... </span>
+<span class="hljs-comment"># user accounts with &quot;L&quot; have &quot;Locked&quot; passwords, </span>
+<span class="hljs-comment"># User accounts with &quot;P&quot; have a valid password set</span>
+<span class="hljs-comment"># ... </span></code></pre></div>
+<p>From the passwd file, actual user accounts with shell (root can not log in):</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">grep bash /etc/passwd
 
-</html>
+root:x:0:0:root:/root:/bin/bash
+ubuntu:x:1000:1000:Default User:/home/ubuntu:/bin/bash
+dennis:x:1001:1001:dennis simpson:/home/dennis:/bin/bash
+student:x:1002:1002::/home/student:/bin/bash
+bob:x:1003:1003::/home/bob:/bin/bash
+alice:x:1004:1004::/home/alice:/bin/bash
+eve:x:1005:1005::/home/eve:/bin/bash
+ted:x:1006:1006::/home/ted:/bin/bash
+mallory:x:1007:1007::/home/mallory:/bin/bash
+trent:x:1008:1008::/home/trent:/bin/bash
+craig:x:1009:1009::/home/craig:/bin/bash
+charlie:x:1010:1010::/home/charlie:/bin/bash
+chuck:x:1011:1011::/home/chuck:/bin/bash
+grace:x:1012:1012::/home/grace:/bin/bash
+mike:x:1013:1013::/home/mike:/bin/bash
+trudy:x:1014:1014::/home/trudy:/bin/bash
+walter:x:1015:1015::/home/walter:/bin/bash
+wendy:x:1016:1016::/home/wendy:/bin/bash
+andy:x:1017:1017::/home/andy:/bin/bash
+larry:x:1018:1018::/home/larry:/bin/bash
+lana:x:1019:1019::/home/lana:/bin/bash
+lilly:x:1020:1020::/home/lilly:/bin/bash
+ali:x:1021:1021:Ali,,,:/home/ali:/bin/bash</pre><pre class="hljs"><code>grep bash /etc/passwd
+
+<span class="hljs-symbol">root:</span><span class="hljs-symbol">x:</span><span class="hljs-number">0</span><span class="hljs-symbol">:</span><span class="hljs-number">0</span><span class="hljs-symbol">:root</span><span class="hljs-symbol">:/root</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">ubuntu:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1000</span><span class="hljs-symbol">:</span><span class="hljs-number">1000</span><span class="hljs-symbol">:Default</span> <span class="hljs-title class_">User</span><span class="hljs-symbol">:/home/ubuntu</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">dennis:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1001</span><span class="hljs-symbol">:</span><span class="hljs-number">1001</span><span class="hljs-symbol">:dennis</span> <span class="hljs-symbol">simpson:</span>/home/<span class="hljs-symbol">dennis:</span>/bin/bash
+<span class="hljs-symbol">student:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1002</span><span class="hljs-symbol">:</span><span class="hljs-number">1002</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/student</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">bob:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1003</span><span class="hljs-symbol">:</span><span class="hljs-number">1003</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/bob</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">alice:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1004</span><span class="hljs-symbol">:</span><span class="hljs-number">1004</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/alice</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">eve:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1005</span><span class="hljs-symbol">:</span><span class="hljs-number">1005</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/eve</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">ted:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1006</span><span class="hljs-symbol">:</span><span class="hljs-number">1006</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/ted</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">mallory:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1007</span><span class="hljs-symbol">:</span><span class="hljs-number">1007</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/mallory</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">trent:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1008</span><span class="hljs-symbol">:</span><span class="hljs-number">1008</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/trent</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">craig:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1009</span><span class="hljs-symbol">:</span><span class="hljs-number">1009</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/craig</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">charlie:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1010</span><span class="hljs-symbol">:</span><span class="hljs-number">1010</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/charlie</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">chuck:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1011</span><span class="hljs-symbol">:</span><span class="hljs-number">1011</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/chuck</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">grace:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1012</span><span class="hljs-symbol">:</span><span class="hljs-number">1012</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/grace</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">mike:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1013</span><span class="hljs-symbol">:</span><span class="hljs-number">1013</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/mike</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">trudy:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1014</span><span class="hljs-symbol">:</span><span class="hljs-number">1014</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/trudy</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">walter:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1015</span><span class="hljs-symbol">:</span><span class="hljs-number">1015</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/walter</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">wendy:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1016</span><span class="hljs-symbol">:</span><span class="hljs-number">1016</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/wendy</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">andy:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1017</span><span class="hljs-symbol">:</span><span class="hljs-number">1017</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/andy</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">larry:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1018</span><span class="hljs-symbol">:</span><span class="hljs-number">1018</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/larry</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">lana:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1019</span><span class="hljs-symbol">:</span><span class="hljs-number">1019</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/lana</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">lilly:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1020</span><span class="hljs-symbol">:</span><span class="hljs-number">1020</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:/home/lilly</span><span class="hljs-symbol">:/bin/bash</span>
+<span class="hljs-symbol">ali:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1021</span><span class="hljs-symbol">:</span><span class="hljs-number">1021</span><span class="hljs-symbol">:Ali</span>,,,<span class="hljs-symbol">:/home/ali</span><span class="hljs-symbol">:/bin/bash</span></code></pre></div>
+<p>We can list all the user accounts that do have a valid password set using:</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo grep &apos;^[^:]*:[^\*!]&apos; /etc/shadow</pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> grep <span class="hljs-string">&apos;^[^:]*:[^\*!]&apos;</span> /etc/shadow</code></pre></div>
+<h2 id="alternate-and-convenient-answer">Alternate and convenient answer:</h2>
+<p><strong>Notice</strong>: Some user accounts are locked. Root is locked, but still in the list with PWD-DENY set to 1. Therefore root cannot log in at the terminal.</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">ali@pc20022725 $ sudo lslogins -u
+ UID USER    PROC PWD-LOCK PWD-DENY  LAST-LOGIN GECOS
+   0 root     177        0        1             root
+1000 ubuntu     0        0        0  2020-May12 Default User
+1001 dennis     0        0        0  2020-Oct21 dennis simpson
+1002 student    0        0        0 Sep09/15:13 
+1003 bob        0        0        0             
+1004 alice      0        0        0             
+1005 eve        0        0        0             
+1006 ted        0        0        0             
+1007 mallory    0        0        0             
+1008 trent      0        0        0             
+1009 craig      0        0        0             
+1010 charlie    0        0        0             
+1011 chuck      0        0        0             
+1012 grace      0        0        0             
+1013 mike       0        0        0             
+1014 trudy      0        0        0             
+1015 walter     0        0        0             
+1016 wendy      0        0        0             
+1017 andy       0        0        0             
+1018 larry      0        0        0             
+1019 lana       0        0        0             
+1020 lilly      0        0        0             
+1021 ali        4        0        0       11:49 ,,,
+
+ali@pc20022725 $ sudo lslogins -u -G
+ UID USER     GID GROUP   SUPP-GIDS         SUPP-GROUPS
+   0 root       0 root                      
+1000 ubuntu  1000 ubuntu  4,24,27,30,46,116 adm,cdrom,sudo,dip,plugdev,lxd
+1001 dennis  1001 dennis  27                sudo
+1002 student 1002 student 27                sudo
+1003 bob     1003 bob                       
+1004 alice   1004 alice                     
+1005 eve     1005 eve                       
+1006 ted     1006 ted                       
+1007 mallory 1007 mallory                   
+1008 trent   1008 trent                     
+1009 craig   1009 craig   27                sudo
+1010 charlie 1010 charlie                   
+1011 chuck   1011 chuck                     
+1012 grace   1012 grace                     
+1013 mike    1013 mike                      
+1014 trudy   1014 trudy   27                sudo
+1015 walter  1015 walter                    
+1016 wendy   1016 wendy                     
+1017 andy    1017 andy                      
+1018 larry   1018 larry                     
+1019 lana    1019 lana    27                sudo
+1020 lilly   1020 lilly   27                sudo
+1021 ali     1021 ali     27                sudo</pre><pre class="hljs"><code>ali@pc20022725 $ sudo lslogins -u
+ UID USER    PROC PWD-LOCK PWD-DENY  LAST-LOGIN GECOS
+   0 root     177        0        1             root
+1000 ubuntu     0        0        0  2020-May12 Default User
+1001 dennis     0        0        0  2020-Oct21 dennis simpson
+1002 student    0        0        0 Sep09/15:13 
+1003 bob        0        0        0             
+1004 alice      0        0        0             
+1005 eve        0        0        0             
+1006 ted        0        0        0             
+1007 mallory    0        0        0             
+1008 trent      0        0        0             
+1009 craig      0        0        0             
+1010 charlie    0        0        0             
+1011 chuck      0        0        0             
+1012 grace      0        0        0             
+1013 mike       0        0        0             
+1014 trudy      0        0        0             
+1015 walter     0        0        0             
+1016 wendy      0        0        0             
+1017 andy       0        0        0             
+1018 larry      0        0        0             
+1019 lana       0        0        0             
+1020 lilly      0        0        0             
+1021 ali        4        0        0       11:49 ,,,
+
+ali@pc20022725 $ sudo lslogins -u -G
+ UID USER     GID GROUP   SUPP-GIDS         SUPP-GROUPS
+   0 root       0 root                      
+1000 ubuntu  1000 ubuntu  4,24,27,30,46,116 adm,cdrom,sudo,dip,plugdev,lxd
+1001 dennis  1001 dennis  27                sudo
+1002 student 1002 student 27                sudo
+1003 bob     1003 bob                       
+1004 alice   1004 alice                     
+1005 eve     1005 eve                       
+1006 ted     1006 ted                       
+1007 mallory 1007 mallory                   
+1008 trent   1008 trent                     
+1009 craig   1009 craig   27                sudo
+1010 charlie 1010 charlie                   
+1011 chuck   1011 chuck                     
+1012 grace   1012 grace                     
+1013 mike    1013 mike                      
+1014 trudy   1014 trudy   27                sudo
+1015 walter  1015 walter                    
+1016 wendy   1016 wendy                     
+1017 andy    1017 andy                      
+1018 larry   1018 larry                     
+1019 lana    1019 lana    27                sudo
+1020 lilly   1020 lilly   27                sudo
+1021 ali     1021 ali     27                sudo</code></pre></div>
+<h2 id="another-method">Another method:</h2>
+<p>Still the user must have a valid shell!!!</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```"># sudo passwd -S --all #&lt;-- lists all users with L or P in each line
+#   the L indicates a &quot;Locked&quot; password
+ali@pc20022725:~$ sudo passwd -S --all | grep -w P
+ubuntu P 09/14/2020 0 99999 7 -1
+dennis P 05/09/2020 0 99999 7 -1
+student P 09/14/2020 0 99999 7 -1
+bob P 09/14/2020 0 99999 7 -1
+alice P 09/14/2020 0 99999 7 -1
+eve P 09/14/2020 0 99999 7 -1
+ted P 09/14/2020 0 99999 7 -1
+mallory P 09/14/2020 0 99999 7 -1
+trent P 09/14/2020 0 99999 7 -1
+craig P 09/14/2020 0 99999 7 -1
+charlie P 09/14/2020 0 99999 7 -1
+chuck P 09/14/2020 0 99999 7 -1
+grace P 09/14/2020 0 99999 7 -1
+mike P 09/14/2020 0 99999 7 -1
+trudy P 09/14/2020 0 99999 7 -1
+walter P 09/14/2020 0 99999 7 -1
+wendy P 09/14/2020 0 99999 7 -1
+andy P 09/14/2020 0 99999 7 -1
+larry P 09/14/2020 0 99999 7 -1
+lana P 09/14/2020 0 99999 7 -1
+lilly P 09/14/2020 0 99999 7 -1
+ali P 01/12/2024 0 99999 7 -1</pre><pre class="hljs"><code><span class="hljs-comment"># sudo passwd -S --all #&lt;-- lists all users with L or P in each line</span>
+<span class="hljs-comment">#   the L indicates a &quot;Locked&quot; password</span>
+<span class="hljs-attribute">ali</span>@pc20022725:~$ sudo passwd -S --<span class="hljs-literal">all</span> | grep -w P
+<span class="hljs-attribute">ubuntu</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">dennis</span> P <span class="hljs-number">05</span>/<span class="hljs-number">09</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">student</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">bob</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">alice</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">eve</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">ted</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">mallory</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">trent</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">craig</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">charlie</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">chuck</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">grace</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">mike</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">trudy</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">walter</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">wendy</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">andy</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">larry</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">lana</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">lilly</span> P <span class="hljs-number">09</span>/<span class="hljs-number">14</span>/<span class="hljs-number">2020</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span>
+<span class="hljs-attribute">ali</span> P <span class="hljs-number">01</span>/<span class="hljs-number">12</span>/<span class="hljs-number">2024</span> <span class="hljs-number">0</span> <span class="hljs-number">99999</span> <span class="hljs-number">7</span> -<span class="hljs-number">1</span></code></pre></div>
+</div></div>
+					</body>
+				</html>
+			
