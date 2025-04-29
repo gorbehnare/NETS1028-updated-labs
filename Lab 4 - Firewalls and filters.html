@@ -1,10 +1,137 @@
 
-				<!DOCTYPE html>
+				
 				<html>
 					<head>
-						<meta charset="UTF-8">
-						<meta name="viewport" content="width=device-width, initial-scale=1" />
-						<link rel="stylesheet" href="pluginAssets/katex/katex.css"><script type="application/javascript" src="pluginAssets/mermaid/mermaid.min.js"></script><script type="application/javascript" src="pluginAssets/mermaid/mermaid_render.js"></script><link rel="stylesheet" href="pluginAssets/highlight.js/atom-one-light.css">
+						<meta charset="UTF-8"/>
+						<meta name="viewport" content="width=device-width, initial-scale=1"/>
+						<style>.jsdraw--editButton {
+  display: none;
+  width: min-content;
+  max-height: 50px;
+  z-index: 1;
+  opacity: 0.9;
+  align-self: flex-end;
+  justify-self: right;
+}
+
+.jsdraw--svgWrapper {
+  display: inline-grid;
+}
+
+.jsdraw--svgWrapper > * {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.jsdraw--svgWrapper:hover .jsdraw--editButton,
+.jsdraw--svgWrapper:focus .jsdraw--editButton,
+.jsdraw--svgWrapper:focus-within .jsdraw--editButton,
+.jsdraw--editButton:focus {
+  display: block;
+}</style><style>pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+}
+
+code.hljs {
+  padding: 3px 5px;
+}
+
+/*
+
+Atom One Light by Daniel Gamage
+Original One Light Syntax theme from https://github.com/atom/one-light-syntax
+
+base:    #fafafa
+mono-1:  #383a42
+mono-2:  #686b77
+mono-3:  #a0a1a7
+hue-1:   #0184bb
+hue-2:   #4078f2
+hue-3:   #a626a4
+hue-4:   #50a14f
+hue-5:   #e45649
+hue-5-2: #c91243
+hue-6:   #986801
+hue-6-2: #c18401
+
+*/
+
+.hljs {
+  color: #383a42;
+  background: #fafafa;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #a0a1a7;
+  font-style: italic;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #a626a4;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e45649;
+}
+
+.hljs-literal {
+  color: #0184bb;
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+  color: #50a14f;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #986801;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #4078f2;
+}
+
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #c18401;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}</style>
 						<title>Lab 4 - Firewalls and filters</title>
 					</head>
 					<body>
@@ -23,7 +150,7 @@
 			word-wrap: break-word;
 			line-height: 1.6em;
 			background-color: #ffffff;
-			font-family: 'Avenir', 'Arial', sans-serif;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
 			padding-bottom: 0px;
 			padding-top: 0px;
 		}
@@ -34,9 +161,17 @@
 			border-radius: 3px;
 			background-color: rgb(243, 243, 243);
 		}
+
+		:root {
+			--scrollbar-size: 7px;
+		}
+
 		::-webkit-scrollbar {
-			width: 7px;
-			height: 7px;
+			width: var(--scrollbar-size);
+			height: var(--scrollbar-size);
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: calc(var(--scrollbar-size) / 2);
 		}
 		::-webkit-scrollbar-corner {
 			background: none;
@@ -151,7 +286,7 @@
      * instead of the svg width, height property you must use a viewbox here, 0 0 1536 1792 is typically the actual size of the icon
      * each line begins with the pre-amble -webkit-mask: url("data:image/svg+xml;utf8,
      * and of course finishes with ");
-     * to precvent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
+     * to prevent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
      * on the following line
      * */
 		.fa-joplin {
@@ -224,7 +359,7 @@
 			padding: .5em 1em .5em 1em;
 			font-size: 15;
 			color: #32373F;
-			font-family: 'Avenir', 'Arial', sans-serif;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
 		}
 
 		.jop-tinymce table td,
@@ -274,24 +409,26 @@
 			color: black;
 		}
 
-		.not-loaded-resource img {
-			width: 1.15em;
-			height: 1.15em;
-			background: white;
-			padding: 2px !important;
-			border-radius: 2px;
-			box-shadow: 0 1px 3px #000000aa;
-		}
+		
+	.not-loaded-resource img {
+		width: 1.15em;
+		height: 1.15em;
+		background: white;
+		padding: 2px !important;
+		border-radius: 2px;
+		box-shadow: 0 1px 3px #000000aa;
+	}
 
-		a.not-loaded-resource img {
-			margin-right: .2em;
-		}
+	a.not-loaded-resource img {
+		margin-right: .2em;
+	}
 
-		a.not-loaded-resource {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-		}
+	a.not-loaded-resource {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
 
 		.md-checkbox input[type=checkbox]:checked {
 			opacity: 0.7;
@@ -376,6 +513,11 @@
 			overflow-x: auto;
 		}
 
+		.joplin-table-wrapper{
+			overflow-x: auto;
+			overflow-y: hidden;
+		}
+
 		/* =============================================== */
 		/* For TinyMCE */
 		/* =============================================== */
@@ -418,6 +560,8 @@
 				li.md-checkbox input[type=checkbox] {
 					margin-left: -1.71em;
 					margin-right: 0.7em;
+					position: relative;
+					top: 1px;
 				}
 				
 				ul.joplin-checklist {
@@ -444,37 +588,52 @@
 				.joplin-checklist li:not(.checked)::before {
 					content:"\f0c8";
 				}
-.mermaid { background-color: white; width: 640px; }
-.mermaid-export-graph { visibility: hidden; } 
-				.joplin-editable:hover .mermaid-export-graph { visibility: visible; }
-				.mermaid-export-graph:hover { background-color: #CBDAF1 !important; }</style><div id="rendered-md"><h1 id="lab-4-firewalls-and-filters">Lab 4 - Firewalls and filters</h1>
-<p>This unit provides basic coverage of the tools and techniques for firewalling and filtering traffic on a Linux system.</p>
-<h2 id="iptables-basics">Iptables Basics</h2>
+.mermaid { width: 640px; }
+pre.mermaid[data-processed=true] { white-space: unset; }
+.mermaid-export-graph {
+					opacity: 0;
+					height: 0;
+					z-index: 1;
+					position: relative;
+				} 
+				.joplin-editable:hover .mermaid-export-graph,
+				.joplin-editable .mermaid-export-graph:has(:focus-visible) {
+					opacity: 1;
+				}
+				.mermaid-export-graph > button:hover {
+					background-color: #CBDAF1 !important;
+				}</style><div id="rendered-md"><p>This unit provides basic coverage of the tools and techniques for firewall and filtering traffic on a Linux system.</p>
+<h2 id="notice-please-take-a-full-back-up-of-your-lab-vm-before-attempting-this-lab-you-may-need-to-restore-from-backup-to-return-your-lab-vm-to-its-original-working-state">Notice: Please take a full back up of your lab VM before attempting this lab. You may need to restore from backup to return your lab VM to its original working state.</h2>
+<h1 id="iptables-basics"><code class="inline-code">iptables</code> Basics</h1>
 <p>This activity will familiarize you with the basics of creating rules for <code class="inline-code">iptables</code> chains and verifying whether your rules do what you wanted them to do.</p>
 <ol>
 <li>
-<p>connect to your server’s  <strong>ssh</strong>  service with a terminal window or with putty</p>
+<p>connect to your server&rsquo;s  <strong>ssh</strong>  service with a terminal window or with putty</p>
 </li>
 <li>
 <p>Log in to the  <strong>student</strong>  account</p>
 </li>
 <li>
-<p>Since we are using a prebuilt VM that has <code class="inline-code">ufw</code> configured, save the existing <code class="inline-code">ufw</code> configuration  <strong>ONLY DO THIS ONCE, EVEN IF YOU RESTART THE LAB</strong></p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ufw show added &gt;~/`date +%Y%m%d%H%M-ufw-rules-saved.$$` </pre><pre class="hljs"><code>sudo ufw show added &gt;~/`date +<span class="hljs-built_in">%Y</span><span class="hljs-built_in">%m</span><span class="hljs-built_in">%d</span><span class="hljs-built_in">%H</span><span class="hljs-built_in">%M</span>-ufw-rules-saved.$$` </code></pre></div>
+<p>Since we are using a prebuilt VM that has <code class="inline-code">ufw</code> configured, save the existing <code class="inline-code">ufw</code> configuration.  <strong>ONLY DO THIS ONCE, EVEN IF YOU RESTART THE LAB</strong></p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo ufw show added &gt;~/`date +%Y%m%d%H%M-ufw-rules-saved.$$` </pre><pre class="hljs"><code>sudo ufw show added &gt;~/`date +<span class="hljs-built_in">%Y</span><span class="hljs-built_in">%m</span><span class="hljs-built_in">%d</span><span class="hljs-built_in">%H</span><span class="hljs-built_in">%M</span>-ufw-rules-saved.$$` </code></pre></div>
 </li>
 <li>
 <p>Clear out the leftovers from iptables</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ufw reset
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo ufw reset
 sudo iptables -F
-sudo iptables -X </pre><pre class="hljs"><code><span class="hljs-attribute">sudo ufw reset
-sudo iptables -F
-sudo iptables -X</span> </code></pre></div>
+sudo iptables -X </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> ufw reset
+<span class="hljs-built_in">sudo</span> iptables -F
+<span class="hljs-built_in">sudo</span> iptables -X </code></pre></div>
 </li>
 <li>
 <p>Verify you can connect to your VM using a web browser</p>
 <ul>
-<li>use the IP address of your host-only network interface (<code class="inline-code">ip a s &lt;host-only_interface&gt;</code>). We are using <code class="inline-code">ens33</code> as an example, you should change this to the name of your interface.</li>
-<li>access the cockpit service at  <code class="inline-code">http://W.X.Y.Z:9090</code>  (W.X.Y.Z should be your VM’s host-only network IP address)</li>
+<li>use the IP address of your host-only network interface (<code class="inline-code">ip a s &lt;host-only_interface&gt;</code>). We are only using <code class="inline-code">ens33</code> as an example, you should change this to the name of your interface attached to your host-only network.</li>
+<li>access the cockpit service at  <code class="inline-code">http://W.X.Y.Z:9090</code>  (W.X.Y.Z should be your VM&rsquo;s host-only network IP address)</li>
 <li>log in to the cockpit service with the student login and password that used for ssh</li>
 </ul>
 </li>
@@ -492,7 +651,9 @@ sudo iptables -X</span> </code></pre></div>
 </li>
 <li>
 <p>set the  <strong>INPUT</strong>  and  <strong>OUTPUT</strong>  policy to DROP</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">iptables -A INPUT -i lo -j ACCEPT
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A INPUT -i ens33 -p tcp --dport ssh -j ACCEPT
 iptables -A INPUT -i ens33 -p tcp \! --dport ssh -c 0 0 -j LOG --log-prefix &quot;INPUT DENIED: &quot;
@@ -514,13 +675,17 @@ iptables -P <span class="hljs-keyword">OUTPUT</span> <span class="hljs-keyword">
 </li>
 <li>
 <p>See what is getting logged for your <code class="inline-code">iptables</code> rules</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo grep DENIED /var/log/kern.log </pre><pre class="hljs"><code>sudo grep DENIED /<span class="hljs-keyword">var</span>/<span class="hljs-built_in">log</span>/kern.<span class="hljs-built_in">log</span> </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo grep DENIED /var/log/kern.log </pre><pre class="hljs"><code>sudo grep DENIED /<span class="hljs-keyword">var</span>/<span class="hljs-built_in">log</span>/kern.<span class="hljs-built_in">log</span> </code></pre></div>
 </li>
 <li>
 <p>View your <code class="inline-code">iptables</code> rules using the <code class="inline-code">-L</code> and <code class="inline-code">-S</code> options</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo iptables -L
-sudo iptables -S </pre><pre class="hljs"><code><span class="hljs-attribute">sudo iptables -L
-sudo iptables -S</span> </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo iptables -L
+sudo iptables -S </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> iptables -L
+<span class="hljs-built_in">sudo</span> iptables -S </code></pre></div>
 </li>
 <li>
 <p>Which one is more useful to see your rules?</p>
@@ -532,11 +697,13 @@ sudo iptables -S</span> </code></pre></div>
 <p>View your <code class="inline-code">iptables</code> rules again. Did the reboot change anything?</p>
 </li>
 </ol>
-<h2 id="iptables-persistence">Iptables Persistence</h2>
+<h1 id="iptables-persistence">Iptables Persistence</h1>
 <ol>
 <li>
 <p>Reinstall the <code class="inline-code">iptables</code> rules from the first part of the lab and verify they are present</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">iptables -A INPUT -i lo -j ACCEPT
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A INPUT -i ens33 -p tcp --dport ssh -j ACCEPT
 iptables -A INPUT -i ens33 -p tcp \! --dport ssh -c 0 0 -j LOG --log-prefix &quot;INPUT DENIED: &quot;
@@ -552,33 +719,43 @@ iptables -L </code></pre></div>
 </li>
 <li>
 <p>Install the <code class="inline-code">iptables-persistent</code> package, without agreeing to save the rules during installation of the package</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo apt install iptables-persistent </pre><pre class="hljs"><code>sudo apt <span class="hljs-keyword">install</span> iptables-persistent </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo apt install iptables-persistent </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> apt install iptables-persistent </code></pre></div>
 </li>
 <li>
 <p>Save your IPV4 rules with the <code class="inline-code">iptables-save</code> command</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo iptables-save |tee /etc/iptables/rules.v4 </pre><pre class="hljs"><code>sudo iptables-save |tee <span class="hljs-regexp">/etc/i</span>ptables/rules.v4 </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo iptables-save |tee /etc/iptables/rules.v4 </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> iptables-save |<span class="hljs-built_in">tee</span> /etc/iptables/rules.v4 </code></pre></div>
 </li>
 <li>
 <p>Examine the contents of  <strong>/etc/iptables/rules.v4</strong>  and compare it to the output of  <code class="inline-code">iptables-save</code></p>
 </li>
 <li>
 <p>Reboot and verify your rules are automatically reinstalled</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">reboot </pre><pre class="hljs"><code><span class="hljs-attribute">reboot</span> </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">reboot </pre><pre class="hljs"><code><span class="hljs-attribute">reboot</span> </code></pre></div>
 </li>
 <li>
 <p>Remove the <code class="inline-code">iptables-persistent</code> package</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo apt remove iptables-persistent </pre><pre class="hljs"><code>sudo apt <span class="hljs-built_in">remove</span> iptables-persistent </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo apt remove iptables-persistent </pre><pre class="hljs"><code>sudo apt <span class="hljs-built_in">remove</span> iptables-persistent </code></pre></div>
 </li>
 <li>
 <p>Reboot and check if your rules are still getting installed at boot</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">reboot </pre><pre class="hljs"><code><span class="hljs-attribute">reboot</span> </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">reboot </pre><pre class="hljs"><code><span class="hljs-attribute">reboot</span> </code></pre></div>
 </li>
 </ol>
-<h2 id="kernel-tuning-with-sysctl">Kernel Tuning with sysctl</h2>
+<h1 id="kernel-tuning-with-sysctl">Kernel Tuning with sysctl</h1>
 <ol>
 <li>Run  <code class="inline-code">sysctl -a</code>  to get an idea of the kernel parameters currently set up on your system</li>
 <li>What are the security implications of being able to retrieve this type of information as an ordinary user?</li>
-<li><a data-from-md title='https://www.kernel.org/doc/Documentation/sysctl/vm.txt' href='https://www.kernel.org/doc/Documentation/sysctl/vm.txt'>https://www.kernel.org/doc/Documentation/sysctl/vm.txt</a> has excellent <code class="inline-code">sysctl</code> documentation for kernel version 2.6 (still in use in production systems and embedded systems)
+<li><a data-from-md="" title="https://www.kernel.org/doc/Documentation/sysctl/vm.txt" href="https://www.kernel.org/doc/Documentation/sysctl/vm.txt">https://www.kernel.org/doc/Documentation/sysctl/vm.txt</a> has excellent <code class="inline-code">sysctl</code> documentation for kernel version 2.6 (still in use in production systems and embedded systems)
 <ul>
 <li>Find the  <strong>swappiness</strong>  parameter in that document to see what it can do for you</li>
 <li>Check out the Wikipedia article for more info</li>
@@ -587,18 +764,22 @@ iptables -L </code></pre></div>
 </ol>
 <p>Performance tuning also affects resiliency, example of references on tuning for performance include:</p>
 <ul>
-<li><a data-from-md title='https://lonesysadmin.net/2013/12/22/better-linux-disk-caching-performance-vm-dirty_ratio/' href='https://lonesysadmin.net/2013/12/22/better-linux-disk-caching-performance-vm-dirty_ratio/'>https://lonesysadmin.net/2013/12/22/better-linux-disk-caching-performance-vm-dirty_ratio/</a></li>
-<li><a data-from-md title='https://lonesysadmin.net/2013/12/19/account-bandwidth-delay-product-larger-network-buffers/' href='https://lonesysadmin.net/2013/12/19/account-bandwidth-delay-product-larger-network-buffers/'>https://lonesysadmin.net/2013/12/19/account-bandwidth-delay-product-larger-network-buffers/</a></li>
+<li><a data-from-md="" title="https://lonesysadmin.net/2013/12/22/better-linux-disk-caching-performance-vm-dirty_ratio/" href="https://lonesysadmin.net/2013/12/22/better-linux-disk-caching-performance-vm-dirty_ratio/">https://lonesysadmin.net/2013/12/22/better-linux-disk-caching-performance-vm-dirty_ratio/</a></li>
+<li><a data-from-md="" title="https://lonesysadmin.net/2013/12/19/account-bandwidth-delay-product-larger-network-buffers/" href="https://lonesysadmin.net/2013/12/19/account-bandwidth-delay-product-larger-network-buffers/">https://lonesysadmin.net/2013/12/19/account-bandwidth-delay-product-larger-network-buffers/</a></li>
 </ul>
-<h2 id="iptstate">Iptstate</h2>
+<h1 id="iptstate">Iptstate</h1>
 <ol>
 <li>
 <p>Install <code class="inline-code">iptstate</code> package</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo apt install iptstate </pre><pre class="hljs"><code>sudo apt <span class="hljs-keyword">install</span> iptstate </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo apt install iptstate </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> apt install iptstate </code></pre></div>
 </li>
 <li>
 <p>Clear your <code class="inline-code">iptables</code> rules and add back the rules we have been using, but with connection tracking turned on for new connections to the  <strong>ssh</strong>  service</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ufw reset
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo ufw reset
 sudo iptables -F
 sudo iptables -X
 sudo iptables -A INPUT -i lo -j ACCEPT
@@ -618,132 +799,176 @@ sudo iptables -P <span class="hljs-keyword">OUTPUT</span> <span class="hljs-keyw
 </li>
 <li>
 <p>Run <code class="inline-code">iptstate</code> and observe the various connections being tracked by iptables</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo iptstate -f </pre><pre class="hljs"><code><span class="hljs-attribute">sudo iptstate -f</span> </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo iptstate -f </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> iptstate -f </code></pre></div>
 </li>
 <li>
 <p>Use <code class="inline-code">iptables -L -v</code> to see the packet and byte counts being seen by the various rules you have in place</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo iptables -L -v </pre><pre class="hljs"><code><span class="hljs-attribute">sudo iptables -L -v</span> </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo iptables -L -v </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> iptables -L -v </code></pre></div>
 </li>
 </ol>
-<h2 id="ufw">UFW</h2>
+<h1 id="ufw">UFW</h1>
 <p>UFW is already installed on the lab VM.</p>
 <ol>
 <li>
 <p>Clear out the <code class="inline-code">iptables</code> rules we currently have, as well as any leftover <code class="inline-code">ufw</code> rules</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ufw reset
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo ufw reset
 sudo iptables -F
-sudo iptables -X </pre><pre class="hljs"><code><span class="hljs-attribute">sudo ufw reset
-sudo iptables -F
-sudo iptables -X</span> </code></pre></div>
+sudo iptables -X </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> ufw reset
+<span class="hljs-built_in">sudo</span> iptables -F
+<span class="hljs-built_in">sudo</span> iptables -X </code></pre></div>
 </li>
 <li>
 <p>Use <code class="inline-code">ufw</code> to allow ssh traffic</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ufw allow ssh </pre><pre class="hljs"><code><span class="hljs-attribute">sudo</span> ufw <span class="hljs-literal">allow</span> ssh </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo ufw allow ssh </pre><pre class="hljs"><code><span class="hljs-attribute">sudo</span> ufw <span class="hljs-literal">allow</span> ssh </code></pre></div>
 </li>
 <li>
 <p>Check your status with <code class="inline-code">ufw</code>, enable it, and recheck your status</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ufw status
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo ufw status
 sudo ufw enable
-sudo ufw status </pre><pre class="hljs"><code>sudo ufw <span class="hljs-keyword">status</span>
-sudo ufw enable
-sudo ufw <span class="hljs-keyword">status</span> </code></pre></div>
+sudo ufw status </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> ufw status
+<span class="hljs-built_in">sudo</span> ufw <span class="hljs-built_in">enable</span>
+<span class="hljs-built_in">sudo</span> ufw status </code></pre></div>
 </li>
 <li>
 <p>Run <code class="inline-code">iptables -L -v</code> with the <code class="inline-code">ufw</code> firewall tool in the enabled state</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo iptables -L -v </pre><pre class="hljs"><code><span class="hljs-attribute">sudo iptables -L -v</span> </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo iptables -L -v </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> iptables -L -v </code></pre></div>
 </li>
 <li>
-<p>Disable the <code class="inline-code">ufw</code> firewall tool and see what is left behind in your live iptables</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ufw disable
+<p>Disable the <code class="inline-code">ufw</code> firewall tool and see what is left behind in your live <code class="inline-code">iptables</code></p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo ufw disable
 sudo ufw status
-sudo iptables -L </pre><pre class="hljs"><code>sudo ufw <span class="hljs-built_in">disable</span>
-sudo ufw status
-sudo iptables -L </code></pre></div>
+sudo iptables -L </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> ufw <span class="hljs-built_in">disable</span>
+<span class="hljs-built_in">sudo</span> ufw status
+<span class="hljs-built_in">sudo</span> iptables -L </code></pre></div>
 </li>
 <li>
 <p>Clear out your tables for the next exercise</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ufw reset
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo ufw reset
 sudo iptables -F
-sudo iptables -X </pre><pre class="hljs"><code><span class="hljs-attribute">sudo ufw reset
-sudo iptables -F
-sudo iptables -X</span> </code></pre></div>
+sudo iptables -X </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> ufw reset
+<span class="hljs-built_in">sudo</span> iptables -F
+<span class="hljs-built_in">sudo</span> iptables -X </code></pre></div>
 </li>
 </ol>
-<h2 id="ipkungfu">Ipkungfu</h2>
+<h1 id="ipkungfu">Ipkungfu</h1>
 <ol>
 <li>
 <p>Install the <code class="inline-code">ipkungfu</code> package and check its state after installation</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo apt install ipkungfu
-sudo ipkungfu -c </pre><pre class="hljs"><code>sudo apt <span class="hljs-keyword">install</span> ipkungfu
-sudo ipkungfu -c </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo apt install ipkungfu
+sudo ipkungfu -c </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> apt install ipkungfu
+<span class="hljs-built_in">sudo</span> ipkungfu -c </code></pre></div>
 </li>
 <li>
 <p>Note the configuration files in <code class="inline-code">/etc/ipkungfu</code></p>
 </li>
 <li>
 <p>Modify <code class="inline-code">ipkungfu.conf</code> to set <code class="inline-code">GATEWAY=0</code>, <code class="inline-code">DISALLOW_PRIVATE=0</code></p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo vi /etc/ipkungfu/ipkungfu.conf </pre><pre class="hljs"><code>sudo vi <span class="hljs-regexp">/etc/i</span>pkungfu/ipkungfu.conf </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo vi /etc/ipkungfu/ipkungfu.conf </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> vi /etc/ipkungfu/ipkungfu.conf </code></pre></div>
 </li>
 <li>
 <p>Modify <code class="inline-code">services.conf</code> to ACCEPT ftp and ssh traffic</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo vi /etc/ipkungfu/services.conf </pre><pre class="hljs"><code>sudo vi <span class="hljs-regexp">/etc/i</span>pkungfu/services.conf </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo vi /etc/ipkungfu/services.conf </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> vi /etc/ipkungfu/services.conf </code></pre></div>
 </li>
 <li>
-<p>Run <code class="inline-code">ipkungfu –show-vars</code> to see your current configuration with ipkungfu’s guesses and correct any settings you can see are not right for your VM</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ipkungfu --show-vars </pre><pre class="hljs"><code>sudo ipkungfu <span class="hljs-comment">--show-vars </span></code></pre></div>
+<p>Run <code class="inline-code">ipkungfu &ndash;show-vars</code> to see your current configuration with ipkungfu&rsquo;s guesses and correct any settings you can see are not right for your VM</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo ipkungfu --show-vars </pre><pre class="hljs"><code>sudo ipkungfu <span class="hljs-comment">--show-vars </span></code></pre></div>
 </li>
 <li>
 <p>Run ipkungfu -t to test and install your new configuration</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ipkungfu -t </pre><pre class="hljs"><code><span class="hljs-attribute">sudo ipkungfu -t</span> </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo ipkungfu -t </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> ipkungfu -t </code></pre></div>
 </li>
 <li>
 <p>Use iptables -L to see the new iptables configuration</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo iptables -L </pre><pre class="hljs"><code><span class="hljs-attribute">sudo iptables -L</span> </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo iptables -L </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> iptables -L </code></pre></div>
 </li>
 <li>
 <p>Check <code class="inline-code">/etc/default/ipkungfu</code> to see if it is enabled on system startup (<code class="inline-code">IPKFSTART</code> setting) and make sure it is disabled before doing <code class="inline-code">fail2ban</code></p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo cat /etc/default/ipkungfu </pre><pre class="hljs"><code>sudo cat <span class="hljs-regexp">/etc/</span><span class="hljs-keyword">default</span>/ipkungfu </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo cat /etc/default/ipkungfu </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">cat</span> /etc/default/ipkungfu </code></pre></div>
 </li>
 </ol>
-<h2 id="fail2ban">Fail2ban</h2>
-<p>For this activity, you will want to have 2 separate terminals or putty windows running at the same time. Do the steps up to monitoring the log file in the first window, and then switch to the other window to cause the failed logins. Once you do that, the IP address that the failures are coming from will be banned, so be sure your second session isn’t coming from the same IP address as your first session.</p>
+<h1 id="fail2ban">Fail2ban</h1>
+<p>For this activity, you will want to have 2 separate terminals or putty windows running at the same time. Do the steps up to monitoring the log file in the first window, and then switch to the other window to cause the failed logins. Once you do that, the IP address that the failures are coming from will be banned, so be sure your second session isn&rsquo;t coming from the same IP address as your first session.</p>
 <ol>
 <li>
 <p>Clear out your tables before starting the exercise</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo ufw reset
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo ufw reset
 sudo iptables -F
-sudo iptables -X </pre><pre class="hljs"><code><span class="hljs-attribute">sudo ufw reset
-sudo iptables -F
-sudo iptables -X</span> </code></pre></div>
+sudo iptables -X </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> ufw reset
+<span class="hljs-built_in">sudo</span> iptables -F
+<span class="hljs-built_in">sudo</span> iptables -X </code></pre></div>
 </li>
 <li>
 <p>Install <code class="inline-code">fail2ban</code></p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo apt install fail2ban </pre><pre class="hljs"><code>sudo apt <span class="hljs-keyword">install</span> fail2ban </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo apt install fail2ban </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> apt install fail2ban </code></pre></div>
 </li>
 <li>
 <p>Use <code class="inline-code">fail2ban-client</code> to see the default configuration that is running</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo fail2ban-client status </pre><pre class="hljs"><code>sudo fail2ban-<span class="hljs-keyword">client</span> status </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo fail2ban-client status </pre><pre class="hljs"><code>sudo fail2ban-<span class="hljs-keyword">client</span> status </code></pre></div>
 </li>
 <li>
 <p>Check the status of default <code class="inline-code">sshd</code> jail that is installed</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo fail2ban-client status sshd </pre><pre class="hljs"><code>sudo fail2ban-<span class="hljs-keyword">client</span> status sshd </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo fail2ban-client status sshd </pre><pre class="hljs"><code>sudo fail2ban-<span class="hljs-keyword">client</span> status sshd </code></pre></div>
 </li>
 <li>
 <p>Start monitoring the <code class="inline-code">fail2ban.log</code> using <code class="inline-code">tail -f</code> to see what the service does for the next steps</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo tail -f /var/log/fail2ban.log </pre><pre class="hljs"><code>sudo tail -f /<span class="hljs-keyword">var</span>/<span class="hljs-built_in">log</span>/fail2ban.<span class="hljs-built_in">log</span> </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo tail -f /var/log/fail2ban.log </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tail</span> -f /var/log/fail2ban.<span class="hljs-built_in">log</span> </code></pre></div>
 </li>
 <li>
 <p>Use a second terminal/putty window to login to your VM from a different machine than your other ssh session, but give the wrong password 6 times in a row while watching the <code class="inline-code">fail2ban</code> log in your other ssh session</p>
 </li>
 <li>
 <p>Once the service bans your ip according to the watched logfile, cancel the logfile monitoring using <code class="inline-code">^C</code> (<code class="inline-code">ctrl-c</code>) and examine the ban with the following commands in the terminal window that is still working</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">fail2ban-client status sshd
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">fail2ban-client status sshd
 fail2ban-client get sshd bantime </pre><pre class="hljs"><code>fail2ban-<span class="hljs-keyword">client</span> status sshd
 fail2ban-<span class="hljs-keyword">client</span> get sshd bantime </code></pre></div>
 </li>
 <li>
 <p>Clear the ban manually</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">fail2ban-client set sshd unbanip w.x.y.z
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">fail2ban-client set sshd unbanip w.x.y.z
 fail2ban-client status sshd </pre><pre class="hljs"><code>fail2ban-client <span class="hljs-keyword">set</span> sshd <span class="hljs-comment">unbanip w.x.y.z</span>
 fail2ban-client <span class="hljs-comment">status sshd</span> </code></pre></div>
 </li>
@@ -751,7 +976,6 @@ fail2ban-client <span class="hljs-comment">status sshd</span> </code></pre></div
 <p>Verify your second terminal/putty window can connect using ssh again</p>
 </li>
 </ol>
-<p>Source:  <a data-from-md title='Lab 04 Firewalls and filters' href='https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab04%20Firewalls.html'>Lab 04 Firewalls and filters</a></p>
 </div></div>
 					</body>
 				</html>

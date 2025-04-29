@@ -1,10 +1,137 @@
 
-				<!DOCTYPE html>
+				
 				<html>
 					<head>
-						<meta charset="UTF-8">
-						<meta name="viewport" content="width=device-width, initial-scale=1" />
-						<link rel="stylesheet" href="pluginAssets/katex/katex.css"><script type="application/javascript" src="pluginAssets/mermaid/mermaid.min.js"></script><script type="application/javascript" src="pluginAssets/mermaid/mermaid_render.js"></script><link rel="stylesheet" href="pluginAssets/highlight.js/atom-one-light.css">
+						<meta charset="UTF-8"/>
+						<meta name="viewport" content="width=device-width, initial-scale=1"/>
+						<style>.jsdraw--editButton {
+  display: none;
+  width: min-content;
+  max-height: 50px;
+  z-index: 1;
+  opacity: 0.9;
+  align-self: flex-end;
+  justify-self: right;
+}
+
+.jsdraw--svgWrapper {
+  display: inline-grid;
+}
+
+.jsdraw--svgWrapper > * {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.jsdraw--svgWrapper:hover .jsdraw--editButton,
+.jsdraw--svgWrapper:focus .jsdraw--editButton,
+.jsdraw--svgWrapper:focus-within .jsdraw--editButton,
+.jsdraw--editButton:focus {
+  display: block;
+}</style><style>pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+}
+
+code.hljs {
+  padding: 3px 5px;
+}
+
+/*
+
+Atom One Light by Daniel Gamage
+Original One Light Syntax theme from https://github.com/atom/one-light-syntax
+
+base:    #fafafa
+mono-1:  #383a42
+mono-2:  #686b77
+mono-3:  #a0a1a7
+hue-1:   #0184bb
+hue-2:   #4078f2
+hue-3:   #a626a4
+hue-4:   #50a14f
+hue-5:   #e45649
+hue-5-2: #c91243
+hue-6:   #986801
+hue-6-2: #c18401
+
+*/
+
+.hljs {
+  color: #383a42;
+  background: #fafafa;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #a0a1a7;
+  font-style: italic;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #a626a4;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e45649;
+}
+
+.hljs-literal {
+  color: #0184bb;
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+  color: #50a14f;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #986801;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #4078f2;
+}
+
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #c18401;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}</style>
 						<title>Lab 2 - System Examination</title>
 					</head>
 					<body>
@@ -23,7 +150,7 @@
 			word-wrap: break-word;
 			line-height: 1.6em;
 			background-color: #ffffff;
-			font-family: 'Avenir', 'Arial', sans-serif;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
 			padding-bottom: 0px;
 			padding-top: 0px;
 		}
@@ -34,9 +161,17 @@
 			border-radius: 3px;
 			background-color: rgb(243, 243, 243);
 		}
+
+		:root {
+			--scrollbar-size: 7px;
+		}
+
 		::-webkit-scrollbar {
-			width: 7px;
-			height: 7px;
+			width: var(--scrollbar-size);
+			height: var(--scrollbar-size);
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: calc(var(--scrollbar-size) / 2);
 		}
 		::-webkit-scrollbar-corner {
 			background: none;
@@ -151,7 +286,7 @@
      * instead of the svg width, height property you must use a viewbox here, 0 0 1536 1792 is typically the actual size of the icon
      * each line begins with the pre-amble -webkit-mask: url("data:image/svg+xml;utf8,
      * and of course finishes with ");
-     * to precvent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
+     * to prevent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
      * on the following line
      * */
 		.fa-joplin {
@@ -224,7 +359,7 @@
 			padding: .5em 1em .5em 1em;
 			font-size: 15;
 			color: #32373F;
-			font-family: 'Avenir', 'Arial', sans-serif;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
 		}
 
 		.jop-tinymce table td,
@@ -274,24 +409,26 @@
 			color: black;
 		}
 
-		.not-loaded-resource img {
-			width: 1.15em;
-			height: 1.15em;
-			background: white;
-			padding: 2px !important;
-			border-radius: 2px;
-			box-shadow: 0 1px 3px #000000aa;
-		}
+		
+	.not-loaded-resource img {
+		width: 1.15em;
+		height: 1.15em;
+		background: white;
+		padding: 2px !important;
+		border-radius: 2px;
+		box-shadow: 0 1px 3px #000000aa;
+	}
 
-		a.not-loaded-resource img {
-			margin-right: .2em;
-		}
+	a.not-loaded-resource img {
+		margin-right: .2em;
+	}
 
-		a.not-loaded-resource {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-		}
+	a.not-loaded-resource {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
 
 		.md-checkbox input[type=checkbox]:checked {
 			opacity: 0.7;
@@ -376,6 +513,11 @@
 			overflow-x: auto;
 		}
 
+		.joplin-table-wrapper{
+			overflow-x: auto;
+			overflow-y: hidden;
+		}
+
 		/* =============================================== */
 		/* For TinyMCE */
 		/* =============================================== */
@@ -418,6 +560,8 @@
 				li.md-checkbox input[type=checkbox] {
 					margin-left: -1.71em;
 					margin-right: 0.7em;
+					position: relative;
+					top: 1px;
 				}
 				
 				ul.joplin-checklist {
@@ -444,16 +588,26 @@
 				.joplin-checklist li:not(.checked)::before {
 					content:"\f0c8";
 				}
-.mermaid { background-color: white; width: 640px; }
-.mermaid-export-graph { visibility: hidden; } 
-				.joplin-editable:hover .mermaid-export-graph { visibility: visible; }
-				.mermaid-export-graph:hover { background-color: #CBDAF1 !important; }</style><div id="rendered-md"><h1 id="lab-2-system-examination">Lab 2 - System Examination</h1>
-<p>System Examination involves evaluating whether a computer system or network contains what it is intended to contain and only what it is intended to contain, and is behaving according to expectations. This cannot be done without defining expectations of what it should contain and how it should behave.</p>
-<h2 id="defining-expectations">Defining Expectations</h2>
-<p>Since our VM was not built by us, we would be dependent on receiving expected state documentation from whoever ran it before us. We will take the position that such documentation/policy is non-existent for our system beyond the brief description of the server we saw in Lab 1. So our examination of the system will provide our baseline documentation of the system’s current state.</p>
-<h2 id="evaluating-static-state">Evaluating Static State</h2>
+.mermaid { width: 640px; }
+pre.mermaid[data-processed=true] { white-space: unset; }
+.mermaid-export-graph {
+					opacity: 0;
+					height: 0;
+					z-index: 1;
+					position: relative;
+				} 
+				.joplin-editable:hover .mermaid-export-graph,
+				.joplin-editable .mermaid-export-graph:has(:focus-visible) {
+					opacity: 1;
+				}
+				.mermaid-export-graph > button:hover {
+					background-color: #CBDAF1 !important;
+				}</style><div id="rendered-md"><p>System Examination involves evaluating whether a computer system or network contains what it is intended to contain and only what it is intended to contain, and is behaving according to expectations. This cannot be done without defining expectations of what it should contain and how it should behave.</p>
+<h1 id="defining-expectations">Defining Expectations</h1>
+<p>Since our VM was not built by us, we would be dependent on receiving expected state documentation from whoever ran it before us. We will take the position that such documentation/policy is non-existent for our system beyond the brief description of the server we saw in Lab 1. So our examination of the system will provide our baseline documentation of the system&rsquo;s current state.</p>
+<h1 id="evaluating-static-state">Evaluating Static State</h1>
 <p>The content of a system may be divided up in any way that makes sense for your organization. For our purposes, we will ignore hardware since we are using virtual machines, and focus instead on software and data.</p>
-<h2 id="software">Software</h2>
+<h1 id="software">Software</h1>
 <p>To keep this part manageable in the time we have for the course, we will only focus on software that is installed as a package or group of packages. We will ignore manually installed software that is not managed by the APT package tools.</p>
 <ol>
 <li>What software is installed, and is it the right software?
@@ -463,7 +617,7 @@
 <li>Identify security risks of installed software by checking CVEs</li>
 </ol>
 </li>
-<li>Is the software’s integrity intact?
+<li>Is the software&rsquo;s integrity intact?
 <ol>
 <li>Install the <code class="inline-code">debsums</code> package</li>
 <li>Use the <code class="inline-code">debsums</code> command to check the binary and configuration files in the <code class="inline-code">openssh-client</code> package</li>
@@ -483,12 +637,12 @@
 </ol>
 </li>
 </ol>
-<h2 id="data">Data</h2>
+<h1 id="data">Data</h1>
 <ol>
 <li>Who has what kind of data on the system?
 <ol>
 <li>What user accounts exist on the system?</li>
-<li>What file types exist in the user’s files (ones not owned by system accounts)?</li>
+<li>What file types exist in the user&rsquo;s files (ones not owned by system accounts)?</li>
 </ol>
 </li>
 <li>Are there resource limits?
@@ -497,7 +651,7 @@
 <li>Are there any resource (CPU/memory) limits on end-user accounts?</li>
 </ol>
 </li>
-<li>Are there any “bad” files?
+<li>Are there any &ldquo;bad&rdquo; files?
 <ol>
 <li>Do any users have world-writable permissions on their files/directories? If so, should they?</li>
 <li>Do any users have excessive space usage or hidden files that you would not expect to find?</li>
@@ -505,32 +659,34 @@
 <li>Do any end-users have files that do not belong to them in their home directories or other data spaces that they own?</li>
 <li>Are there files owned by system accounts that were not installed as part of packages?</li>
 <li>Are there end-user-owned files in any of the system directories such as <code class="inline-code">/</code>, <code class="inline-code">/etc</code>, <code class="inline-code">/bin</code>, <code class="inline-code">/sbin</code>, or anywhere under <code class="inline-code">/usr</code>?</li>
-<li>Are there dotfiles (hidden files) anywhere but in end users’ home directories?</li>
+<li>Are there dotfiles (hidden files) anywhere but in end users&rsquo; home directories?</li>
 </ol>
 </li>
 </ol>
 <p><em>How is awareness of this state information kept current?</em></p>
-<h2 id="state-examination-software">State Examination Software</h2>
-<p>Install and try  <a data-from-md title='https://packages.cisofy.com/community/' href='https://packages.cisofy.com/community/'>Lynis</a>  and  <a data-from-md title='https://aide.github.io' href='https://aide.github.io'>AIDE</a>  for system examination and evaluation.</p>
-<h2 id="evaluating-dynamic-state">Evaluating Dynamic State</h2>
+<h1 id="state-examination-software">State Examination Software</h1>
+<p>Install and try  <a data-from-md="" title="https://packages.cisofy.com/community/" href="https://packages.cisofy.com/community/">Lynis</a>  and  <a data-from-md="" title="https://aide.github.io" href="https://aide.github.io">AIDE</a>  for system examination and evaluation.</p>
+<h1 id="evaluating-dynamic-state">Evaluating Dynamic State</h1>
 <ol>
-<li>Explore dynamic state tools you haven’t used before that are mentioned in  <a data-from-md title='https://zonzorp.github.io/NETS1028/Presentations/NETS1028%2002%20System%20Examination.pdf' href='https://zonzorp.github.io/NETS1028/Presentations/NETS1028%2002%20System%20Examination.pdf'>the presentation on slides 9-12</a></li>
+<li>Explore dynamic state tools you haven&rsquo;t used before that are mentioned in  <a data-from-md="" title="https://zonzorp.github.io/NETS1028/Presentations/NETS1028%2002%20System%20Examination.pdf" href="https://zonzorp.github.io/NETS1028/Presentations/NETS1028%2002%20System%20Examination.pdf">the presentation on slides 9-12</a></li>
 <li>Review the contents of your /var/log/auth.log file to see what kind of log entries are in it</li>
 <li>Try each of the su and sudo methods of getting privileged access to the system, but use the wrong passwords</li>
 <li>Try logging in with ssh using a wrong password</li>
 <li>Try logging in with ssh using an invalid username</li>
 <li>Review what got logged for each of the failed access attempts to become familiar with what those entries look like</li>
 </ol>
-<p>Review the suggestions at  <a data-from-md title='https://wiki.ubuntu.com/BasicSecurity/DidIJustGetOwned' href='https://wiki.ubuntu.com/BasicSecurity/DidIJustGetOwned'>https://wiki.ubuntu.com/BasicSecurity/DidIJustGetOwned</a>.</p>
-<h2 id="grading">Grading</h2>
-<p>This lab is intended to familiarize you with the basic tools used to examine any system for security-related purposes. There is nothing to hand in for this lab. The more you do with it, the better positioned you will be for the remainder of the INSS program. This is purely a learning reinforcement activity.</p>
+<p>Review the suggestions at  <a data-from-md="" title="https://wiki.ubuntu.com/BasicSecurity/DidIJustGetOwned" href="https://wiki.ubuntu.com/BasicSecurity/DidIJustGetOwned">https://wiki.ubuntu.com/BasicSecurity/DidIJustGetOwned</a>.</p>
+<h1 id="grading">Grading</h1>
+<p>This lab is intended to familiarize you with the basic tools used to examine any system for security-related purposes. There is nothing to hand in for this lab. The more you do with it, the better positioned you will be for the remainder of the CYBE program. This is purely a learning reinforcement activity.</p>
 <h1 id="script-to-find-executable-files-that-are-not-known-to-the-package-manager">Script to find executable files that are not known to the package manager</h1>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash&#10;" data-joplin-source-close="&#10;```">#!/bin/bash
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
+" data-joplin-source-close="
+```">#!/bin/bash
 
 # simple script to identify files that are executable (programs) which did not come from installed system packages
 # could be improved in a number of ways
 
-IFS=$'\xa'
+IFS=$&apos;\xa&apos;
 find / -type f -executable &gt;/tmp/filelist.$$
 for file in $(cat /tmp/filelist.$$); do
   dpkg -S &quot;$file&quot; &gt;/dev/null 2&gt;/dev/null || echo &quot;$file&quot;
@@ -540,13 +696,12 @@ rm /tmp/filelist.$$</pre><pre class="hljs"><code><span class="hljs-meta">#!/bin/
 <span class="hljs-comment"># simple script to identify files that are executable (programs) which did not come from installed system packages</span>
 <span class="hljs-comment"># could be improved in a number of ways</span>
 
-IFS=$<span class="hljs-string">&#x27;\xa&#x27;</span>
+IFS=$<span class="hljs-string">&apos;\xa&apos;</span>
 find / -<span class="hljs-built_in">type</span> f -executable &gt;/tmp/filelist.$$
 <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> $(<span class="hljs-built_in">cat</span> /tmp/filelist.$$); <span class="hljs-keyword">do</span>
   dpkg -S <span class="hljs-string">&quot;<span class="hljs-variable">$file</span>&quot;</span> &gt;/dev/null 2&gt;/dev/null || <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$file</span>&quot;</span>
 <span class="hljs-keyword">done</span>
 <span class="hljs-built_in">rm</span> /tmp/filelist.$$</code></pre></div>
-<p>Source: <a data-from-md title=' Lab 02 System Examination' href='https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab02%20System%20Examination.html'>Lab 02 System Examination.</a></p>
 </div></div>
 					</body>
 				</html>

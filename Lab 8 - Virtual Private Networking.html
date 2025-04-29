@@ -602,29 +602,28 @@ pre.mermaid[data-processed=true] { white-space: unset; }
 				}
 				.mermaid-export-graph > button:hover {
 					background-color: #CBDAF1 !important;
-				}</style><div id="rendered-md"><h1 id="lab-8-virtual-private-networking">Lab 8 - Virtual Private Networking</h1>
-<p>This unit provides an introduction on how to setup VPNs on Linux systems.</p>
-<h2 id="create-a-vpn-service-for-a-tls-vpn-on-the-lab-linux-vm">Create a VPN service for a TLS VPN on the Lab Linux VM</h2>
-<p>In this step you will install and start openvpn service on our lab VM. Use the script I wrote for you <a data-from-md="" title="https://gorbehnare.github.io/NETS1028-updated-labs/vpn-config.sh" href="https://gorbehnare.github.io/NETS1028-updated-labs/vpn-config.sh">openvpn server setup for this lab</a> which is based on instructions found in the <a data-from-md="" title="https://ubuntu.com/server/docs/service-openvpn" href="https://ubuntu.com/server/docs/service-openvpn">Ubuntu LTS server docs</a>.</p>
+				}</style><div id="rendered-md"><p>This unit provides an introduction on how to setup VPNs on Linux systems.</p>
+<h1 id="create-a-vpn-service-for-a-tls-vpn-on-the-lab-linux-vm">Create a VPN service for a TLS VPN on the Lab Linux VM</h1>
+<p>In this step you will install and start openvpn service on our lab VM. Use the script provided <a data-from-md="" title="https://gorbehnare.github.io/NETS1028-updated-labs/vpn-config.sh" href="https://gorbehnare.github.io/NETS1028-updated-labs/vpn-config.sh">openvpn server setup for this lab</a> which is based on instructions found in the <a data-from-md="" title="https://ubuntu.com/server/docs/service-openvpn" href="https://ubuntu.com/server/docs/service-openvpn">Ubuntu LTS server docs</a>. If you run into issue with the script, please refer to the  <a data-from-md="" title="https://ubuntu.com/server/docs/service-openvpn" href="https://ubuntu.com/server/docs/service-openvpn">Ubuntu LTS server docs</a> and <a data-from-md="" title="https://openvpn.net/community-resources/how-to/" href="https://openvpn.net/community-resources/how-to/">OpenVPN How-to</a> for troubleshooting.</p>
 <p>Retrieve and run the script with the server option first to setup your vpn server with openvpn. It is designed to be run on the lab VM I provided for this course.</p>
 <ol>
 <li>
 <p>Retrieve the script from the course github website and make it executable</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">wget -O ~/vpn-config.sh https://gorbehnare.github.io/NETS1028-updated-labs/vpn-config.sh
 chmod +x vpn-config.sh </pre><pre class="hljs"><code>wget -O ~/vpn-config.sh https://gorbehnare.github.io/NETS1028-updated-labs/vpn-config.sh
 <span class="hljs-built_in">chmod</span> +x vpn-config.sh </code></pre></div>
 </li>
 <li>
-<p>Run the script to set up the vpn service for the hostname nets1028-vpnserver on it 172.16.5.2 address</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<p>Run the script to set up the vpn service for the hostname <code class="inline-code">nets1028-vpnserver</code> on it <code class="inline-code">172.16.5.2</code> address</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">sudo ./vpn-config.sh -s nets1028-vpnserver </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> ./vpn-config.sh -s nets1028-vpnserver </code></pre></div>
 </li>
 <li>
 <p>Start the vpn service running and allow the vpn port through the firewall</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">sudo ufw allow 1194/udp 
 sudo systemctl start openvpn@nets1028-vpnserver</pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> ufw allow 1194/udp 
@@ -632,33 +631,33 @@ sudo systemctl start openvpn@nets1028-vpnserver</pre><pre class="hljs"><code><sp
 </li>
 <li>
 <p>If there is a passphrase on the private key, you need to use systemd&rsquo;s messed up method of supplying the passphrase. You may need to stop the VPN service, apply the following setting, and then start the service again. You should be notified to use the  <code class="inline-code">systemd-tty-ask-password-agent</code>  tool to supply the passphrase. Use <code class="inline-code">systemd-tty-ask-password-agent</code> tool to provide the passphrase - <em>screenshot</em></p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">sudo systemd-tty-ask-password-agent --query 
-# stop and start the service, and you should be notified to use the `systemd-tty-ask-password-agent` tool to supply the passphrase</pre><pre class="hljs"><code>sudo systemd-tty-ask-password-agent <span class="hljs-comment">--query </span>
+# stop and start the service, and you should be notified to use the `systemd-tty-ask-password-agent` tool to supply the passphrase</pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> systemd-tty-ask-password-agent --query 
 <span class="hljs-comment"># stop and start the service, and you should be notified to use the `systemd-tty-ask-password-agent` tool to supply the passphrase</span></code></pre></div>
 </li>
 <li>
 <p>Verify the service is running without any errors: - <em>screenshot</em></p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">systemctl status openvpn@nets1028-vpnserver
-sudo cat /var/log/openvpn/openvpn-status.log </pre><pre class="hljs"><code>systemctl <span class="hljs-keyword">status</span> openvpn@nets1028-vpnserver
-sudo cat /var/<span class="hljs-built_in">log</span>/openvpn/openvpn-<span class="hljs-keyword">status</span>.<span class="hljs-built_in">log</span> </code></pre></div>
+sudo cat /var/log/openvpn/openvpn-status.log </pre><pre class="hljs"><code>systemctl status openvpn@nets1028-vpnserver
+<span class="hljs-built_in">sudo</span> <span class="hljs-built_in">cat</span> /var/log/openvpn/openvpn-status.log </code></pre></div>
 </li>
 <li>
 <p>Create a tarfile containing the bundle of files for the vpn client to use</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">sudo ./vpn-config.sh -c nets1028-vpnclient nets1028-vpnserver </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> ./vpn-config.sh -c nets1028-vpnclient nets1028-vpnserver </code></pre></div>
 </li>
 </ol>
-<h2 id="create-a-vpn-connection-to-that-vpn-server">Create a vpn connection to that VPN server</h2>
+<h1 id="create-a-vpn-connection-to-that-vpn-server">Create a vpn connection to that VPN server</h1>
 <p>Do these steps on the Linux backups server VM created in a previous lab. We will use it as our vpn client to save creating another VM.</p>
 <ol>
 <li>
 <p>Install the openvpn package</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">sudo apt update
 sudo apt install openvpn </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> apt update
@@ -666,67 +665,66 @@ sudo apt install openvpn </pre><pre class="hljs"><code><span class="hljs-built_i
 </li>
 <li>
 <p>Retrieve the config file bundle for the client from the vpn server</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
-```">scp student@vpn-server-ip-address:/etc/openvpn/nets1028-vpnclient-vpnfiles.tgz . </pre><pre class="hljs"><code><span class="hljs-attribute">scp</span> student<span class="hljs-variable">@vpn</span>-server-ip-address:/etc/openvpn/nets1028-vpnclient-vpnfiles.tgz . </code></pre></div>
+```">scp student@vpn-server-ip-address:/etc/openvpn/nets1028-vpnclient-vpnfiles.tgz . </pre><pre class="hljs"><code>scp student@vpn-server-ip-address:/etc/openvpn/nets1028-vpnclient-vpnfiles.tgz . </code></pre></div>
 </li>
 <li>
 <p>Install the config files where openvpn expects them to be and remove the tarfile</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">sudo tar xf nets1028-vpnclient-vpnfiles.tgz -C /etc/openvpn
 rm nets1028-vpnclient-vpnfiles.tgz </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> tar xf nets1028-vpnclient-vpnfiles.tgz -C /etc/openvpn
 <span class="hljs-built_in">rm</span> nets1028-vpnclient-vpnfiles.tgz </code></pre></div>
 </li>
 <li>
-<p>Make sure the vpn client can resolve the hostname for the vpnserver by adding nets1028-vpnserver with address 172.16.5.2 to your /etc/hosts file on the backups server</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<p>Make sure the vpn client can resolve the hostname for the vpnserver by adding <code class="inline-code">nets1028-vpnserver</code> with address <code class="inline-code">172.16.5.2</code> to your <code class="inline-code">/etc/hosts</code> file on the backups server</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">sudo vi /etc/hosts </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> vi /etc/hosts </code></pre></div>
 </li>
 <li>
-<p>Add a route from the backups server to the private vlan network 172.16.5.0/24 via the lab VM</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<p>Add a route from the backups server to the private vlan network <code class="inline-code">172.16.5.0/24</code> via the lab VM</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
-```">sudo ip r add to 172.16.5.0/24 via &lt;lab-vm-ip-address&gt; </pre><pre class="hljs"><code>sudo<span class="hljs-built_in"> ip </span>r <span class="hljs-built_in">add</span> <span class="hljs-keyword">to</span> 172.16.5.0/24 via &lt;lab-vm-ip-address&gt; </code></pre></div>
+```">sudo ip r add to 172.16.5.0/24 via &lt;lab-vm-ip-address&gt; </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> ip r add to 172.16.5.0/24 via &lt;lab-vm-ip-address&gt; </code></pre></div>
 <p><strong>NOTICE:</strong> Since the <code class="inline-code">ip</code> command is used, this route will clear after a reboot and you will need to reissue this command every time. If you want to make this route permanent, you can add this to the netplan configuration files instead!</p>
 </li>
 <li>
 <p>Verify that the backups server can now reach the private address for our vpn service on our lab VM</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
-```">ping -c 3 nets1028-vpnserver </pre><pre class="hljs"><code><span class="hljs-attribute">ping</span> -c <span class="hljs-number">3</span> nets1028-vpnserver </code></pre></div>
+```">ping -c 3 nets1028-vpnserver </pre><pre class="hljs"><code>ping -c 3 nets1028-vpnserver </code></pre></div>
 </li>
 <li>
 <p>Start the client vpn running and give the password for the client&rsquo;s private key.</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
-```">sudo systemctl start openvpn@nets1028-vpnclient </pre><pre class="hljs"><code><span class="hljs-attribute">sudo</span> systemctl start openvpn<span class="hljs-variable">@nets1028</span>-vpnclient </code></pre></div>
+```">sudo systemctl start openvpn@nets1028-vpnclient </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> systemctl start openvpn@nets1028-vpnclient </code></pre></div>
 </li>
 <li>
 <p>If there is a passphrase on the private key, you need to use systemd&rsquo;s messed up method of supplying the passphrase. You may need to stop the VPN service, apply the following setting, and then start the service again. You should be notified to use the  <code class="inline-code">systemd-tty-ask-password-agent</code>  tool to supply the passphrase. Use <code class="inline-code">systemd-tty-ask-password-agent</code> tool to provide the passphrase - <em>screenshot</em></p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">sudo systemd-tty-ask-password-agent --query 
-# stop and start the VPN service, and you should be notified to use the `systemd-tty-ask-password-agent` tool to supply the passphrase</pre><pre class="hljs"><code>sudo systemd-tty-ask-password-agent <span class="hljs-comment">--query </span>
+# stop and start the VPN service, and you should be notified to use the `systemd-tty-ask-password-agent` tool to supply the passphrase</pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> systemd-tty-ask-password-agent --query 
 <span class="hljs-comment"># stop and start the VPN service, and you should be notified to use the `systemd-tty-ask-password-agent` tool to supply the passphrase</span></code></pre></div>
 </li>
 <li>
 <p>Verify the service is running without errors: - <em>screenshot</em></p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">systemctl status openvpn@nets1028-vpnclient
 ip address show
   # Look at the log file on the VPN-server to see what is displayed:
 sudo cat /var/log/openvpn/openvpn-status.log</pre><pre class="hljs"><code>systemctl status openvpn@nets1028-vpnclient
 ip address show
-  # Look at the <span class="hljs-built_in">log</span> <span class="hljs-keyword">file</span> <span class="hljs-keyword">on</span> the VPN-server <span class="hljs-keyword">to</span> see what <span class="hljs-keyword">is</span> displayed:
-sudo <span class="hljs-keyword">cat</span> /var/<span class="hljs-built_in">log</span>/openvpn/openvpn-status.<span class="hljs-built_in">log</span></code></pre></div>
+  <span class="hljs-comment"># Look at the log file on the VPN-server to see what is displayed:</span>
+<span class="hljs-built_in">sudo</span> <span class="hljs-built_in">cat</span> /var/log/openvpn/openvpn-status.log</code></pre></div>
 </li>
 </ol>
-<h2 id="grading">Grading</h2>
+<h1 id="grading">Grading</h1>
 <p>Submit your results and screenshots as per instructions posted on Blackboard. Everywhere there is a screenshot marker in the instructions above, you must capture enough to show the command(s) you ran and the full relevant results of running them.</p>
-<p>Source: <a data-from-md="" title="https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab08%20VPNs.html" href="https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab08%20VPNs.html">Lab 08 Virtual Private Networking</a></p>
 </div></div>
 					</body>
 				</html>

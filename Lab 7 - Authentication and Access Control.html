@@ -1,10 +1,137 @@
 
-				<!DOCTYPE html>
+				
 				<html>
 					<head>
-						<meta charset="UTF-8">
-						<meta name="viewport" content="width=device-width, initial-scale=1" />
-						<link rel="stylesheet" href="pluginAssets/katex/katex.css"><script type="application/javascript" src="pluginAssets/mermaid/mermaid.min.js"></script><script type="application/javascript" src="pluginAssets/mermaid/mermaid_render.js"></script><link rel="stylesheet" href="pluginAssets/highlight.js/atom-one-light.css">
+						<meta charset="UTF-8"/>
+						<meta name="viewport" content="width=device-width, initial-scale=1"/>
+						<style>.jsdraw--editButton {
+  display: none;
+  width: min-content;
+  max-height: 50px;
+  z-index: 1;
+  opacity: 0.9;
+  align-self: flex-end;
+  justify-self: right;
+}
+
+.jsdraw--svgWrapper {
+  display: inline-grid;
+}
+
+.jsdraw--svgWrapper > * {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.jsdraw--svgWrapper:hover .jsdraw--editButton,
+.jsdraw--svgWrapper:focus .jsdraw--editButton,
+.jsdraw--svgWrapper:focus-within .jsdraw--editButton,
+.jsdraw--editButton:focus {
+  display: block;
+}</style><style>pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+}
+
+code.hljs {
+  padding: 3px 5px;
+}
+
+/*
+
+Atom One Light by Daniel Gamage
+Original One Light Syntax theme from https://github.com/atom/one-light-syntax
+
+base:    #fafafa
+mono-1:  #383a42
+mono-2:  #686b77
+mono-3:  #a0a1a7
+hue-1:   #0184bb
+hue-2:   #4078f2
+hue-3:   #a626a4
+hue-4:   #50a14f
+hue-5:   #e45649
+hue-5-2: #c91243
+hue-6:   #986801
+hue-6-2: #c18401
+
+*/
+
+.hljs {
+  color: #383a42;
+  background: #fafafa;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #a0a1a7;
+  font-style: italic;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #a626a4;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e45649;
+}
+
+.hljs-literal {
+  color: #0184bb;
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+  color: #50a14f;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #986801;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #4078f2;
+}
+
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #c18401;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}</style>
 						<title>Lab 7 - Authentication and Access Control</title>
 					</head>
 					<body>
@@ -23,7 +150,7 @@
 			word-wrap: break-word;
 			line-height: 1.6em;
 			background-color: #ffffff;
-			font-family: 'Avenir', 'Arial', sans-serif;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
 			padding-bottom: 0px;
 			padding-top: 0px;
 		}
@@ -34,9 +161,17 @@
 			border-radius: 3px;
 			background-color: rgb(243, 243, 243);
 		}
+
+		:root {
+			--scrollbar-size: 7px;
+		}
+
 		::-webkit-scrollbar {
-			width: 7px;
-			height: 7px;
+			width: var(--scrollbar-size);
+			height: var(--scrollbar-size);
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: calc(var(--scrollbar-size) / 2);
 		}
 		::-webkit-scrollbar-corner {
 			background: none;
@@ -151,7 +286,7 @@
      * instead of the svg width, height property you must use a viewbox here, 0 0 1536 1792 is typically the actual size of the icon
      * each line begins with the pre-amble -webkit-mask: url("data:image/svg+xml;utf8,
      * and of course finishes with ");
-     * to precvent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
+     * to prevent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
      * on the following line
      * */
 		.fa-joplin {
@@ -224,7 +359,7 @@
 			padding: .5em 1em .5em 1em;
 			font-size: 15;
 			color: #32373F;
-			font-family: 'Avenir', 'Arial', sans-serif;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
 		}
 
 		.jop-tinymce table td,
@@ -274,24 +409,26 @@
 			color: black;
 		}
 
-		.not-loaded-resource img {
-			width: 1.15em;
-			height: 1.15em;
-			background: white;
-			padding: 2px !important;
-			border-radius: 2px;
-			box-shadow: 0 1px 3px #000000aa;
-		}
+		
+	.not-loaded-resource img {
+		width: 1.15em;
+		height: 1.15em;
+		background: white;
+		padding: 2px !important;
+		border-radius: 2px;
+		box-shadow: 0 1px 3px #000000aa;
+	}
 
-		a.not-loaded-resource img {
-			margin-right: .2em;
-		}
+	a.not-loaded-resource img {
+		margin-right: .2em;
+	}
 
-		a.not-loaded-resource {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-		}
+	a.not-loaded-resource {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
 
 		.md-checkbox input[type=checkbox]:checked {
 			opacity: 0.7;
@@ -376,6 +513,11 @@
 			overflow-x: auto;
 		}
 
+		.joplin-table-wrapper{
+			overflow-x: auto;
+			overflow-y: hidden;
+		}
+
 		/* =============================================== */
 		/* For TinyMCE */
 		/* =============================================== */
@@ -418,6 +560,8 @@
 				li.md-checkbox input[type=checkbox] {
 					margin-left: -1.71em;
 					margin-right: 0.7em;
+					position: relative;
+					top: 1px;
 				}
 				
 				ul.joplin-checklist {
@@ -444,10 +588,21 @@
 				.joplin-checklist li:not(.checked)::before {
 					content:"\f0c8";
 				}
-.mermaid { background-color: white; width: 640px; }
-.mermaid-export-graph { visibility: hidden; } 
-				.joplin-editable:hover .mermaid-export-graph { visibility: visible; }
-				.mermaid-export-graph:hover { background-color: #CBDAF1 !important; }</style><div id="rendered-md"><h1 id="lab-7-authentication-and-access-control">Lab 7 - Authentication and Access Control</h1>
+.mermaid { width: 640px; }
+pre.mermaid[data-processed=true] { white-space: unset; }
+.mermaid-export-graph {
+					opacity: 0;
+					height: 0;
+					z-index: 1;
+					position: relative;
+				} 
+				.joplin-editable:hover .mermaid-export-graph,
+				.joplin-editable .mermaid-export-graph:has(:focus-visible) {
+					opacity: 1;
+				}
+				.mermaid-export-graph > button:hover {
+					background-color: #CBDAF1 !important;
+				}</style><div id="rendered-md"><h1 id="lab-7-authentication-and-access-control">Lab 7 - Authentication and Access Control</h1>
 <p>This unit provides an introduction to how to manage Access/Authentication/Authorization software on Linux systems.</p>
 <h2 id="password-expiry-exercises">Password Expiry Exercises</h2>
 <ol>
@@ -473,9 +628,9 @@
 <h2 id="ssh-exercises">SSH Exercises</h2>
 <ol>
 <li>Create a key pair for the student account to use ssh using <code class="inline-code">ssh-keygen</code></li>
-<li>Copy the public key to the student account’s <code class="inline-code">~/.ssh/authorized_keys</code> using <code class="inline-code">ssh-copy-id student@localhost</code></li>
+<li>Copy the public key to the student account&rsquo;s <code class="inline-code">~/.ssh/authorized_keys</code> using <code class="inline-code">ssh-copy-id student@localhost</code></li>
 <li>Verify you can use ssh to access localhost without entering a password</li>
-<li>Modify the server’s sshd_config to not allow password logins (i.e. use without-password option, then restart service) and verify you can still access localhost using ssh</li>
+<li>Modify the server&rsquo;s <code class="inline-code">sshd_config</code> to not allow password logins (i.e. use without-password option, then restart service) and verify you can still access localhost using ssh</li>
 </ol>
 <h2 id="grading">Grading</h2>
 <p>This lab is not graded; it is only for practice. There is nothing to capture and nothing to submit.</p>

@@ -602,23 +602,22 @@ pre.mermaid[data-processed=true] { white-space: unset; }
 				}
 				.mermaid-export-graph > button:hover {
 					background-color: #CBDAF1 !important;
-				}</style><div id="rendered-md"><h1 id="lab-05-software-hardening">Lab 05 Software Hardening</h1>
-<p>This lab is intended to give you a taste of hardening software in Linux. It is neither an exhaustive list of recommendations nor even a list of things that apply to all systems. It is simply meant to give you practice in changing software settings and testing those changes.</p>
-<h2 id="grading">Grading</h2>
-<p>This lab counts for marks. Submit your results and screenshots as per instructions posted on Blackboard. For the screenshots, you only need to include enough in your screenshots to show your bash prompt, the command you ran, and the output that demonstrates what you did or that the command works. For the Roundcube web page screenshot, you only need to show the login succeeded as there is no email in the account.</p>
-<h2 id="over-riding-default-file-permissions-in-package-executables">Over-riding default file permissions in package executables</h2>
+				}</style><div id="rendered-md"><p>This lab is intended to give you a taste of hardening software in Linux. It is neither an exhaustive list of recommendations nor even a list of things that apply to all systems. It is simply meant to give you practice in changing software settings and testing those changes.</p>
+<h1 id="grading">Grading</h1>
+<p>This lab counts for marks. Submit your results and screenshots as per instructions posted on Blackboard. For the screenshots, you only need to include enough in your screenshots to show your bash prompt, the command you ran, and the output that demonstrates what you did or that the command works. For the <code class="inline-code">roundcube</code> web page screenshot, you only need to show the login succeeded as there is no email in the account.</p>
+<h1 id="over-riding-default-file-permissions-in-package-executables">Over-riding default file permissions in package executables</h1>
 <ol>
 <li>
-<p>Following the example in the slides, modify your sudo executable to only be accessible for execution by the file owner and the file&rsquo;s group</p>
+<p>Following the example in the slides, modify your <code class="inline-code">sudo</code> executable to only be accessible for execution by the file owner and the file&rsquo;s group</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
 " data-joplin-source-close="
 ```">sudo dpkg-statoverride --update --add root sudo 4550 /usr/bin/sudo</pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> dpkg-statoverride --update --add root <span class="hljs-built_in">sudo</span> 4550 /usr/bin/sudo</code></pre></div>
 </li>
 <li>
-<p>Before exiting your current bash session, start a second terminal window and ensure you can still use sudo</p>
+<p>Before exiting your current bash session, start a second terminal window and ensure you can still use <code class="inline-code">sudo</code></p>
 </li>
 <li>
-<p>Does debsums complain about your modified sudo program? How about dpkg with the verify option? - <em>submission question!</em></p>
+<p>Does <code class="inline-code">debsums</code> complain about your modified <code class="inline-code">sudo</code> program? How about <code class="inline-code">dpkg</code> with the verify option? - <em>submission question!</em></p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
 " data-joplin-source-close="
 ```">debsums sudo | grep /usr/bin/sudo
@@ -626,16 +625,16 @@ sudo dpkg --verify sudo </pre><pre class="hljs"><code>debsums <span class="hljs-
 <span class="hljs-built_in">sudo</span> dpkg --verify <span class="hljs-built_in">sudo</span> </code></pre></div>
 </li>
 <li>
-<p>Use the list option of dpkg-statoverride to view all programs with overrides on your system - <em>screenshot!</em></p>
+<p>Use the list option of <code class="inline-code">dpkg-statoverride</code> to view all programs with overrides on your system - <em>screenshot!</em></p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
 " data-joplin-source-close="
 ```">dpkg-statoverride --list </pre><pre class="hljs"><code>dpkg-statoverride <span class="hljs-comment">--list </span></code></pre></div>
 </li>
 </ol>
-<h2 id="apparmor">Apparmor</h2>
+<h1 id="apparmor">Apparmor</h1>
 <ol>
 <li>
-<p>Run aa-status to see what the current state of apparmor is on your VM</p>
+<p>Run <code class="inline-code">aa-status</code> to see what the current state of <code class="inline-code">apparmor</code> is on your VM</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
 " data-joplin-source-close="
 ```">sudo aa-status </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> aa-status </code></pre></div>
@@ -644,7 +643,7 @@ sudo dpkg --verify sudo </pre><pre class="hljs"><code>debsums <span class="hljs-
 </ul>
 </li>
 <li>
-<p>Try the aa-unconfined utility to see what processes are running that have tcp or udp ports and their apparmor status</p>
+<p>Try the aa-unconfined utility to see what processes are running that have <code class="inline-code">tcp</code> or <code class="inline-code">udp</code> ports and their <code class="inline-code">apparmor</code> status</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
 " data-joplin-source-close="
 ```">sudo aa-unconfined </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> aa-unconfined </code></pre></div>
@@ -656,58 +655,60 @@ sudo dpkg --verify sudo </pre><pre class="hljs"><code>debsums <span class="hljs-
 </ul>
 </li>
 <li>
-<p>Try using the &ndash;paranoid option for aa-unconfined to see if there are processes which could be confined by the <code class="inline-code">apparmor-profiles</code> package which <code class="inline-code">aa-unconfined</code> did not show without that option</p>
+<p>Try using the &ndash;paranoid option for <code class="inline-code">aa-unconfined</code> to see if there are processes which could be confined by the <code class="inline-code">apparmor-profiles</code> package which <code class="inline-code">aa-unconfined</code> did not show without that option</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
 " data-joplin-source-close="
 ```">sudo aa-unconfined --paranoid </pre><pre class="hljs"><code>sudo aa-unconfined <span class="hljs-comment">--paranoid </span></code></pre></div>
 </li>
 <li>
-<p>Review the content of the apprmor profile for the tcpdump network snooping program</p>
+<p>Review the content of the <code class="inline-code">apprmor</code> profile for the <code class="inline-code">tcpdump</code> network snooping program</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
 " data-joplin-source-close="
 ```">cat /etc/apparmor.d/usr.sbin.tcpdump </pre><pre class="hljs"><code><span class="hljs-built_in">cat</span> /etc/apparmor.d/usr.sbin.tcpdump </code></pre></div>
 </li>
 <li>
-<p>Using the apparmor man page, determine the kinds of limitations that are placed on that program by the profile. Explain the lines and be specific about the capabilities and permissions given. - <em>submission question!</em></p>
+<p>Using the <code class="inline-code">apparmor</code> man page, determine the kinds of limitations that are placed on that program by the profile. Explain the lines and be specific about the capabilities and permissions given. - <em>submission question!</em></p>
 </li>
 </ol>
-<h2 id="sudo-configuration">sudo Configuration</h2>
-<p><a data-from-md="" title="https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file" href="https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file">Digital Ocena&rsquo;s tips page for sudo privileges</a> is a helpful resource when looking for how to edit sudo permissions.</p>
+<h1 id="sudo-configuration">sudo Configuration</h1>
+<p><a data-from-md="" title="https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file" href="https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file">Digital Ocena&rsquo;s tips page for sudo privileges</a> is a helpful resource when looking for how to edit <code class="inline-code">sudo</code> permissions.</p>
 <ol>
 <li>
-<p>Modify your sudo executable to be accessible for execution by any user, so that we can use the sudoers file to control access instead</p>
+<p>Modify your sudo executable to be accessible for execution by any user, so that we can use the <code class="inline-code">sudoers</code> file to control access instead</p>
 <ul>
 <li><strong>Tip:</strong> You may need to remove the prior override before applying new override.</li>
 </ul>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">sudo dpkg-statoverride --update --add root sudo 4555 /usr/bin/sudo </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> dpkg-statoverride --update --add root <span class="hljs-built_in">sudo</span> 4555 /usr/bin/sudo </code></pre></div>
 </li>
 <li>
-<p>Modify your /etc/sudoers file to limit the <code class="inline-code">dennis</code> account so that they can only use root sudo to edit their own domain zone file (<code class="inline-code">/etc/bind/db.simpson22725.mytld</code>) and reload named using the <code class="inline-code">rndc reload</code> command. Provide a screenshot of your modified configurations - <em>screenshot!</em></p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<p>Modify your /etc/sudoers file to limit the <code class="inline-code">dennis</code> account so that they can only use root <code class="inline-code">sudo</code> to edit their own domain zone file (<code class="inline-code">/etc/bind/db.simpson22725.mytld</code>) and reload named using the <code class="inline-code">rndc reload</code> command. Provide a screenshot of your modified configurations - <em>screenshot!</em></p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
-```">visudo </pre><pre class="hljs"><code><span class="hljs-attribute">visudo</span> </code></pre></div>
+```">visudo </pre><pre class="hljs"><code>visudo </code></pre></div>
 </li>
 <li>
-<p>In a second ssh session, login as user <code class="inline-code">dennis</code> (password is <code class="inline-code">dennis</code>) and verify that user dennis can use sudo to edit their zone file and to run <code class="inline-code">rndc reload</code> but cannot use sudo to run another command, such as <code class="inline-code">bash</code> (User should NOT be able to do sudo to run any other commands!)</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<p>In a second ssh session, login as user <code class="inline-code">dennis</code> (password is <code class="inline-code">dennis</code>) and verify that user <code class="inline-code">dennis</code> can use <code class="inline-code">sudo</code> to edit their zone file and to run <code class="inline-code">rndc reload</code> but cannot use <code class="inline-code">sudo</code> to run another command, such as <code class="inline-code">bash</code> (User should NOT be able to do <code class="inline-code">sudo</code> to run any other commands!)</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">dennis$ sudo vi /etc/bind/db.simpson22725.mytld
 dennis$ sudo rndc reload
-dennis$ sudo bash </pre><pre class="hljs"><code><span class="hljs-meta prompt_">dennis$ </span><span class="language-bash"><span class="hljs-built_in">sudo</span> vi /etc/bind/db.simpson22725.mytld</span>
-<span class="hljs-meta prompt_">dennis$ </span><span class="language-bash"><span class="hljs-built_in">sudo</span> rndc reload</span>
-<span class="hljs-meta prompt_">dennis$ </span><span class="language-bash"><span class="hljs-built_in">sudo</span> bash</span> </code></pre></div>
+dennis$ sudo bash </pre><pre class="hljs"><code>dennis$ <span class="hljs-built_in">sudo</span> vi /etc/bind/db.simpson22725.mytld
+dennis$ <span class="hljs-built_in">sudo</span> rndc reload
+dennis$ <span class="hljs-built_in">sudo</span> bash </code></pre></div>
 </li>
 <li>
-<p>List out the sudo configuration for user dennis - <em>screenshot!</em></p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<p>List out the <code class="inline-code">sudo</code> configuration for user <code class="inline-code">dennis</code> - <em>screenshot!</em></p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
-```">dennis$ sudo -l </pre><pre class="hljs"><code><span class="hljs-meta prompt_">dennis$ </span><span class="language-bash"><span class="hljs-built_in">sudo</span> -l</span> </code></pre></div>
-<p>Note: Make sure your permissions are correct, for example, dennis is only capable of modifying the specified file and nothing else.</p>
+```">dennis$ sudo -l </pre><pre class="hljs"><code>dennis$ <span class="hljs-built_in">sudo</span> -l </code></pre></div>
+<ul>
+<li>Note: Make sure your permissions are correct, for example, <code class="inline-code">dennis</code> is only capable of modifying the specified file and nothing else.</li>
+</ul>
 </li>
 </ol>
-<h2 id="bind-improvements">BIND improvements</h2>
+<h1 id="bind-improvements">BIND improvements</h1>
 <ol>
 <li>
 <p>Following the information given in <a data-from-md="" title="https://bind9.readthedocs.io/en/latest/chapter7.html" href="https://bind9.readthedocs.io/en/latest/chapter7.html">&quot;Security Configuration&quot; of the Bind9 Administrator&rsquo;s Reference Manual (ARM)</a>, secure your bind service by:</p>
@@ -719,17 +720,17 @@ dennis$ sudo bash </pre><pre class="hljs"><code><span class="hljs-meta prompt_">
 </li>
 <li>
 <p>Verify your DNS service reloads the new configuration properly, and that your domain lookup still works:</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">sudo rndc reload 
-nslookup www.simpson22725.mytld</pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> rndc reload 
-nslookup www.simpson22725.mytld</code></pre></div>
+nslookup www.server45678.mytld</pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> rndc reload 
+nslookup www.server45678.mytld</code></pre></div>
 </li>
 <li>
 <p>Provide Screenshots of the following: - <em>screenshots</em><br/>
 a. Screenshot/contents of modified <code class="inline-code">/etc/bind/named.conf.local</code> file<br/>
 b. Screenshot/contents of modified <code class="inline-code">/etc/bind/named.conf.options</code> file<br/>
-c. Screenshot of bind9 service status: <code class="inline-code">sudo service bind9 status</code><br/>
+c. Screenshot of <code class="inline-code">bind9</code> service status: <code class="inline-code">sudo service bind9 status</code><br/>
 d. In a terminal or powershell window on your host laptop/computer, run <code class="inline-code">nslookup www.simpson22725.mytld ip-of-your-vm</code> to verify your domain service is still available to non-local clients</p>
 </li>
 </ol>
@@ -746,48 +747,50 @@ d. In a terminal or powershell window on your host laptop/computer, run <code cl
 <li>reload the privilege tables<br/>
 NOTE: Depending on your VM configuration you may see an error when trying to execute <code class="inline-code">mysql_secure_installation</code> about the authentication method as follows:</li>
 </ul>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
-```">ali@pc20022725:~$ sudo mysql_secure_installation
+```">ali@pc12345678:~$ sudo mysql_secure_installation
 Failed! Error: SET PASSWORD has no significance for user &apos;root&apos;@&apos;localhost&apos; as the authentication method used doesn&apos;t store authentication data in the MySQL server
+
 # This is probably because your MySQL server is not using &quot;mysql_native_password&quot;
 # You can login to MySQL Server and change the root account authentication using the following method:
-ali@pc20022725:~$ sudo mysql
+ali@pc12345678:~$ sudo mysql
 [sudo] password for ali:
 ### &lt; output redacted for clarity &gt;
 mysql&gt; alter user &apos;root&apos;@&apos;localhost&apos; identified with mysql_native_password by &apos;root&apos;;
 Query OK, 0 rows affected (0.02 sec)
 mysql&gt; exit
-Bye</pre><pre class="hljs"><code>ali@pc20022725:~$ sudo mysql_secure_installation
-Failed! Error: <span class="hljs-keyword">SET</span> PASSWORD <span class="hljs-keyword">has</span> no significance <span class="hljs-keyword">for</span> user <span class="hljs-string">&apos;root&apos;</span>@<span class="hljs-string">&apos;localhost&apos;</span> <span class="hljs-keyword">as</span> the authentication <span class="hljs-keyword">method</span> <span class="hljs-title function_">used</span> <span class="hljs-title function_">doesn</span>&apos;<span class="hljs-title function_">t</span> <span class="hljs-title function_">store</span> <span class="hljs-title function_">authentication</span> <span class="hljs-title function_">data</span> <span class="hljs-title function_">in</span> <span class="hljs-title function_">the</span> <span class="hljs-title function_">MySQL</span> <span class="hljs-title function_">server</span>
-# <span class="hljs-title function_">This</span> <span class="hljs-title function_">is</span> <span class="hljs-title function_">probably</span> <span class="hljs-title function_">because</span> <span class="hljs-title function_">your</span> <span class="hljs-title function_">MySQL</span> <span class="hljs-title function_">server</span> <span class="hljs-title function_">is</span> <span class="hljs-title function_">not</span> <span class="hljs-title function_">using</span> &quot;<span class="hljs-title function_">mysql_native_password</span>&quot;
-# <span class="hljs-title function_">You</span> <span class="hljs-title function_">can</span> <span class="hljs-title function_">login</span> <span class="hljs-title function_">to</span> <span class="hljs-title function_">MySQL</span> <span class="hljs-title function_">Server</span> <span class="hljs-title function_">and</span> <span class="hljs-title function_">change</span> <span class="hljs-title function_">the</span> <span class="hljs-title function_">root</span> <span class="hljs-title function_">account</span> <span class="hljs-title function_">authentication</span> <span class="hljs-title function_">using</span> <span class="hljs-title function_">the</span> <span class="hljs-title function_">following</span> <span class="hljs-title function_">method</span>:
-ali@pc20022725:~$ sudo mysql
-[sudo] password <span class="hljs-keyword">for</span> ali:
-### &lt; output redacted <span class="hljs-keyword">for</span> clarity &gt;
-mysql&gt; alter user <span class="hljs-string">&apos;root&apos;</span>@<span class="hljs-string">&apos;localhost&apos;</span> identified <span class="hljs-keyword">with</span> mysql_native_password <span class="hljs-keyword">by</span> <span class="hljs-string">&apos;root&apos;</span><span class="hljs-punctuation">;</span>
-Query OK, <span class="hljs-number">0</span> rows affected (<span class="hljs-number">0.02</span> sec)
-mysql&gt; <span class="hljs-keyword">exit</span>
-Bye</code></pre></div>
+Bye</pre><pre class="hljs"><code>ali@pc12345678:~$ <span class="hljs-built_in">sudo</span> mysql_secure_installation
+Failed! Error: SET PASSWORD has no significance <span class="hljs-keyword">for</span> user <span class="hljs-string">&apos;root&apos;</span>@<span class="hljs-string">&apos;localhost&apos;</span> as the authentication method used doesn<span class="hljs-string">&apos;t store authentication data in the MySQL server
+
+# This is probably because your MySQL server is not using &quot;mysql_native_password&quot;
+# You can login to MySQL Server and change the root account authentication using the following method:
+ali@pc12345678:~$ sudo mysql
+[sudo] password for ali:
+### &lt; output redacted for clarity &gt;
+mysql&gt; alter user &apos;</span>root<span class="hljs-string">&apos;@&apos;</span>localhost<span class="hljs-string">&apos; identified with mysql_native_password by &apos;</span>root<span class="hljs-string">&apos;;
+Query OK, 0 rows affected (0.02 sec)
+mysql&gt; exit
+Bye</span></code></pre></div>
 </li>
 <li>
-<p>Access the web page at <a data-from-md="" title="http://your-vm-ip/roundcube" href="http://your-vm-ip/roundcube">http://your-vm-ip/roundcube</a> and put in the student account name and password, server <code class="inline-code">localhost</code> to verify that the mysql database service is still running properly - <em>screenshot!</em></p>
+<p>Access the web page at <code class="inline-code">http://your-vm-ip/roundcube</code> and put in the student account name and password, server <code class="inline-code">localhost</code> to verify that the <code class="inline-code">mysql</code> database service is still running properly - <em>screenshot!</em></p>
 </li>
 </ol>
-<h2 id="email-client-access">Email client access</h2>
-<p>Emails clients may try to transmit usernames and passwords in clear text. Depending on the client software, there is no guarantee that all clients will check supported protocols and will use encryption by default when attempting to connect to the server. An external email client should not be able to attempt a connection using unencrypted protocols if it can be helped. Additionally, we do have an internal email client, Roundcube, that uses IMAP locally.</p>
+<h1 id="email-client-access">Email client access</h1>
+<p>Emails clients may try to transmit usernames and passwords in clear text. Depending on the client software, there is no guarantee that all clients will check supported protocols and will use encryption by default when attempting to connect to the server. An external email client should not be able to attempt a connection using unencrypted protocols if it can be helped. Additionally, we do have an internal email client, <code class="inline-code">Roundcube</code>, that uses <code class="inline-code">IMAP</code> locally.</p>
 <ol>
-<li>Given the information above, identify what you would need to change in Dovecot configurations to disable POP3 and disallow IMAP from being accessed by remote hosts, and enforce POP3S and IMAPS services. - <em>submission question!</em></li>
+<li>Given the information above, identify what you would need to change in Dovecot configurations to disable <code class="inline-code">POP3</code> and disallow <code class="inline-code">IMAP</code> from being accessed by remote hosts, and enforce <code class="inline-code">POP3S</code> and <code class="inline-code">IMAPS</code> services. - <em>submission question!</em></li>
 <li>Verify that the changes have taken effect using <code class="inline-code">sudo ss -tlpn | grep dovecot</code> - <em>screenshot</em></li>
-<li>Make sure that you can still log into Roundcube at <a data-from-md="" title="http://your-vm-ip/roundcube" href="http://your-vm-ip/roundcube">http://your-vm-ip/roundcube</a> and view a user mailbox. <em>- screenshot</em></li>
-<li>Taking a layered security approach what firewall changes would you make to the existing labVM system to limit email clients to only POP3S and IMAPS? Provide commands or output snippets from your firewall configuration - <em>submission question!</em></li>
+<li>Make sure that you can still log into <code class="inline-code">Roundcube</code> at <code class="inline-code">http://your-vm-ip/roundcube</code> and view a user mailbox. <em>- screenshot</em></li>
+<li>Taking a layered security approach what firewall changes would you make to the existing labVM system to limit email clients to only <code class="inline-code">POP3S</code> and <code class="inline-code">IMAPS</code>? Provide commands or output snippets from your firewall configuration - <em>submission question!</em></li>
 </ol>
-<h2 id="known-vulnerabilities">Known vulnerabilities</h2>
+<h1 id="known-vulnerabilities">Known vulnerabilities</h1>
 <ol>
 <li>Is your VM susceptible to the <a data-from-md="" title="https://linux-audit.com/protect-shellshock-bash-vulnerability" href="https://linux-audit.com/protect-shellshock-bash-vulnerability">bash shell shock vulnerability</a>? Show what you did to check. - <em>submission question!</em></li>
 <li>Is your VM susceptible to the <a data-from-md="" title="https://heartbleed.com" href="https://heartbleed.com">heartbleed vulnerability</a>? Show what you did to check. - <em>submission question!</em></li>
 </ol>
-<h2 id="unexpected-programs-on-your-system">Unexpected programs on your system</h2>
+<h1 id="unexpected-programs-on-your-system">Unexpected programs on your system</h1>
 <ol>
 <li>A sample script is provided below, but you may need to modify or improve this.
 <ul>
@@ -801,7 +804,7 @@ Bye</code></pre></div>
 </ul>
 </li>
 </ol>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">#!/bin/bash
 

@@ -1,10 +1,137 @@
 
-				<!DOCTYPE html>
+				
 				<html>
 					<head>
-						<meta charset="UTF-8">
-						<meta name="viewport" content="width=device-width, initial-scale=1" />
-						<link rel="stylesheet" href="pluginAssets/katex/katex.css"><script type="application/javascript" src="pluginAssets/mermaid/mermaid.min.js"></script><script type="application/javascript" src="pluginAssets/mermaid/mermaid_render.js"></script><link rel="stylesheet" href="pluginAssets/highlight.js/atom-one-light.css">
+						<meta charset="UTF-8"/>
+						<meta name="viewport" content="width=device-width, initial-scale=1"/>
+						<style>.jsdraw--editButton {
+  display: none;
+  width: min-content;
+  max-height: 50px;
+  z-index: 1;
+  opacity: 0.9;
+  align-self: flex-end;
+  justify-self: right;
+}
+
+.jsdraw--svgWrapper {
+  display: inline-grid;
+}
+
+.jsdraw--svgWrapper > * {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.jsdraw--svgWrapper:hover .jsdraw--editButton,
+.jsdraw--svgWrapper:focus .jsdraw--editButton,
+.jsdraw--svgWrapper:focus-within .jsdraw--editButton,
+.jsdraw--editButton:focus {
+  display: block;
+}</style><style>pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+}
+
+code.hljs {
+  padding: 3px 5px;
+}
+
+/*
+
+Atom One Light by Daniel Gamage
+Original One Light Syntax theme from https://github.com/atom/one-light-syntax
+
+base:    #fafafa
+mono-1:  #383a42
+mono-2:  #686b77
+mono-3:  #a0a1a7
+hue-1:   #0184bb
+hue-2:   #4078f2
+hue-3:   #a626a4
+hue-4:   #50a14f
+hue-5:   #e45649
+hue-5-2: #c91243
+hue-6:   #986801
+hue-6-2: #c18401
+
+*/
+
+.hljs {
+  color: #383a42;
+  background: #fafafa;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #a0a1a7;
+  font-style: italic;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #a626a4;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e45649;
+}
+
+.hljs-literal {
+  color: #0184bb;
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+  color: #50a14f;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #986801;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #4078f2;
+}
+
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #c18401;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}</style>
 						<title>Lab 9 - Logging and Monitoring</title>
 					</head>
 					<body>
@@ -23,7 +150,7 @@
 			word-wrap: break-word;
 			line-height: 1.6em;
 			background-color: #ffffff;
-			font-family: 'Avenir', 'Arial', sans-serif;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
 			padding-bottom: 0px;
 			padding-top: 0px;
 		}
@@ -34,9 +161,17 @@
 			border-radius: 3px;
 			background-color: rgb(243, 243, 243);
 		}
+
+		:root {
+			--scrollbar-size: 7px;
+		}
+
 		::-webkit-scrollbar {
-			width: 7px;
-			height: 7px;
+			width: var(--scrollbar-size);
+			height: var(--scrollbar-size);
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: calc(var(--scrollbar-size) / 2);
 		}
 		::-webkit-scrollbar-corner {
 			background: none;
@@ -151,7 +286,7 @@
      * instead of the svg width, height property you must use a viewbox here, 0 0 1536 1792 is typically the actual size of the icon
      * each line begins with the pre-amble -webkit-mask: url("data:image/svg+xml;utf8,
      * and of course finishes with ");
-     * to precvent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
+     * to prevent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
      * on the following line
      * */
 		.fa-joplin {
@@ -224,7 +359,7 @@
 			padding: .5em 1em .5em 1em;
 			font-size: 15;
 			color: #32373F;
-			font-family: 'Avenir', 'Arial', sans-serif;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
 		}
 
 		.jop-tinymce table td,
@@ -274,24 +409,26 @@
 			color: black;
 		}
 
-		.not-loaded-resource img {
-			width: 1.15em;
-			height: 1.15em;
-			background: white;
-			padding: 2px !important;
-			border-radius: 2px;
-			box-shadow: 0 1px 3px #000000aa;
-		}
+		
+	.not-loaded-resource img {
+		width: 1.15em;
+		height: 1.15em;
+		background: white;
+		padding: 2px !important;
+		border-radius: 2px;
+		box-shadow: 0 1px 3px #000000aa;
+	}
 
-		a.not-loaded-resource img {
-			margin-right: .2em;
-		}
+	a.not-loaded-resource img {
+		margin-right: .2em;
+	}
 
-		a.not-loaded-resource {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-		}
+	a.not-loaded-resource {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
 
 		.md-checkbox input[type=checkbox]:checked {
 			opacity: 0.7;
@@ -376,6 +513,11 @@
 			overflow-x: auto;
 		}
 
+		.joplin-table-wrapper{
+			overflow-x: auto;
+			overflow-y: hidden;
+		}
+
 		/* =============================================== */
 		/* For TinyMCE */
 		/* =============================================== */
@@ -418,6 +560,8 @@
 				li.md-checkbox input[type=checkbox] {
 					margin-left: -1.71em;
 					margin-right: 0.7em;
+					position: relative;
+					top: 1px;
 				}
 				
 				ul.joplin-checklist {
@@ -444,16 +588,28 @@
 				.joplin-checklist li:not(.checked)::before {
 					content:"\f0c8";
 				}
-.mermaid { background-color: white; width: 640px; }
-.mermaid-export-graph { visibility: hidden; } 
-				.joplin-editable:hover .mermaid-export-graph { visibility: visible; }
-				.mermaid-export-graph:hover { background-color: #CBDAF1 !important; }</style><div id="rendered-md"><h1 id="lab-9-logging-and-monitoring">Lab 9 - Logging and Monitoring</h1>
-<p>This unit provides an introduction to how to configure logging and monitoring software on Linux systems. Unless otherwise specified, all activities in this lab are to be run on the main lab VM provided at the start of the semester.</p>
-<h2 id="rsyslog">rsyslog</h2>
+.mermaid { width: 640px; }
+pre.mermaid[data-processed=true] { white-space: unset; }
+.mermaid-export-graph {
+					opacity: 0;
+					height: 0;
+					z-index: 1;
+					position: relative;
+				} 
+				.joplin-editable:hover .mermaid-export-graph,
+				.joplin-editable .mermaid-export-graph:has(:focus-visible) {
+					opacity: 1;
+				}
+				.mermaid-export-graph > button:hover {
+					background-color: #CBDAF1 !important;
+				}</style><div id="rendered-md"><p>This unit provides an introduction to how to configure logging and monitoring software on Linux systems. Unless otherwise specified, all activities in this lab are to be run on the main lab VM provided at the start of the semester.</p>
+<h1 id="rsyslog"><code class="inline-code">rsyslog</code></h1>
 <ol>
 <li>
-<p>Review the <code class="inline-code">rsyslog.conf</code> and if there are any, the <code class="inline-code">rsyslog.d/*.conf</code> config files to see what the default syslog configuration includes</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo more /etc/rsyslog.conf /etc/rsyslog.d/*.conf </pre><pre class="hljs"><code>sudo more <span class="hljs-regexp">/etc/</span>rsyslog.conf <span class="hljs-regexp">/etc/</span>rsyslog.d/*.conf </code></pre></div>
+<p>Review the <code class="inline-code">rsyslog.conf</code> and if there are any, the <code class="inline-code">rsyslog.d/*.conf</code> config files to see what the default <code class="inline-code">syslog</code> configuration includes</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo more /etc/rsyslog.conf /etc/rsyslog.d/*.conf </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> more /etc/rsyslog.conf /etc/rsyslog.d/*.conf </code></pre></div>
 </li>
 <li>
 <p>Compare the kernel ring buffer (e.g. <code class="inline-code">dmesg</code>) to the kernel messages log file to see if the log file is up to date with the in-memory kernel log</p>
@@ -463,55 +619,66 @@
 </ul>
 </li>
 <li>
-<p>Can you figure out your sshd access history from the log files? <em>see what you can find in the <code class="inline-code">/var/log/auth.log</code> file</em></p>
+<p>Can you figure out your <code class="inline-code">sshd</code> access history from the log files? <em>see what you can find in the <code class="inline-code">/var/log/auth.log</code> file</em></p>
 </li>
 </ol>
-<h2 id="logrotate">Logrotate</h2>
+<h1 id="logrotate"><code class="inline-code">logrotate</code></h1>
 <ol>
-<li>Use <a data-from-md title='https://pc20022725:10000' href='https://pc20022725:10000'>webmin</a> to examine the <code class="inline-code">logrotate</code> configuration of your main lab VM. webmin is a web app system management tool running on port 10000 on the main lab VM and can be accessed using a browser and logging in with a Linux account that has sudo privileges.</li>
-<li>Can you manage <code class="inline-code">logrotate</code> from <a data-from-md title='https://pc20022725:9090' href='https://pc20022725:9090'>cockpit</a> on that machine? cockpit is a web app system management tool running on port 9090 on the main lab VM and can be accessed using a browser and logging in with a Linux account that has sudo privileges.</li>
+<li>Use <a data-from-md="" title="https://pc20022725:10000" href="https://pc20022725:10000">webmin</a> to examine the <code class="inline-code">logrotate</code> configuration of your main lab VM. <code class="inline-code">webmin</code> is a web app system management tool running on port <code class="inline-code">10000</code> on the main lab VM and can be accessed using a browser and logging in with a Linux account that has <code class="inline-code">sudo</code> privileges.</li>
+<li>Can you manage <code class="inline-code">logrotate</code> from <a data-from-md="" title="https://pc20022725:9090" href="https://pc20022725:9090">cockpit</a> on that machine? cockpit is a web app system management tool running on port <code class="inline-code">9090</code> on the main lab VM and can be accessed using a browser and logging in with a Linux account that has <code class="inline-code">sudo</code> privileges.</li>
 </ol>
-<h2 id="logwatch">Logwatch</h2>
+<h1 id="logwatch"><code class="inline-code">logwatch</code></h1>
 <ol>
 <li>
 <p>All of the commands in this section of the lab require root, so start a root shell</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo bash </pre><pre class="hljs"><code><span class="hljs-attribute">sudo bash</span> </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo bash </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> bash </code></pre></div>
 </li>
 <li>
-<p>Install <code class="inline-code">logwatch</code> and make the cache directory which the install script doesn’t make</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">apt update ; apt install logwatch ; mkdir /var/cache/logwatch </pre><pre class="hljs"><code><span class="hljs-attribute">apt</span> update ; <span class="hljs-attribute">apt</span> install logwatch ; <span class="hljs-attribute">mkdir</span> /var/cache/logwatch </code></pre></div>
+<p>Install <code class="inline-code">logwatch</code> and make the cache directory which the install script doesn&rsquo;t make</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">apt update ; apt install logwatch ; mkdir /var/cache/logwatch </pre><pre class="hljs"><code><span class="hljs-attribute">apt</span> update ; <span class="hljs-attribute">apt</span> install logwatch ; <span class="hljs-attribute">mkdir</span> /var/cache/logwatch </code></pre></div>
 </li>
 <li>
 <p>Make an override config file for any of the default ones you want to modify</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">cp /usr/share/logwatch/default.conf/logwatch.conf /etc/logwatch/conf/ </pre><pre class="hljs"><code>cp <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/logwatch/</span><span class="hljs-keyword">default</span>.conf<span class="hljs-regexp">/logwatch.conf /</span>etc<span class="hljs-regexp">/logwatch/</span>conf/ </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">cp /usr/share/logwatch/default.conf/logwatch.conf /etc/logwatch/conf/ </pre><pre class="hljs"><code>cp <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/logwatch/</span><span class="hljs-keyword">default</span>.conf<span class="hljs-regexp">/logwatch.conf /</span>etc<span class="hljs-regexp">/logwatch/</span>conf/ </code></pre></div>
 </li>
 <li>
-<p>Logwatch has several useful options for us to try</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">logwatch --range all
-logwatch --range 'since last week'
+<p><code class="inline-code">logwatch</code> has several useful options for us to try</p>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">logwatch --range all
+logwatch --range &apos;since last week&apos;
 logwatch --logfile secure --logfile http --range all --detail high </pre><pre class="hljs"><code>logwatch <span class="hljs-attr">--range</span> <span class="hljs-attribute">all</span>
-logwatch <span class="hljs-attr">--range</span> <span class="hljs-string">&#x27;since last week&#x27;</span>
+logwatch <span class="hljs-attr">--range</span> <span class="hljs-string">&apos;since last week&apos;</span>
 logwatch <span class="hljs-attr">--logfile</span> secure <span class="hljs-attr">--logfile</span> http <span class="hljs-attr">--range</span> <span class="hljs-attribute">all</span> --detail high </code></pre></div>
 </li>
 <li>
-<p>Logwatch can be added to cron easily, some package builds create <code class="inline-code">/etc/cron.daily/00logwatch</code> automatically for you which is a script instead of just a command line to run at specific times</p>
+<p><code class="inline-code">logwatch</code> can be added to <code class="inline-code">cron</code> easily, some package builds create <code class="inline-code">/etc/cron.daily/00logwatch</code> automatically for you which is a script instead of just a command line to run at specific times</p>
 <ul>
-<li>current installs for Ubuntu 20.04 do this automatically and you *<em>do not need to do this for our lab</em>.</li>
+<li>current installs for Ubuntu &gt;=20.04 do this automatically and you *<em>do not need to do this for our lab</em>.</li>
 </ul>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">echo &quot;59 23 * * * logwatch -range 'since yesterday' --format html --output mail&quot; | crontab -
-crontab -l </pre><pre class="hljs"><code><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;59 23 * * * logwatch -range &#x27;since yesterday&#x27; --format html --output mail&quot;</span> | crontab -
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">echo &quot;59 23 * * * logwatch -range &apos;since yesterday&apos; --format html --output mail&quot; | crontab -
+crontab -l </pre><pre class="hljs"><code><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;59 23 * * * logwatch -range &apos;since yesterday&apos; --format html --output mail&quot;</span> | crontab -
 crontab -l </code></pre></div>
 </li>
 <li>
 <p>To preserve us from ourselves, leave the root shell we used for this section of the lab</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">exit </pre><pre class="hljs"><code><span class="hljs-keyword">exit</span> </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">exit </pre><pre class="hljs"><code><span class="hljs-keyword">exit</span> </code></pre></div>
 </li>
 </ol>
-<h2 id="loganalyzer">Loganalyzer</h2>
-<p>Install the <code class="inline-code">loganalyzer</code> package Alternatively, download the latest version from the <code class="inline-code">loganalyzer</code> website and follow the instructions in the INSTALL file Once you have it installed, use your browser to open <a data-from-md title='http://yourserver/loganalyzer' href='http://yourserver/loganalyzer'>http://yourserver/loganalyzer</a> and see what you can do with it.</p>
-<h2 id="grading">Grading</h2>
+<h1 id="loganalyzer"><code class="inline-code">loganalyzer</code></h1>
+<p>Install the <code class="inline-code">loganalyzer</code> package Alternatively, download the latest version from the <code class="inline-code">loganalyzer</code> website and follow the instructions in the INSTALL file Once you have it installed, use your browser to open <code class="inline-code">http://yourserver/loganalyzer</code> and see what you can do with it.</p>
+<h1 id="grading">Grading</h1>
 <p>This lab is for practice to reinforce learning. There are no marks for it, and there is nothing to hand in.</p>
-<p>Source: <a data-from-md title='https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab09%20Logging.html' href='https://zonzorp.github.io/NETS1028/Labs/NETS1028%20Lab09%20Logging.html'>Lab 09 Logging and Monitoring</a></p>
 </div></div>
 					</body>
 				</html>

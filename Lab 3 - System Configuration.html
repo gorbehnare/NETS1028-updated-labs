@@ -1,10 +1,137 @@
 
-				<!DOCTYPE html>
+				
 				<html>
 					<head>
-						<meta charset="UTF-8">
-						<meta name="viewport" content="width=device-width, initial-scale=1" />
-						<link rel="stylesheet" href="pluginAssets/katex/katex.css"><script type="application/javascript" src="pluginAssets/mermaid/mermaid.min.js"></script><script type="application/javascript" src="pluginAssets/mermaid/mermaid_render.js"></script><link rel="stylesheet" href="pluginAssets/highlight.js/atom-one-light.css">
+						<meta charset="UTF-8"/>
+						<meta name="viewport" content="width=device-width, initial-scale=1"/>
+						<style>.jsdraw--editButton {
+  display: none;
+  width: min-content;
+  max-height: 50px;
+  z-index: 1;
+  opacity: 0.9;
+  align-self: flex-end;
+  justify-self: right;
+}
+
+.jsdraw--svgWrapper {
+  display: inline-grid;
+}
+
+.jsdraw--svgWrapper > * {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.jsdraw--svgWrapper:hover .jsdraw--editButton,
+.jsdraw--svgWrapper:focus .jsdraw--editButton,
+.jsdraw--svgWrapper:focus-within .jsdraw--editButton,
+.jsdraw--editButton:focus {
+  display: block;
+}</style><style>pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+}
+
+code.hljs {
+  padding: 3px 5px;
+}
+
+/*
+
+Atom One Light by Daniel Gamage
+Original One Light Syntax theme from https://github.com/atom/one-light-syntax
+
+base:    #fafafa
+mono-1:  #383a42
+mono-2:  #686b77
+mono-3:  #a0a1a7
+hue-1:   #0184bb
+hue-2:   #4078f2
+hue-3:   #a626a4
+hue-4:   #50a14f
+hue-5:   #e45649
+hue-5-2: #c91243
+hue-6:   #986801
+hue-6-2: #c18401
+
+*/
+
+.hljs {
+  color: #383a42;
+  background: #fafafa;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #a0a1a7;
+  font-style: italic;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #a626a4;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e45649;
+}
+
+.hljs-literal {
+  color: #0184bb;
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+  color: #50a14f;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #986801;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #4078f2;
+}
+
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #c18401;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}</style>
 						<title>Lab 3 - System Configuration</title>
 					</head>
 					<body>
@@ -23,7 +150,7 @@
 			word-wrap: break-word;
 			line-height: 1.6em;
 			background-color: #ffffff;
-			font-family: 'Avenir', 'Arial', sans-serif;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
 			padding-bottom: 0px;
 			padding-top: 0px;
 		}
@@ -34,9 +161,17 @@
 			border-radius: 3px;
 			background-color: rgb(243, 243, 243);
 		}
+
+		:root {
+			--scrollbar-size: 7px;
+		}
+
 		::-webkit-scrollbar {
-			width: 7px;
-			height: 7px;
+			width: var(--scrollbar-size);
+			height: var(--scrollbar-size);
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: calc(var(--scrollbar-size) / 2);
 		}
 		::-webkit-scrollbar-corner {
 			background: none;
@@ -224,7 +359,7 @@
 			padding: .5em 1em .5em 1em;
 			font-size: 15;
 			color: #32373F;
-			font-family: 'Avenir', 'Arial', sans-serif;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
 		}
 
 		.jop-tinymce table td,
@@ -274,24 +409,26 @@
 			color: black;
 		}
 
-		.not-loaded-resource img {
-			width: 1.15em;
-			height: 1.15em;
-			background: white;
-			padding: 2px !important;
-			border-radius: 2px;
-			box-shadow: 0 1px 3px #000000aa;
-		}
+		
+	.not-loaded-resource img {
+		width: 1.15em;
+		height: 1.15em;
+		background: white;
+		padding: 2px !important;
+		border-radius: 2px;
+		box-shadow: 0 1px 3px #000000aa;
+	}
 
-		a.not-loaded-resource img {
-			margin-right: .2em;
-		}
+	a.not-loaded-resource img {
+		margin-right: .2em;
+	}
 
-		a.not-loaded-resource {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-		}
+	a.not-loaded-resource {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
 
 		.md-checkbox input[type=checkbox]:checked {
 			opacity: 0.7;
@@ -376,6 +513,11 @@
 			overflow-x: auto;
 		}
 
+		.joplin-table-wrapper{
+			overflow-x: auto;
+			overflow-y: hidden;
+		}
+
 		/* =============================================== */
 		/* For TinyMCE */
 		/* =============================================== */
@@ -418,6 +560,8 @@
 				li.md-checkbox input[type=checkbox] {
 					margin-left: -1.71em;
 					margin-right: 0.7em;
+					position: relative;
+					top: 1px;
 				}
 				
 				ul.joplin-checklist {
@@ -445,6 +589,7 @@
 					content:"\f0c8";
 				}
 .mermaid { width: 640px; }
+pre.mermaid[data-processed=true] { white-space: unset; }
 .mermaid-export-graph {
 					opacity: 0;
 					height: 0;
@@ -457,15 +602,18 @@
 				}
 				.mermaid-export-graph > button:hover {
 					background-color: #CBDAF1 !important;
-				}</style><div id="rendered-md"><h1 id="lab-03-system-configuration">Lab 03 - System Configuration</h1>
-<p>This lesson examines some broad configuration topics. Further detail on configuring specific services and options are contained in other units. To ensure each student’s screenshots are coming from their lab VM, begin by changing your system’s hostname from  <code class="inline-code">pc20022725</code>  to  <code class="inline-code">pcNNNNNNNNN</code>  where <code class="inline-code">NNNNNNNNN</code> is your student number. Your screenshots will then show the hostname in the shell prompts so I can verify your work was done on your machine. Submissions which do not have your student number in your hostname showing in the shell prompts will not be marked.</p>
-<h2 id="changing-hostname-in-ubuntu">Changing Hostname in Ubuntu</h2>
+				}</style><div id="rendered-md"><p>This lesson examines some broad configuration topics. Further detail on configuring specific services and options are contained in other units. To ensure each student&rsquo;s screenshots are coming from their lab VM, begin by changing your system&rsquo;s hostname from  <code class="inline-code">pc12345678</code>  to  <code class="inline-code">pcNNNNNNNNN</code>  where <code class="inline-code">NNNNNNNNN</code> is your student number. Your screenshots will then show the hostname in the shell prompts so I can verify your work was done on your machine. Submissions which do not have your student number in your hostname showing in the shell prompts will not be marked.</p>
+<h1 id="changing-hostname-in-ubuntu">Changing Hostname in Ubuntu</h1>
 <p>you can change the hostname using the following command:</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```"># Replace NNNNNNNN with your StudentID
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```"># Replace NNNNNNNN with your StudentID
 hostnamectl set-hostname pcNNNNNNNN</pre><pre class="hljs"><code><span class="hljs-comment"># Replace NNNNNNNN with your StudentID</span>
 <span class="hljs-string">hostnamectl</span> <span class="hljs-built_in">set-hostname</span> <span class="hljs-string">pcNNNNNNNN</span></code></pre></div>
 <p>Then verify that the hostname is set correctly and consistently:</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">hostnamectl
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">hostnamectl
 hostname
 cat /etc/hostname
 # The following file may need to be edited manually:
@@ -474,45 +622,55 @@ cat /etc/hosts</pre><pre class="hljs"><code>hostnamectl
 <span class="hljs-keyword">cat</span> /etc/<span class="hljs-built_in">hostname</span>
 # The following <span class="hljs-keyword">file</span> may need <span class="hljs-keyword">to</span> <span class="hljs-keyword">be</span> edited manually:
 <span class="hljs-keyword">cat</span> /etc/hosts</code></pre></div>
-<h2 id="unattended-upgrades">Unattended Upgrades</h2>
+<h1 id="unattended-upgrades">Unattended Upgrades</h1>
 <p>The unattended-upgrades service uses a configuration file that contains runtime settings and rules. If you change the configuration, you need to restart the service. How much and whether to use the service is a topic for debate on servers, but it should be run on desktops at a minimum.</p>
 <ol>
 <li>
 <p>Install and enable the unattended-upgrades package if you need to. Also, install the <code class="inline-code">mailutils</code> package if necessary to allow for local email progress reporting.</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo apt install unattended-upgrades mailutils
-sudo dpkg-reconfigure unattended-upgrades </pre><pre class="hljs"><code>sudo apt <span class="hljs-keyword">install</span> unattended-upgrades mailutils
-sudo dpkg-reconfigure unattended-upgrades </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo apt install unattended-upgrades mailutils
+sudo dpkg-reconfigure unattended-upgrades </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> apt install unattended-upgrades mailutils
+<span class="hljs-built_in">sudo</span> dpkg-reconfigure unattended-upgrades </code></pre></div>
 </li>
 <li>
 <p>Modify the configuration of the <code class="inline-code">unattended-upgrades</code> package to send emails when doing upgrades. Look for email-related settings. They are about halfway through the config file. Send an email to the local <code class="inline-code">student</code> user account whenever there are changes made by the upgrade service. Restart the service after you make changes so they take effect.</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo vi /etc/apt/apt.conf.d/50unattended-upgrades
-sudo systemctl restart unattended-upgrades </pre><pre class="hljs"><code>sudo vi <span class="hljs-regexp">/etc/</span>apt<span class="hljs-regexp">/apt.conf.d/</span><span class="hljs-number">50</span>unattended-upgrades
-sudo systemctl restart unattended-upgrades </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo vi /etc/apt/apt.conf.d/50unattended-upgrades
+sudo systemctl restart unattended-upgrades </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> vi /etc/apt/apt.conf.d/50unattended-upgrades
+<span class="hljs-built_in">sudo</span> systemctl restart unattended-upgrades </code></pre></div>
 </li>
 <li>
 <p>Review the contents of the <code class="inline-code">unattended-upgrades</code> log files to see what gets logged there.</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo tail -30 /var/log/unattended-upgrades/unattended-upgrades.log
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo tail -30 /var/log/unattended-upgrades/unattended-upgrades.log
 sudo tail -30 /var/log/unattended-upgrades/unattended-upgrades-dpkg.log</pre><pre class="hljs"><code>sudo tail <span class="hljs-number">-30</span> /<span class="hljs-keyword">var</span>/<span class="hljs-built_in">log</span>/unattended-upgrades/unattended-upgrades.<span class="hljs-built_in">log</span>
 sudo tail <span class="hljs-number">-30</span> /<span class="hljs-keyword">var</span>/<span class="hljs-built_in">log</span>/unattended-upgrades/unattended-upgrades-dpkg.<span class="hljs-built_in">log</span></code></pre></div>
 <p>Tip: To verify your configuration and troubleshoot <code class="inline-code">unattended-upgrades</code>, you can manually trigger the utility in debug mode (using <code class="inline-code">-d</code> switch):  <code class="inline-code">sudo unattended-upgrade -d</code>. You should receive the email immediately.</p>
 </li>
 </ol>
 <p>Check the Grading section for the required screenshots.</p>
-<h2 id="identifying-running-services-to-determine-if-they-should-be-removed">Identifying Running Services to determine if they should be removed</h2>
-<p>There are multiple ways to determine which services are running, but the decisions about which ones need to be running are based on the system’s intended functions and any organizational policies that may apply.</p>
+<h1 id="identifying-running-services-to-determine-if-they-should-be-removed">Identifying Running Services to determine if they should be removed</h1>
+<p>There are multiple ways to determine which services are running, but the decisions about which ones need to be running are based on the system&rsquo;s intended functions and any organizational policies that may apply.</p>
 <ol>
 <li>
 <p>Identify services which are managed by systemd</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">systemctl -t service </pre><pre class="hljs"><code><span class="hljs-attribute">systemctl -t service</span> </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">systemctl -t service </pre><pre class="hljs"><code><span class="hljs-attribute">systemctl -t service</span> </code></pre></div>
 </li>
 <li>
 <p>For every service listed that is unfamiliar, you might need to use systemctl, apt-cache, and dpkg to get information about that service. You may find that the service name is a package name. You may have to find which package installed the daemon programs a service has running. You may need to do some research online to learn enough about an unfamiliar package to know if it needs to be on your system.</p>
 </li>
 <li>
 <p>Check which ports are listening for connection or have outbound connections established.  <code class="inline-code">netstat</code>  or  <code class="inline-code">ss</code>  are good tools for this.</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo netstat -tulpn
-sudo netstat -tupn </pre><pre class="hljs"><code><span class="hljs-attribute">sudo netstat -tulpn
-sudo netstat -tupn</span> </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo netstat -tulpn
+sudo netstat -tupn </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> netstat -tulpn
+<span class="hljs-built_in">sudo</span> netstat -tupn </code></pre></div>
 </li>
 <li>
 <p>If there are listening ports or outbound connections that you are not expecting based on the services you expect to be running, you could start investigating based on the process that has the port or connection open.</p>
@@ -527,35 +685,41 @@ sudo netstat -tupn</span> </code></pre></div>
 </li>
 <li>
 <p>Perform this activity for the service listening on port tcp/25.</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash&#10;" data-joplin-source-close="&#10;```">sudo netstat -tlpn
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
+" data-joplin-source-close="
+```">sudo netstat -tlpn
 sudo ss -tlpn
 ps -c &lt;PID-of-process-listening-on-port-tcp-port-25&gt;
 dpkg -S &lt;pathname-of-process-command&gt;
-debsums &lt;process-command-package&gt; | grep &lt;pathname-of-process-command&gt; </pre><pre class="hljs"><code>sudo netstat -tlpn
-sudo ss -tlpn
+debsums &lt;process-command-package&gt; | grep &lt;pathname-of-process-command&gt; </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> netstat -tlpn
+<span class="hljs-built_in">sudo</span> ss -tlpn
 ps -c &lt;PID-of-process-listening-on-port-tcp-port-25&gt;
 dpkg -S &lt;pathname-of-process-command&gt;
 debsums &lt;process-command-package&gt; | grep &lt;pathname-of-process-command&gt; </code></pre></div>
 </li>
 <li>
 <p>Run <code class="inline-code">systemd-analyze</code> security in both summary mode, and specifically for a service to see what it gives you.</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">systemd-analyze security
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">systemd-analyze security
 systemd-analyze security hddtemp</pre><pre class="hljs"><code><span class="hljs-params">system</span>d-analyze security
 <span class="hljs-params">system</span>d-analyze security hddtemp</code></pre></div>
 </li>
 </ol>
 <p>Please refer to the Grading section. You will be using the above tools to investigate one service that is running.</p>
-<h2 id="user-accounts">User Accounts</h2>
+<h1 id="user-accounts">User Accounts</h1>
 <p>Many times, user accounts exist which were automatically created, but are not needed. Unwatched accounts are a target for crackers. Accounts which own nothing in the filesystem, and have no running processes are usually either end-user accounts, application accounts, historical accounts, or reference accounts.</p>
 <ol>
 <li>Identify accounts on the system that have shell access</li>
 <li>Identify accounts on the system that own no files
 <ul>
-<li>Here is an  <a data-from-md title='Sample script for finding users that do not own any files' href='https://zonzorp.github.io/NETS1028/userswithoutfiles.sh'>example script</a>  that you can use for this:</li>
+<li>Here is an  <a data-from-md="" title="Sample script for finding users that do not own any files" href="https://zonzorp.github.io/NETS1028/userswithoutfiles.sh">example script</a>  that you can use for this:</li>
 </ul>
 </li>
 </ol>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">#!/bin/bash
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">#!/bin/bash
  # this script display a list of users from the passwd file who own no files
 for user in `cut -d : -f 1 /etc/passwd`; do
   find / -ignore_readdir_race -user $user -ls -quit | grep -q $user || echo $user
@@ -568,32 +732,34 @@ done</pre><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
 <li>Identify accounts that have no running processes</li>
 <li>Accounts which do not appear to have a legitimate reason to be on your system should be researched
 <ul>
-<li>Review  <a data-from-md title='https://www.debian.org/doc/manuals/securing-debian-manual/index.en.html' href='https://www.debian.org/doc/manuals/securing-debian-manual/index.en.html'>https://www.debian.org/doc/manuals/securing-debian-manual/index.en.html</a> and in particular this section:  <a data-from-md title='https://www.debian.org/doc/manuals/securing-debian-manual/ch12.en.html#faq-os-users' href='https://www.debian.org/doc/manuals/securing-debian-manual/ch12.en.html#faq-os-users'>https://www.debian.org/doc/manuals/securing-debian-manual/ch12.en.html#faq-os-users</a>  to learn why accounts might exist but not own files</li>
-<li>Review  <a data-from-md title='https://ubuntu.com/server/docs' href='https://ubuntu.com/server/docs'>Ubuntu Server Documentation</a>  under &quot;<a data-from-md title='https://ubuntu.com/server/docs/security-users' href='https://ubuntu.com/server/docs/security-users'>User Management</a>&quot; for guidance regarding user account security</li>
+<li>Review  <a data-from-md="" title="https://www.debian.org/doc/manuals/securing-debian-manual/index.en.html" href="https://www.debian.org/doc/manuals/securing-debian-manual/index.en.html">https://www.debian.org/doc/manuals/securing-debian-manual/index.en.html</a> and in particular this section:  <a data-from-md="" title="https://www.debian.org/doc/manuals/securing-debian-manual/ch12.en.html#faq-os-users" href="https://www.debian.org/doc/manuals/securing-debian-manual/ch12.en.html#faq-os-users">https://www.debian.org/doc/manuals/securing-debian-manual/ch12.en.html#faq-os-users</a>  to learn why accounts might exist but not own files</li>
+<li>Review  <a data-from-md="" title="https://ubuntu.com/server/docs" href="https://ubuntu.com/server/docs">Ubuntu Server Documentation</a>  under &quot;<a data-from-md="" title="https://ubuntu.com/server/docs/security-users" href="https://ubuntu.com/server/docs/security-users">User Management</a>&quot; for guidance regarding user account security</li>
 </ul>
 </li>
 </ol>
-<h2 id="resource-limits">Resource Limits</h2>
+<h1 id="resource-limits">Resource Limits</h1>
 <p>This example of setting resource limits sets limits on interactive system users. As such, it requires the limits to be set at login, and use the PAM library to do it.</p>
 <ol>
 <li>Review the commented example settings in  <strong>/etc/security/limits.conf</strong></li>
 <li>Add a limit of 2 logins for the student user</li>
 <li>Start multiple remote sessions in multiple terminal windows and verify you cannot log in more than twice on the student account simultaneously</li>
 </ol>
-<h4 id="please-refer-to-the-grading-section-for-the-required-screenshot">Please refer to the Grading section for the required screenshot!</h4>
-<h2 id="lynis">Lynis</h2>
+<h3 id="please-refer-to-the-grading-section-for-the-required-screenshot">Please refer to the Grading section for the required screenshot!</h3>
+<h1 id="lynis">Lynis</h1>
 <p>Lynis is a tool which can be used for system examination but is also very useful for hardening activities. Along with identifying things that are not in a typical state, it can make many recommendations regarding insecure configurations. This can be helpful when you have a system running software you may not be familiar with. Follow the steps in this lab to install, update, and run Lynis. A current version of Lynis running properly and using it to fix at least one thing is part of the mark for this lab.</p>
-<h4 id="refer-to-the-grading-section-for-required-screenshots">Refer to the Grading Section for required screenshots!</h4>
+<h3 id="refer-to-the-grading-section-for-required-screenshots">Refer to the Grading Section for required screenshots!</h3>
 <ol>
 <li>
-<p>Add the  <a data-from-md title='https://packages.cisofy.com/community/#debian-ubuntu' href='https://packages.cisofy.com/community/#debian-ubuntu'>lynis community repo</a>  to your apt configuration.</p>
+<p>Add the  <a data-from-md="" title="https://packages.cisofy.com/community/#debian-ubuntu" href="https://packages.cisofy.com/community/#debian-ubuntu">lynis community repo</a>  to your apt configuration.</p>
 </li>
 <li>
 <p>Run  <code class="inline-code">apt update</code>  and install <code class="inline-code">lynis</code> to ensure you have the latest version. If you already had <code class="inline-code">lynis</code> installed, do  <code class="inline-code">apt upgrade</code>  instead of install.</p>
 </li>
 <li>
 <p>Run <code class="inline-code">lynis</code> in system audit mode.</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```&#10;" data-joplin-source-close="&#10;```">sudo lynis audit system </pre><pre class="hljs"><code>sudo lynis audit <span class="hljs-keyword">system</span> </code></pre></div>
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+" data-joplin-source-close="
+```">sudo lynis audit system </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> lynis audit system </code></pre></div>
 </li>
 <li>
 <p>How many suggestions did it give you? Review the warnings.</p>
@@ -605,12 +771,12 @@ done</pre><pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
 <p>Re-run <code class="inline-code">lynis</code> and verify it no longer complains about the fixed issue.</p>
 </li>
 </ol>
-<h2 id="grading">Grading</h2>
+<h1 id="grading">Grading</h1>
 <p>Submit your results and screenshots as per instructions posted on Blackboard. Everywhere there is a screenshot marker in the instructions, you must capture enough to show the command you ran and the results of running it.</p>
 <ol>
 <li>Leave your VM running long enough to receive an email from <code class="inline-code">unattended-upgrades</code>. Include a screenshot of the email. You can use the <code class="inline-code">mailx</code> tool to read email for a screenshot.</li>
 <li>In the section on investigating running services, do the investigation for the service listening on port tcp/25. Use <code class="inline-code">netstat</code> and <code class="inline-code">ss</code> to find the process, <code class="inline-code">ps</code> to find the executable, <code class="inline-code">dpkg</code> to find the package, and <code class="inline-code">debsums</code> to validate that the executable is legitimate. Include screenshots showing this process on your system.</li>
-<li>Identify a list of the accounts on your system that do not own any files. Note that your system may be slightly different from another student’s in this lab, depending on what lab work each of you has done up to this point. Include screenshots showing how you found the accounts and provide a list of these accounts from your system.</li>
+<li>Identify a list of the accounts on your system that do not own any files. Note that your system may be slightly different from another student&rsquo;s in this lab, depending on what lab work each of you has done up to this point. Include screenshots showing how you found the accounts and provide a list of these accounts from your system.</li>
 <li>Include a screenshot showing what was displayed when you tried to exceed the 2 ssh login limit from remote host.</li>
 <li>Include one screenshot showing the version of <code class="inline-code">lynis</code> you have and a warning from <code class="inline-code">lynis</code> for a specific item you can fix, and one screenshot showing the subsequent output showing it is no longer a concern after you have fixed it.</li>
 </ol>
