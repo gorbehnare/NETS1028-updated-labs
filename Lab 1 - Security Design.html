@@ -603,11 +603,11 @@ pre.mermaid[data-processed=true] { white-space: unset; }
 				.mermaid-export-graph > button:hover {
 					background-color: #CBDAF1 !important;
 				}</style><div id="rendered-md"><h1 id="lab-vm-description-and-purpose">Lab VM description and purpose</h1>
-<p>For this course, we will use a pre-built and configured Ubuntu 20.04 Linux server running on a Virtual Machine. It is a machine built as part of another college course and was not set up with security in mind. It has several services running, a firewall enabled, and lives on multiple networks. Treat this as if it were an existing server running in the business of your new employer. It is supposed to be providing:</p>
+<p>For this course, we will use a prebuilt and configured Ubuntu Linux server running on a Virtual Machine. It is a machine built as part of another college course and was not set up with security in mind. It has several services running, a firewall enabled, and lives on multiple networks. Treat this as if it were an existing server running in the business of your new employer. It is supposed to be providing:</p>
 <ul>
 <li>custom internal DNS service only to the internal network</li>
-<li>web pages on hostname www in the private domain</li>
-<li>pages and webapps on hostname secure in the private domain</li>
+<li>web pages on hostname <code class="inline-code">www</code> in the private domain</li>
+<li>pages and webapps on hostname <code class="inline-code">secure</code> in the private domain</li>
 <li>various web apps for administrative purposes</li>
 <li>personal web pages for staff who have accounts on the machine</li>
 <li>database services to local applications</li>
@@ -637,15 +637,15 @@ pre.mermaid[data-processed=true] { white-space: unset; }
 </li>
 </ol>
 </li>
-<li>Boot the VM, and log in as &quot;student&quot; with the password &quot;Password123&quot;. The &quot;student&quot; user has sudo privileges.</li>
+<li>Boot the VM, and log in as <code class="inline-code">student</code> with the password <code class="inline-code">Password123</code>. The <code class="inline-code">student</code> user has <code class="inline-code">sudo</code> privileges.</li>
 <li>Create a user account for your use during the semester:
 <ol>
 <li>Use your first name for the username and give it a password you can remember.</li>
-<li>Add it to the sudo group so that you can use sudo from that account.</li>
+<li>Add it to the <code class="inline-code">sudo</code> group so that you can use <code class="inline-code">sudo</code> from that account.</li>
 <li>Log out of the student account and log into your own personal account</li>
 </ol>
 </li>
-<li>Test that sudo works properly, and only use your own personal account on the lab VM for the rest of the semester unless explicitly instructed otherwise in the lab instructions.</li>
+<li>Test that <code class="inline-code">sudo</code> works properly, and only use your own personal account on the lab VM for the rest of the semester unless explicitly instructed otherwise in the lab instructions.</li>
 <li>Take note of your LAN address for the VM. You will need to know it for remote access from your laptop. The VM has an SSH server enabled and using SSH (Putty, Bitvise, terminal or any other ssh client) is the recommended method to access the machine for command line use.</li>
 <li>Run <code class="inline-code">apt-get update</code> and <code class="inline-code">apt-get upgrade</code> to bring the base system up to current software versions.</li>
 </ol>
