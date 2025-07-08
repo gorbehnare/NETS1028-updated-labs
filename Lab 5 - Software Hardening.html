@@ -694,7 +694,7 @@ cat /etc/apparmor.d/usr.bin.tcpdump </pre><pre class="hljs"><code><span class="h
 ```">sudo dpkg-statoverride --update --add root sudo 4555 /usr/bin/sudo </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> dpkg-statoverride --update --add root <span class="hljs-built_in">sudo</span> 4555 /usr/bin/sudo </code></pre></div>
 </li>
 <li>
-<p>Modify your <code class="inline-code">/etc/sudoers</code> file to limit the <code class="inline-code">dennis</code> account so that they can only use root <code class="inline-code">sudo</code> to edit their own domain zone file (<code class="inline-code">/etc/bind/db.simpson22725.mytld</code>) and reload named using the <code class="inline-code">rndc reload</code> command. Provide a screenshot of your modified configurations - <em>screenshot!</em></p>
+<p>Modify your <code class="inline-code">/etc/sudoers</code> file to limit the <code class="inline-code">dennis</code> account so that they can only use root <code class="inline-code">sudo</code> to edit their own domain zone file (<code class="inline-code">/etc/bind/db.server45678.mytld</code>) and reload named using the <code class="inline-code">rndc reload</code> command. Provide a screenshot of your modified configurations - <em>screenshot!</em></p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">visudo </pre><pre class="hljs"><code>visudo </code></pre></div>
@@ -703,9 +703,9 @@ cat /etc/apparmor.d/usr.bin.tcpdump </pre><pre class="hljs"><code><span class="h
 <p>In a second ssh session, login as user <code class="inline-code">dennis</code> (password is <code class="inline-code">dennis</code>) and verify that user <code class="inline-code">dennis</code> can use <code class="inline-code">sudo</code> to edit their zone file and to run <code class="inline-code">rndc reload</code> but cannot use <code class="inline-code">sudo</code> to run another command, such as <code class="inline-code">bash</code> (User should NOT be able to do <code class="inline-code">sudo</code> to run any other commands!)</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
-```">dennis$ sudo vi /etc/bind/db.simpson22725.mytld
+```">dennis$ sudo vi /etc/bind/db.server45678.mytld
 dennis$ sudo rndc reload
-dennis$ sudo bash </pre><pre class="hljs"><code>dennis$ <span class="hljs-built_in">sudo</span> vi /etc/bind/db.simpson22725.mytld
+dennis$ sudo bash </pre><pre class="hljs"><code>dennis$ <span class="hljs-built_in">sudo</span> vi /etc/bind/db.server45678.mytld
 dennis$ <span class="hljs-built_in">sudo</span> rndc reload
 dennis$ <span class="hljs-built_in">sudo</span> bash </code></pre></div>
 </li>
