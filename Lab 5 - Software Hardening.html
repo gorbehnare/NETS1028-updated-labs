@@ -180,14 +180,13 @@ hue-6-2: #c18401
 			border: none;
 		}
 		::-webkit-scrollbar-thumb {
-			background: rgba(100, 100, 100, 0.3); 
-			border-radius: 5px;
+			background: rgba(50, 55, 63, 0.54); 
 		}
 		::-webkit-scrollbar-track:hover {
 			background: rgba(0, 0, 0, 0.1); 
 		}
 		::-webkit-scrollbar-thumb:hover {
-			background: rgba(100, 100, 100, 0.7); 
+			background: rgba(50, 55, 63, 0.63); 
 		}
 
 		
@@ -268,6 +267,16 @@ hue-6-2: #c18401
 		li p {
 			margin-top: 0.2em;
 			margin-bottom: 0;
+		}
+
+		dt {
+			font-weight: bold;
+			margin-bottom: 0.25em;
+		}
+
+		dd {
+			margin-inline-start: 2.5em;
+			margin-bottom: 0.5em;
 		}
 
 		.resource-icon {
@@ -643,7 +652,7 @@ sudo dpkg --verify sudo </pre><pre class="hljs"><code>debsums <span class="hljs-
 </ul>
 </li>
 <li>
-<p>Try the aa-unconfined utility to see what processes are running that have <code class="inline-code">tcp</code> or <code class="inline-code">udp</code> ports and their <code class="inline-code">apparmor</code> status</p>
+<p>Try the <code class="inline-code">aa-unconfined</code> utility to see what processes are running that have <code class="inline-code">tcp</code> or <code class="inline-code">udp</code> ports and their <code class="inline-code">apparmor</code> status</p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
 " data-joplin-source-close="
 ```">sudo aa-unconfined </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> aa-unconfined </code></pre></div>
@@ -662,9 +671,11 @@ sudo dpkg --verify sudo </pre><pre class="hljs"><code>debsums <span class="hljs-
 </li>
 <li>
 <p>Review the content of the <code class="inline-code">apprmor</code> profile for the <code class="inline-code">tcpdump</code> network snooping program</p>
-<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="" data-joplin-source-open="```
+<div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
-```">cat /etc/apparmor.d/usr.sbin.tcpdump </pre><pre class="hljs"><code><span class="hljs-built_in">cat</span> /etc/apparmor.d/usr.sbin.tcpdump </code></pre></div>
+```"># Needed to look at &quot;/etc/apparmor.d/usr.bin.tcpdump&quot; line by line and explain what each line or each section of the code does.
+cat /etc/apparmor.d/usr.bin.tcpdump </pre><pre class="hljs"><code><span class="hljs-comment"># Needed to look at &quot;/etc/apparmor.d/usr.bin.tcpdump&quot; line by line and explain what each line or each section of the code does.</span>
+<span class="hljs-built_in">cat</span> /etc/apparmor.d/usr.bin.tcpdump </code></pre></div>
 </li>
 <li>
 <p>Using the <code class="inline-code">apparmor</code> man page, determine the kinds of limitations that are placed on that program by the profile. Explain the lines and be specific about the capabilities and permissions given. - <em>submission question!</em></p>
