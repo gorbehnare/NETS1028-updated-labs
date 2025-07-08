@@ -681,11 +681,11 @@ cat /etc/apparmor.d/usr.bin.tcpdump </pre><pre class="hljs"><code><span class="h
 <p>Using the <code class="inline-code">apparmor</code> man page, determine the kinds of limitations that are placed on that program by the profile. Explain the lines and be specific about the capabilities and permissions given. - <em>submission question!</em></p>
 </li>
 </ol>
-<h1 id="sudo-configuration">sudo Configuration</h1>
+<h1 id="sudo-configuration"><code class="inline-code">sudo</code> Configuration</h1>
 <p><a data-from-md="" title="https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file" href="https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file">Digital Ocena&rsquo;s tips page for sudo privileges</a> is a helpful resource when looking for how to edit <code class="inline-code">sudo</code> permissions.</p>
 <ol>
 <li>
-<p>Modify your sudo executable to be accessible for execution by any user, so that we can use the <code class="inline-code">sudoers</code> file to control access instead</p>
+<p>Modify your <code class="inline-code">sudo</code> executable to be accessible for execution by any user, so that we can use the <code class="inline-code">sudoers</code> file to control access instead</p>
 <ul>
 <li><strong>Tip:</strong> You may need to remove the prior override before applying new override.</li>
 </ul>
@@ -694,7 +694,7 @@ cat /etc/apparmor.d/usr.bin.tcpdump </pre><pre class="hljs"><code><span class="h
 ```">sudo dpkg-statoverride --update --add root sudo 4555 /usr/bin/sudo </pre><pre class="hljs"><code><span class="hljs-built_in">sudo</span> dpkg-statoverride --update --add root <span class="hljs-built_in">sudo</span> 4555 /usr/bin/sudo </code></pre></div>
 </li>
 <li>
-<p>Modify your /etc/sudoers file to limit the <code class="inline-code">dennis</code> account so that they can only use root <code class="inline-code">sudo</code> to edit their own domain zone file (<code class="inline-code">/etc/bind/db.simpson22725.mytld</code>) and reload named using the <code class="inline-code">rndc reload</code> command. Provide a screenshot of your modified configurations - <em>screenshot!</em></p>
+<p>Modify your <code class="inline-code">/etc/sudoers</code> file to limit the <code class="inline-code">dennis</code> account so that they can only use root <code class="inline-code">sudo</code> to edit their own domain zone file (<code class="inline-code">/etc/bind/db.simpson22725.mytld</code>) and reload named using the <code class="inline-code">rndc reload</code> command. Provide a screenshot of your modified configurations - <em>screenshot!</em></p>
 <div class="joplin-editable"><pre class="joplin-source" data-joplin-language="bash" data-joplin-source-open="```bash
 " data-joplin-source-close="
 ```">visudo </pre><pre class="hljs"><code>visudo </code></pre></div>
@@ -724,7 +724,7 @@ dennis$ <span class="hljs-built_in">sudo</span> bash </code></pre></div>
 <li>
 <p>Following the information given in <a data-from-md="" title="https://bind9.readthedocs.io/en/latest/chapter7.html" href="https://bind9.readthedocs.io/en/latest/chapter7.html">&quot;Security Configuration&quot; of the Bind9 Administrator&rsquo;s Reference Manual (ARM)</a>, secure your bind service by:</p>
 <ul>
-<li>adding the bogusnets acl as shown in the ARM (in <code class="inline-code">/etc/bind/named.conf.options</code>)</li>
+<li>adding the <code class="inline-code">bogusnets acl</code> as shown in the ARM (in <code class="inline-code">/etc/bind/named.conf.options</code>)</li>
 <li>setting up the <code class="inline-code">allow-query</code>, <code class="inline-code">allow-recursion</code>, and <code class="inline-code">blackhole</code> directives as shown in the ARM (in <code class="inline-code">/etc/bind/named.conf.options</code>)</li>
 <li>allowing queries from anywhere for the zones being served by the server (in <code class="inline-code">named.conf.local</code>)</li>
 </ul>
